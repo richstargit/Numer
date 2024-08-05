@@ -25,7 +25,7 @@
         }
       }
     },
-    "/account": {
+    "/graphical": {
       "post": {
         "description": "",
         "parameters": [
@@ -35,10 +35,190 @@
             "schema": {
               "type": "object",
               "properties": {
-                "username": {
+                "fx": {
                   "example": "any"
                 },
-                "id": {
+                "start": {
+                  "example": "any"
+                },
+                "end": {
+                  "example": "any"
+                },
+                "errors": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/bisection": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "fx": {
+                  "example": "any"
+                },
+                "xl": {
+                  "example": "any"
+                },
+                "xr": {
+                  "example": "any"
+                },
+                "errors": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/falseposition": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "fx": {
+                  "example": "any"
+                },
+                "xl": {
+                  "example": "any"
+                },
+                "xr": {
+                  "example": "any"
+                },
+                "errors": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/onepoint": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "fx": {
+                  "example": "any"
+                },
+                "xl": {
+                  "example": "any"
+                },
+                "errors": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/newton": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "fx": {
+                  "example": "any"
+                },
+                "xr": {
+                  "example": "any"
+                },
+                "errors": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/secant": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "fx": {
+                  "example": "any"
+                },
+                "xl": {
+                  "example": "any"
+                },
+                "xr": {
+                  "example": "any"
+                },
+                "errors": {
                   "example": "any"
                 }
               }
