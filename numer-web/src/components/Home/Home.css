@@ -1,0 +1,11 @@
+.home-text{
+    margin: auto;
+    margin-top: 75px;
+    text-align: center;
+    width: 99%;
+    border-radius: 15px;
+    background: #dadbdb;
+    min-height: 825px;
+    margin-bottom: 25px;
+    padding-bottom: 25px;
+}

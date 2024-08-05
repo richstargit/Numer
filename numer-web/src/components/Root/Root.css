@@ -1,0 +1,91 @@
+.select-display{
+    margin-top: 15px;
+}
+
+.select-display select{
+    background: #F5F7F8;
+    padding: 10px 25px 10px 15px;
+    border-radius: 10px;
+    font-size: 15px;
+    border: 2px solid #272829;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.25);
+}
+
+.select-display select:focus {
+    outline: none;
+    border-color: #272829;
+    box-shadow: 0 0 0 5px #6d6d6d;
+}
+
+.input-display{
+    width: 100px;
+    height: 35px;
+    padding: 5px 10px 5px 10px;
+    border-radius: 10px;
+    border: 2px solid #272829;
+    outline: none;
+    transition: 0.3s;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.25);
+}
+
+.input-display:focus{
+    border-color: #272829;
+    box-shadow: 0 0 0 2px #6d6d6d;
+}
+
+.display-root{
+    padding-right: 35px;
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.display-root-item{
+    display: block;
+}
+
+.display-root-text{
+    margin-left: 35px;
+    margin-right: 5px;
+}
+
+.display-root-Sol .input-display{
+    width: 200px;
+}
+
+.display-root-Sol{
+    margin-top: 25px;
+    padding-right: 55px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-root{
+    padding-top: 15px;
+}
+
+.Table-display{
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    box-shadow: 2px 2px 15px rgba(0,0,0,0.25);
+    margin-top: 25px;
+}
+
+.root-submit{
+    margin-top: 15px;
+}
+
+.root-graph{
+    padding: 15px;
+    box-shadow: 2px 2px 15px rgba(0,0,0,0.25);
+    border-radius: 15px;
+    background: rgb(255, 255, 255);
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
