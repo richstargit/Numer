@@ -22,12 +22,12 @@ app.use(compression())
 
 app.use("/api-docs",swaggerUi.serve,swaggerUi.setup(swaggerDocument));
 
-// exports.connection = mysql.createConnection({
-//     host: process.env.DB_HOST,
-//     user: process.env.DB_USER,
-//     password: process.env.DB_PASS,
-//     database: process.env.DB_NAME
-// })
+exports.connection = mysql.createConnection({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_NAME
+})
 
 
 readdirSync(path.join(__dirname, 'router'))
