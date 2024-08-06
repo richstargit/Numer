@@ -7,16 +7,31 @@ function App(props) {
   let sortedResult = [];
   let xvalue = [];
   let yvalue = [];
+  let xdot = [];
+  let ydot = [];
   let xfx = [];
   let yfx = [];
+  let datadot = [];
   let i=0;
   let dataresult=[];
   if(props.result.result){
     if(props.result.mode =="one_point_iteration_method"){
-      if(props.result.graph){
+      if(props.result.graph&&props.result.graphdot){
         let results = props.result.graph
+        let dot = props.result.graphdot
         xvalue = results.map(x=> x.x);
         yvalue = results.map(y=> y.y);
+        datadot = dot.map(x=>({
+              x: [x.x,x.tox],
+              y: [x.y,x.tox],
+              mode: 'lines',
+              name: 'x='+math.round(x.x,6),
+              line: {
+                color: '#D20062',
+                dash: 'dash',
+                width: 1,
+              },
+        }))
         let xandx = [];
         for(i=0;i<15;i+=1){
           xandx.push(i);
@@ -34,6 +49,16 @@ function App(props) {
               name: 'Main Graph',
               line: {
                 color: '#88D66C',
+                width: 1,
+              },
+            },{
+              x: xdot,
+              y: ydot,
+              mode: 'lines',
+              name: 'x',
+              line: {
+                color: '#D20062',
+                dash: 'dash',
                 width: 1,
               },
             },
@@ -59,7 +84,7 @@ function App(props) {
               marker: {
                 color: '#D20062',
               },
-            }
+            },...datadot
           ]
         }
     }else if(props.result.mode =="newton_raphson_method"){

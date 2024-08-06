@@ -207,10 +207,16 @@ exports.onepoint = async(req,res) =>{
         let check = 0
         let rows = []
         let graphs = []
+        let dotxy = []
         do{
             graphs.push({
                 x : X,
                 y: X
+            })
+            dotxy.push({
+                x: X,
+                y: 0,
+                tox: X
             })
             xold = X
 
@@ -241,7 +247,8 @@ exports.onepoint = async(req,res) =>{
             mode : "one_point_iteration_method",
             sol : fx,
             result : rows,
-            graph : graphs
+            graph : graphs,
+            graphdot : dotxy
         });
 
     }catch(error){
@@ -300,6 +307,8 @@ exports.newton = async(req,res) =>{
         res.status(500).send(`${error}`)
     }
 }
+
+//secant
 
 exports.secant = async(req,res) =>{
     try{
