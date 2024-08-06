@@ -88,4 +88,9 @@
     display: flex;
     justify-content: center;
     margin-top: 15px;
+    min-height: 500px;
+    min-width: 60%;
+    resize: both;
+    max-width: 80%;
+    max-height: 800px;
 }
