@@ -21,7 +21,8 @@ function App(props) {
         let dot = props.result.graphdot
         xvalue = results.map(x=> x.x);
         yvalue = results.map(y=> y.y);
-        datadot = dot.map(x=>({
+        try {
+            datadot = dot.map(x=>({
               x: [x.x,x.tox],
               y: [x.y,x.tox],
               mode: 'lines',
@@ -32,6 +33,9 @@ function App(props) {
                 width: 1,
               },
         }))
+        } catch (error) {
+          
+        }
         let xandx = [];
         for(i=0;i<15;i+=1){
           xandx.push(i);
