@@ -7,7 +7,20 @@ import axios from "axios";
 function Navbar(){
     const [sidebar,setsidebar] = useState(false);
     const [sidename,setsidename] = useState(false);
-    const [data,setdata] = useState("");
+    const data = [
+        {
+          "id": 1,
+          "name": "Home",
+          "path": "/",
+          "cname": "sidetext"
+        },
+        {
+          "id": 2,
+          "name": "Root of equations",
+          "path": "/root_of_equations",
+          "cname": "sidetext"
+        }
+      ];
 
     function clickmenu(){
         setsidebar(!sidebar)
@@ -15,14 +28,7 @@ function Navbar(){
     function onname(){
         setsidename(!sidename)
     }
-    const apicon = async() =>{
-        const response = await axios.get("http://localhost:3000/api/menu");
-        setdata(response.data);
-    }
 
-    useEffect(() => {
-        apicon();
-      }, []);
     var result;
     try{
         result = data.map((item,index)=>{
