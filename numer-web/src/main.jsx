@@ -5,6 +5,7 @@ import App from './App.jsx'
 import './index.css'
 import Home from './components/Home/Home.jsx';
 import Root_of_equations from './components/Root/MainRoot.jsx'
+import Matrixmath from './components/Matrix/MainMatrix.jsx'
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
         path: 'root_of_equations',
         element: <Root_of_equations />,
       },
+      {
+        path: 'Linear',
+        element: <Matrixmath />,
+      }
     ],
   },
 ]);
