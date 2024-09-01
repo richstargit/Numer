@@ -18,6 +18,7 @@ export function graphical(fx,start,end,errors){
         let endcheck = math.abs(End);
         let num = 0.1;
         let x;
+        let a;
 
         if(endcheck==0){
             endcheck = 1;
