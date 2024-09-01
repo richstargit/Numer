@@ -13,7 +13,9 @@ function Root_of_equations(){
 
     const [DataResult,setData] = useState("");
     const handleDataChange = (newData) => {
-        setData(newData);
+        if(newData){
+            setData(newData);
+        }
       };
     return(
         <div className="home-text">

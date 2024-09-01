@@ -7,14 +7,14 @@ import axios from "axios";
 import { useLocation } from 'react-router-dom';
 import MathEquation from './MathEquation';
 import RootData from "./DataRoot";
+import {graphical} from "./rootcontroller";
 
 const Root_of_equations = ({ onDataChange }) =>{
-
     const location = useLocation();
     const params = new URLSearchParams(location.search);
-    const modesclect = params.get('mode');
+    const modesclect = params.get("mode");
 
-    const [Mode,setMode] = useState(modesclect);
+    const [Mode,setMode] = useState(modesclect||"");
     const [StrMode,setstrmode] = useState("");
     const [Sol,setSol] = useState("");
     const [XLs,setXl] = useState("");
@@ -107,10 +107,10 @@ const Root_of_equations = ({ onDataChange }) =>{
             let xr = Number(XRs);
 
             if(Mode=="graphical_method"){
-                const result = await axios.post('http://localhost:3000/api/graphical', {
-                    fx,start,end,errors
-                  })
-                  onDataChange(result.data);
+                console.log("result");
+                  const result = graphical(fx,start,end,errors);
+                  console.log(result);
+                  onDataChange(result);
             }else if(Mode=="bisection_method"){
                 const result = await axios.post('http://localhost:3000/api/bisection', {
                     fx,xl,xr,errors
@@ -154,7 +154,7 @@ const Root_of_equations = ({ onDataChange }) =>{
     return(
             <>
             <h1 className="header-root">Root of equations</h1>
-            <div class="select-display">
+            <div className="select-display">
             <select onChange={selectMethod} value={Mode}>
                 <option value="select">Select option</option>
                 <option value="graphical_method">Graphical Method</option>
