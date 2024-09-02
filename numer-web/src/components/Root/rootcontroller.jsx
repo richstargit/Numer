@@ -49,7 +49,7 @@ export function graphical(fx,start,end,errors){
         }
         let y;
         let ysign = math.evaluate(fx,{x:Start});
-        let i=0;
+        let i=Start;
         do{
             y = math.evaluate(fx,{x:i})
             let errorresult = parseFloat(math.round(math.abs(math.round(y,6))*100.00,6));

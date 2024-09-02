@@ -8,6 +8,7 @@ import { useLocation } from 'react-router-dom';
 import MathEquation from './MathEquation';
 import RootData from "./DataRoot";
 import {bisection, falseposition, graphical, newton, onepoint, secant} from "./rootcontroller";
+import Swal from 'sweetalert2';
 
 const Root_of_equations = ({ onDataChange }) =>{
     const location = useLocation();
@@ -105,7 +106,11 @@ const Root_of_equations = ({ onDataChange }) =>{
             let errors = Number(Errors);
             let xl = Number(XLs);
             let xr = Number(XRs);
-
+            Swal.fire({
+                title: "Success!",
+                text: "You has been success.",
+                icon: "success"
+              });
             if(Mode=="graphical_method"){
                 const result = graphical(fx,start,end,errors);
                 onDataChange(result);
@@ -125,7 +130,7 @@ const Root_of_equations = ({ onDataChange }) =>{
                 const result = secant(fx,xl,xr,errors)
                   onDataChange(result);
             }
-          
+            
         }catch(err){
           console.log(err)
         }
