@@ -7,7 +7,7 @@ import axios from "axios";
 import { useLocation } from 'react-router-dom';
 import MathEquation from './MathEquation';
 import RootData from "./DataRoot";
-import {graphical} from "./rootcontroller";
+import {bisection, falseposition, graphical, newton, onepoint, secant} from "./rootcontroller";
 
 const Root_of_equations = ({ onDataChange }) =>{
     const location = useLocation();
@@ -107,35 +107,23 @@ const Root_of_equations = ({ onDataChange }) =>{
             let xr = Number(XRs);
 
             if(Mode=="graphical_method"){
-                console.log("result");
-                  const result = graphical(fx,start,end,errors);
-                  console.log(result);
-                  onDataChange(result);
+                const result = graphical(fx,start,end,errors);
+                onDataChange(result);
             }else if(Mode=="bisection_method"){
-                const result = await axios.post('http://localhost:3000/api/bisection', {
-                    fx,xl,xr,errors
-                  })
-                  onDataChange(result.data);
+                const result = bisection(fx,xl,xr,errors);
+                onDataChange(result);
             }else if(Mode=="false_position_method"){
-                const result = await axios.post('http://localhost:3000/api/falseposition', {
-                    fx,xl,xr,errors
-                  })
-                  onDataChange(result.data);
+                const result = falseposition(fx,xl,xr,errors)
+                onDataChange(result);
             }else if(Mode=="one_point_iteration_method"){
-                const result = await axios.post('http://localhost:3000/api/onepoint', {
-                    fx,xl,errors
-                  })
-                  onDataChange(result.data);
+                const result = onepoint(fx,xl,errors)
+                  onDataChange(result);
             }else if(Mode=="newton_raphson_method"){
-                const result = await axios.post('http://localhost:3000/api/newton', {
-                    fx,xr,errors
-                  })
-                  onDataChange(result.data);
+                const result = newton(fx,xr,errors)
+                  onDataChange(result);
             }else if(Mode=="secant_method"){
-                const result = await axios.post('http://localhost:3000/api/secant', {
-                    fx,xl,xr,errors
-                  })
-                  onDataChange(result.data);
+                const result = secant(fx,xl,xr,errors)
+                  onDataChange(result);
             }
           
         }catch(err){

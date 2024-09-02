@@ -41,7 +41,7 @@ function App(props) {
           xandx.push(i);
         }
         xfx = [];
-        for(i=0;i<15;i+=0.2){
+        for(i=0;i<15;i+=0.002){
           xfx.push(i);
         }
         yfx = xfx.map(x => math.evaluate(props.result.sol, { x }));
@@ -97,7 +97,7 @@ function App(props) {
         xvalue = results.map(x=> x.x);
         yvalue = results.map(y=> y.y);
         xfx = [];
-        for(i=-15;i<15;i+=0.2){
+        for(i=-15;i<15;i+=0.002){
           xfx.push(i);
         }
         yfx = xfx.map(x => math.evaluate(props.result.sol, { x }));
@@ -133,7 +133,7 @@ function App(props) {
         xvalue = results.map(x=> x.x);
         yvalue = results.map(y=> y.y);
         xfx = [];
-        for(i=-15;i<15;i+=0.2){
+        for(i=-15;i<15;i+=0.002){
           xfx.push(i);
         }
         yfx = xfx.map(x => math.evaluate(props.result.sol, { x }));
@@ -169,7 +169,7 @@ function App(props) {
       xvalue = results.map(x=> x.x);
       yvalue = results.map(y=> y.y);
       xfx = [];
-      for(i=-15;i<15;i+=0.2){
+      for(i=-15;i<15;i+=0.002){
         xfx.push(i);
       }
       yfx = xfx.map(x => math.evaluate(props.result.sol, { x }));
