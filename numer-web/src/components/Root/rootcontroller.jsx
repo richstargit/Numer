@@ -43,6 +43,7 @@ export function graphical(fx,start,end,errors){
                 request : "success",
                 mode : "graphical_method",
                 sol : fx,
+                iteration : round,
                 result : rows
             });
         }
@@ -71,6 +72,7 @@ export function graphical(fx,start,end,errors){
             request : "success",
             mode : "graphical_method",
             sol : fx,
+            iteration : round,
             result : rows
         });
 
@@ -116,6 +118,7 @@ export function bisection(fx,xl,xr,errors){
             request : "success",
             mode : "bisection_method",
             sol : fx,
+            iteration : round,
             result : rows
         });
 
@@ -162,6 +165,7 @@ export function falseposition(fx,xl,xr,errors){
             request : "success",
             mode : "false_position_method",
             sol : fx,
+            iteration : round,
             result : rows
         });
 
@@ -218,6 +222,7 @@ export function onepoint(fx,xl,errors){
             request : "success",
             mode : "one_point_iteration_method",
             sol : fx,
+            iteration : round,
             result : rows,
             graph : graphs,
             graphdot : dotxy
@@ -269,6 +274,7 @@ export function newton(fx,xr,errors){
             request : "success",
             mode : "newton_raphson_method",
             sol : fx,
+            iteration : round,
             result : rows,
             graph : graphs
         });
@@ -346,6 +352,7 @@ export function secant(fx,xl,xr,errors){
             request : "success",
             mode : "secant_method",
             sol : fx,
+            iteration : round,
             result : rows,
             graph : graphs
         });
