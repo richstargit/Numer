@@ -129,6 +129,12 @@ export function bisection(fx,xl,xr,errors){
 
     }catch(error){
         console.log(error);
+        return ({
+            request : "failed",
+            mode : "bisection_method",
+            sol : fx,
+            errors : error
+        });
     }
 }
 
@@ -176,6 +182,12 @@ export function falseposition(fx,xl,xr,errors){
 
     }catch(error){
         console.log(error);
+        return ({
+            request : "failed",
+            mode : "false_position_method",
+            sol : fx,
+            errors : error
+        });
     }
 }
 
@@ -235,6 +247,12 @@ export function onepoint(fx,xl,errors){
 
     }catch(error){
         console.log(error);
+        return ({
+            request : "failed",
+            mode : "one_point_iteration_method",
+            sol : fx,
+            errors : error
+        });
     }
 }
 
@@ -286,6 +304,12 @@ export function newton(fx,xr,errors){
 
     }catch(error){
         console.log(error);
+        return ({
+            request : "failed",
+            mode : "newton_raphson_method",
+            sol : fx,
+            errors : error
+        });
     }
 }
 
@@ -364,5 +388,11 @@ export function secant(fx,xl,xr,errors){
 
     }catch(error){
         console.log(error);
+        return ({
+            request : "failed",
+            mode : "secant_method",
+            sol : fx,
+            errors : error
+        });
     }
 }

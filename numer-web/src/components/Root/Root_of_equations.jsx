@@ -106,30 +106,102 @@ const Root_of_equations = ({ onDataChange }) =>{
             let errors = Number(Errors);
             let xl = Number(XLs);
             let xr = Number(XRs);
-            Swal.fire({
-                title: "Success!",
-                text: "You has been success.",
-                icon: "success"
-              });
             if(Mode=="graphical_method"){
                 const result = graphical(fx,start,end,errors);
+                if(result.request=="success"){
+                    Swal.fire({
+                        title: "Success!",
+                        text: "You has been success.",
+                        icon: "success"
+                      });
+                }else{
+                    Swal.fire({
+                        title: "Error!",
+                        text: "Please check your equations.",
+                        icon: "error"
+                      });
+                }
                 onDataChange(result);
-                console.log(result)
             }else if(Mode=="bisection_method"){
                 const result = bisection(fx,xl,xr,errors);
+                if(result.request=="success"){
+                    Swal.fire({
+                        title: "Success!",
+                        text: "You has been success.",
+                        icon: "success"
+                      });
+                }else{
+                    Swal.fire({
+                        title: "Error!",
+                        text: "Please check your equations.",
+                        icon: "error"
+                      });
+                }
                 onDataChange(result);
             }else if(Mode=="false_position_method"){
-                const result = falseposition(fx,xl,xr,errors)
+                const result = falseposition(fx,xl,xr,errors);
+                if(result.request=="success"){
+                    Swal.fire({
+                        title: "Success!",
+                        text: "You has been success.",
+                        icon: "success"
+                      });
+                }else{
+                    Swal.fire({
+                        title: "Error!",
+                        text: "Please check your equations.",
+                        icon: "error"
+                      });
+                }
                 onDataChange(result);
             }else if(Mode=="one_point_iteration_method"){
-                const result = onepoint(fx,xl,errors)
-                  onDataChange(result);
+                const result = onepoint(fx,xl,errors);
+                if(result.request=="success"){
+                    Swal.fire({
+                        title: "Success!",
+                        text: "You has been success.",
+                        icon: "success"
+                      });
+                }else{
+                    Swal.fire({
+                        title: "Error!",
+                        text: "Please check your equations.",
+                        icon: "error"
+                      });
+                }
+                onDataChange(result);
             }else if(Mode=="newton_raphson_method"){
-                const result = newton(fx,xr,errors)
-                  onDataChange(result);
+                const result = newton(fx,xr,errors);
+                if(result.request=="success"){
+                    Swal.fire({
+                        title: "Success!",
+                        text: "You has been success.",
+                        icon: "success"
+                      });
+                }else{
+                    Swal.fire({
+                        title: "Error!",
+                        text: "Please check your equations.",
+                        icon: "error"
+                      });
+                }
+                onDataChange(result);
             }else if(Mode=="secant_method"){
-                const result = secant(fx,xl,xr,errors)
-                  onDataChange(result);
+                const result = secant(fx,xl,xr,errors);
+                if(result.request=="success"){
+                    Swal.fire({
+                        title: "Success!",
+                        text: "You has been success.",
+                        icon: "success"
+                      });
+                }else{
+                    Swal.fire({
+                        title: "Error!",
+                        text: "Please check your equations.",
+                        icon: "error"
+                      });
+                }
+                onDataChange(result);
             }
             
         }catch(err){
