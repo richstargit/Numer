@@ -15,22 +15,22 @@ import 'katex/dist/katex.min.css'; // Import KaTeX CSS
 const columns = [
   { id: 'index', label: 'id', minWidth: 50, align: 'right' },
   { id: 'name', label: 'Equation', minWidth: 170 },
-  { id: 'code', label: 'Method', minWidth: 100 },
+  { id: 'method', label: 'Method', minWidth: 100 },
   {
-    id: 'population',
+    id: 'iteration',
     label: 'Iteration',
     minWidth: 170,
   },
   {
-    id: 'size',
+    id: 'result',
     label: 'Result',
     minWidth: 170,
   }
 ];
 
 // Function to create data
-function createData(index, name, code, population, size) {
-  return { index, name, code, population, size };
+function createData(index, name, method, iteration, result) {
+  return { index, name, method, iteration, result };
 }
 
 // Sample data
@@ -38,9 +38,9 @@ const rows = [
   createData(1, 'x^2 - 7', 'Method1', 1324171354, 3287263),
   createData(2, 'e^{ipi} + 1', 'Method2', 1403500365, 9596961),
   createData(3, 'sqrt(7)-2', 'Method3', 60483973, 301340),
-  createData(1, 'x^2 - 7', 'Method1', 1324171354, 3287263),
-  createData(2, 'e^{ipi} + 1', 'Method2', 1403500365, 9596961),
-  createData(3, 'sqrt(7)-2', 'Method3', 60483973, 301340),
+  createData(4, 'x^2 - 7', 'Method1', 1324171354, 3287263),
+  createData(5, 'e^{ipi} + 1', 'Method2', 1403500365, 9596961),
+  createData(6, 'sqrt(7)-2', 'Method3', 60483973, 301340),
 ];
 
 const descendingComparator = (a, b, orderBy) => {
@@ -91,7 +91,7 @@ export default function StickyHeadTable() {
   };
 
   const handleRowClick = (row) => {
-    console.log(row); // Perform an action with the clicked row
+    console.log(row);
   };
 
   const sortedRows = React.useMemo(() => {
@@ -129,7 +129,7 @@ export default function StickyHeadTable() {
                   hover
                   role="checkbox"
                   tabIndex={-1}
-                  key={row.code}
+                  key={row.index}
                   onClick={() => handleRowClick(row)} // Handle row click
                   sx={{ cursor: 'pointer' }} // Change cursor to pointer
                 >
