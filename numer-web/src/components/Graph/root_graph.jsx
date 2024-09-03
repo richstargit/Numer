@@ -229,7 +229,7 @@ function App(props) {
           x:[math.round(props.result.xresult,6)],
           y:[math.round(props.result.yresult,6)],
           mode:'markers',
-          name:'Resul',
+          name:'Result',
           marker:{
             color: 'rgb(255, 217, 51)',
             size:15
