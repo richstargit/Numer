@@ -44,6 +44,8 @@ export function graphical(fx,start,end,errors){
             return ({
                 request : "success",
                 mode : "graphical_method",
+                xresult : start,
+                yresult : math.evaluate(fx,{x:start}),
                 sol : fx,
                 iteration : round,
                 result : rows
@@ -71,6 +73,8 @@ export function graphical(fx,start,end,errors){
             request : "success",
             mode : "graphical_method",
             sol : fx,
+            xresult : i-add,
+            yresult : math.evaluate(fx,{x:i-add}),
             iteration : round,
             result : rows
         });
@@ -123,6 +127,8 @@ export function bisection(fx,xl,xr,errors){
             request : "success",
             mode : "bisection_method",
             sol : fx,
+            xresult : xm,
+            yresult : math.evaluate(fx,{x:xm}),
             iteration : round,
             result : rows
         });
@@ -176,6 +182,8 @@ export function falseposition(fx,xl,xr,errors){
             request : "success",
             mode : "false_position_method",
             sol : fx,
+            xresult : x1,
+            yresult : math.evaluate(fx,{x:x1}),
             iteration : round,
             result : rows
         });
@@ -239,6 +247,8 @@ export function onepoint(fx,xl,errors){
             request : "success",
             mode : "one_point_iteration_method",
             sol : fx,
+            xresult : X,
+            yresult : math.evaluate(fx,{x:X}),
             iteration : round,
             result : rows,
             graph : graphs,
@@ -297,6 +307,8 @@ export function newton(fx,xr,errors){
             request : "success",
             mode : "newton_raphson_method",
             sol : fx,
+            xresult : X,
+            yresult : math.evaluate(fx,{x:X}),
             iteration : round,
             result : rows,
             graph : graphs
@@ -381,6 +393,8 @@ export function secant(fx,xl,xr,errors){
             request : "success",
             mode : "secant_method",
             sol : fx,
+            xresult : Xe,
+            yresult : math.evaluate(fx,{x:Xe}),
             iteration : round,
             result : rows,
             graph : graphs

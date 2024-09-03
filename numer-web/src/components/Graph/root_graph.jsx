@@ -1,5 +1,5 @@
 import Plot from 'react-plotly.js';
-import { create, all } from 'mathjs';
+import { create, all, mode } from 'mathjs';
 
 const math = create(all);
 
@@ -196,7 +196,17 @@ function App(props) {
           },
           marker: {
             color: '#D20062',
-          },
+          }
+        },
+        {
+          x:[math.round(props.result.xresult,6)],
+          y:[math.round(props.result.yresult,6)],
+          mode:'markers',
+          name:'Result',
+          marker:{
+            color: 'rgb(255, 217, 51)',
+            size:15
+          }
         }
       ]
     }
