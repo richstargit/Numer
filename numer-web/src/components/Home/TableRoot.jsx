@@ -96,6 +96,9 @@ export default function StickyHeadTable() {
     const queryParams = new URLSearchParams({
       mode : row.method,
       equation : row.name,
+      xs : 1,
+      xe : 10,
+      error : 0.000001
 
     }).toString();
     navigate(`/root_of_equations?${queryParams}`);
