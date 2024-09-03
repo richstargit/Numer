@@ -14,6 +14,7 @@ function App(props) {
   let datadot = [];
   let i=0;
   let dataresult=[];
+  if(props.result.request=="success"){
   if(props.result.result){
     if(props.result.mode =="one_point_iteration_method"){
       if(props.result.graph&&props.result.graphdot){
@@ -200,7 +201,7 @@ function App(props) {
       ]
     }
   }
-
+}
   return (
     <div
       className="App"

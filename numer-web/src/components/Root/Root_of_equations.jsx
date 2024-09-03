@@ -114,6 +114,7 @@ const Root_of_equations = ({ onDataChange }) =>{
             if(Mode=="graphical_method"){
                 const result = graphical(fx,start,end,errors);
                 onDataChange(result);
+                console.log(result)
             }else if(Mode=="bisection_method"){
                 const result = bisection(fx,xl,xr,errors);
                 onDataChange(result);

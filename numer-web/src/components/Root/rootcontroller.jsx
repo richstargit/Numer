@@ -10,7 +10,9 @@ export function graphical(fx,start,end,errors){
         let rows=[];
         let endcheck = math.abs(End);
         let num = 0.1;
-        
+        let ysign = math.evaluate(fx,{x:Start});
+        let y;
+        let i=Start;
         if(endcheck==0){
             endcheck = 1;
         }
@@ -47,9 +49,6 @@ export function graphical(fx,start,end,errors){
                 result : rows
             });
         }
-        let y;
-        let ysign = math.evaluate(fx,{x:Start});
-        let i=Start;
         do{
             y = math.evaluate(fx,{x:i})
             let errorresult = parseFloat(math.round(math.abs(math.round(y,6))*100.00,6));
@@ -78,6 +77,12 @@ export function graphical(fx,start,end,errors){
 
     }catch(error){
         console.log(error);
+        return ({
+            request : "failed",
+            mode : "graphical_method",
+            sol : fx,
+            errors : error
+        });
     }
 }
 //bisection
