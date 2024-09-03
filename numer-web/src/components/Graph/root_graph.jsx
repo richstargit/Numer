@@ -90,8 +90,8 @@ function App(props) {
                 color: '#D20062',
               },
             },{
-              x:[math.round(props.result.xresult,6)],
-              y:[math.round(props.result.yresult,6)],
+              x:[props.result.xresult],
+              y:[props.result.yresult],
               mode:'markers',
               name:'Result',
               marker:{
@@ -135,8 +135,8 @@ function App(props) {
                 color: '#D20062',
               },
             },{
-              x:[math.round(props.result.xresult,6)],
-              y:[math.round(props.result.yresult,6)],
+              x:[props.result.xresult],
+              y:[props.result.yresult],
               mode:'markers',
               name:'Result',
               marker:{
@@ -180,8 +180,8 @@ function App(props) {
                 color: '#D20062',
               },
             },{
-              x:[math.round(props.result.xresult,6)],
-              y:[math.round(props.result.yresult,6)],
+              x:[props.result.xresult],
+              y:[props.result.yresult],
               mode:'markers',
               name:'Result',
               marker:{
