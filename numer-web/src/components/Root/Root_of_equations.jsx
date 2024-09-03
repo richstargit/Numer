@@ -13,11 +13,12 @@ import Swal from 'sweetalert2';
 const Root_of_equations = ({ onDataChange }) =>{
     const location = useLocation();
     const params = new URLSearchParams(location.search);
-    const modesclect = params.get("mode");
+    const modeselect = params.get("mode");
+    const equationselect = params.get("equation");
 
-    const [Mode,setMode] = useState(modesclect||"");
+    const [Mode,setMode] = useState(modeselect||"");
     const [StrMode,setstrmode] = useState("");
-    const [Sol,setSol] = useState("");
+    const [Sol,setSol] = useState(equationselect||"");
     const [XLs,setXl] = useState("");
     const [XRs,setXr] = useState("");
     const [Errors,setErrors] = useState("");

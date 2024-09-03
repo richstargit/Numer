@@ -9,6 +9,7 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import { BlockMath } from 'react-katex';
+import { useNavigate } from 'react-router-dom';
 import 'katex/dist/katex.min.css'; // Import KaTeX CSS
 
 // Column definitions
@@ -35,12 +36,12 @@ function createData(index, name, method, iteration, result) {
 
 // Sample data
 const rows = [
-  createData(1, 'x^2 - 7', 'Method1', 1324171354, 3287263),
-  createData(2, 'e^{ipi} + 1', 'Method2', 1403500365, 9596961),
-  createData(3, 'sqrt(7)-2', 'Method3', 60483973, 301340),
-  createData(4, 'x^2 - 7', 'Method1', 1324171354, 3287263),
-  createData(5, 'e^{ipi} + 1', 'Method2', 1403500365, 9596961),
-  createData(6, 'sqrt(7)-2', 'Method3', 60483973, 301340),
+  createData(1, 'x^2 - 7', 'graphical_method', 39, 2.645751),
+  createData(2, 'e^2 + x', 'graphical_method', 33, -7.389056	),
+  createData(3, 'sqrt(7)-2x', 'graphical_method', 35, 1.322876	),
+  createData(4, 'x^2 - 7', 'bisection_method', 24, 2.645751),
+  createData(5, 'e^2 + x', 'bisection_method', 27, -7.389056),
+  createData(6, 'sqrt(7)-2x', 'bisection_method', 20, 1.322876),
 ];
 
 const descendingComparator = (a, b, orderBy) => {
@@ -74,6 +75,7 @@ export default function StickyHeadTable() {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('index');
+  const navigate = useNavigate();
 
   const handleRequestSort = (property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -91,6 +93,12 @@ export default function StickyHeadTable() {
   };
 
   const handleRowClick = (row) => {
+    const queryParams = new URLSearchParams({
+      mode : row.method,
+      equation : row.name,
+
+    }).toString();
+    navigate(`/root_of_equations?${queryParams}`);
     console.log(row);
   };
 
@@ -130,8 +138,8 @@ export default function StickyHeadTable() {
                   role="checkbox"
                   tabIndex={-1}
                   key={row.index}
-                  onClick={() => handleRowClick(row)} // Handle row click
-                  sx={{ cursor: 'pointer' }} // Change cursor to pointer
+                  onClick={() => handleRowClick(row)}
+                  sx={{ cursor: 'pointer' }}
                 >
                   {columns.map((column) => {
                     const value = row[column.id];
@@ -139,6 +147,8 @@ export default function StickyHeadTable() {
                       <TableCell key={column.id} align={column.align}>
                         {column.id === 'name' ? (
                           <BlockMath math={value} />
+                        ) : column.id === 'method' ? (
+                          value.replace(/_/g, ' ')
                         ) : (
                           value
                         )}
