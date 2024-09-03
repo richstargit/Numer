@@ -122,6 +122,13 @@ const Root_of_equations = ({ onDataChange }) =>{
             let xl = Number(XLs);
             let xr = Number(XRs);
             if(Mode=="graphical_method"){
+                if(Sol==""||XLs==""||XRs==""||Errors==""){
+                    Swal.fire({
+                        title: "Error!",
+                        text: "Please check your input.",
+                        icon: "error"
+                      });
+                }else{
                 const result = graphical(fx,start,end,errors);
                 if(result.request=="success"){
                     Swal.fire({
@@ -137,7 +144,15 @@ const Root_of_equations = ({ onDataChange }) =>{
                       });
                 }
                 onDataChange(result);
+            }
             }else if(Mode=="bisection_method"){
+                if(Sol==""||XLs==""||XRs==""||Errors==""){
+                    Swal.fire({
+                        title: "Error!",
+                        text: "Please check your input.",
+                        icon: "error"
+                      });
+                }else{
                 const result = bisection(fx,xl,xr,errors);
                 if(result.request=="success"){
                     Swal.fire({
@@ -153,7 +168,15 @@ const Root_of_equations = ({ onDataChange }) =>{
                       });
                 }
                 onDataChange(result);
+            }
             }else if(Mode=="false_position_method"){
+                if(Sol==""||XLs==""||XRs==""||Errors==""){
+                    Swal.fire({
+                        title: "Error!",
+                        text: "Please check your input.",
+                        icon: "error"
+                      });
+                }else{
                 const result = falseposition(fx,xl,xr,errors);
                 if(result.request=="success"){
                     Swal.fire({
@@ -169,7 +192,15 @@ const Root_of_equations = ({ onDataChange }) =>{
                       });
                 }
                 onDataChange(result);
+            }
             }else if(Mode=="one_point_iteration_method"){
+                if(Sol==""||XLs==""||Errors==""){
+                    Swal.fire({
+                        title: "Error!",
+                        text: "Please check your input.",
+                        icon: "error"
+                      });
+                }else{
                 const result = onepoint(fx,xl,errors);
                 if(result.request=="success"){
                     Swal.fire({
@@ -185,7 +216,15 @@ const Root_of_equations = ({ onDataChange }) =>{
                       });
                 }
                 onDataChange(result);
+            }
             }else if(Mode=="newton_raphson_method"){
+                if(Sol==""||XRs==""||Errors==""){
+                    Swal.fire({
+                        title: "Error!",
+                        text: "Please check your input.",
+                        icon: "error"
+                      });
+                }else{
                 const result = newton(fx,xr,errors);
                 if(result.request=="success"){
                     Swal.fire({
@@ -201,7 +240,15 @@ const Root_of_equations = ({ onDataChange }) =>{
                       });
                 }
                 onDataChange(result);
+            }
             }else if(Mode=="secant_method"){
+                if(Sol==""||XLs==""||XRs==""||Errors==""){
+                    Swal.fire({
+                        title: "Error!",
+                        text: "Please check your input.",
+                        icon: "error"
+                      });
+                }else{
                 const result = secant(fx,xl,xr,errors);
                 if(result.request=="success"){
                     Swal.fire({
@@ -217,6 +264,7 @@ const Root_of_equations = ({ onDataChange }) =>{
                       });
                 }
                 onDataChange(result);
+            }
             }
             setLoading(false);
         }catch(err){
