@@ -89,6 +89,15 @@ function App(props) {
               marker: {
                 color: '#D20062',
               },
+            },{
+              x:[math.round(props.result.xresult,6)],
+              y:[math.round(props.result.yresult,6)],
+              mode:'markers',
+              name:'Result',
+              marker:{
+                color: 'rgb(255, 217, 51)',
+                size:15
+              }
             },...datadot
           ]
         }
@@ -125,6 +134,15 @@ function App(props) {
               marker: {
                 color: '#D20062',
               },
+            },{
+              x:[math.round(props.result.xresult,6)],
+              y:[math.round(props.result.yresult,6)],
+              mode:'markers',
+              name:'Result',
+              marker:{
+                color: 'rgb(255, 217, 51)',
+                size:15
+              }
             }
           ]
         }
@@ -161,6 +179,15 @@ function App(props) {
               marker: {
                 color: '#D20062',
               },
+            },{
+              x:[math.round(props.result.xresult,6)],
+              y:[math.round(props.result.yresult,6)],
+              mode:'markers',
+              name:'Result',
+              marker:{
+                color: 'rgb(255, 217, 51)',
+                size:15
+              }
             }
           ]
         }
