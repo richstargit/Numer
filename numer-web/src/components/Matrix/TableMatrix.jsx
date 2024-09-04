@@ -2,12 +2,14 @@ import { im, number } from "mathjs";
 import { useState } from "react";
 import "./Matrix.css";
 import { width } from "@mui/system";
+import Button from '@mui/material/Button';
 function TableMatrix(){
     const [Number,setNumber] = useState(0);
     const [matrixValues, setMatrixValues] = useState([]);
     const [Resutl,setResult] = useState([]);
     const [VectorX,setVectorX] = useState([]);
     const [VectorB,setVectorB] = useState([]);
+    const [matrixValuesB, setMatrixValuesB] = useState([]);
 
     const changeNumber = event =>{
         const numbermatrix = parseInt(event.target.value);
@@ -15,8 +17,10 @@ function TableMatrix(){
             let key = 0;
             let result = [];
             setNumber(numbermatrix)
-            result = Array(numbermatrix).fill().map(()=> Array(numbermatrix).fill(0));
+            result = Array(numbermatrix).fill().map(()=> Array(numbermatrix).fill(""));
             setMatrixValues(result);
+            result = Array(numbermatrix).fill("");
+            setMatrixValuesB(result);
             result = []
             setResult("");
             key = 0;
@@ -37,12 +41,13 @@ function TableMatrix(){
             setVectorX(result);
             result = [];
             for(let i = 0;i<numbermatrix;i++){
-                result.push(<div key={key} row={i} >B{i+1}<input className="" style={{width : "50px",height:"50px",textAlign:"center",border:"solid 3px rgb(39, 40, 41)",borderRadius:"15px",outline: "none",transition:"0.3s"}} onFocus={(e) => e.target.style.boxShadow = "0 0 0 2px #6d6d6d"} onBlur={(e) => e.target.style.boxShadow = "none"} type="text" /></div>);
+                result.push(<div key={key} row={i} >B{i+1}<input className="" style={{width : "50px",height:"50px",textAlign:"center",border:"solid 3px rgb(39, 40, 41)",borderRadius:"15px",outline: "none",transition:"0.3s"}} onFocus={(e) => e.target.style.boxShadow = "0 0 0 2px #6d6d6d"} onBlur={(e) => e.target.style.boxShadow = "none"} type="text" onChange={(event) => arrchangeB(i, event)} /></div>);
                 key++;
             }
             setVectorB(result);
         }else{
             setMatrixValues([]);
+            setMatrixValuesB([]);
             setResult([]);
             setVectorX([]);
             setVectorB([]);
@@ -50,7 +55,7 @@ function TableMatrix(){
     }
     const arrchange = (row, col, event) => {
         if(event.target.value&&event.target.value!=""){
-            const value = event.target.value ? parseInt(event.target.value) : 0;
+            const value = event.target.value ? event.target.value : "";
             setMatrixValues(prevMatrixValues => {
             const newMatrixValues = prevMatrixValues.map(row => [...row]);
             newMatrixValues[row][col] = value;
@@ -58,6 +63,20 @@ function TableMatrix(){
             });
         }
     };
+    const arrchangeB = (row, event) => {
+        if(event.target.value&&event.target.value!=""){
+            const value = event.target.value ? event.target.value : "";
+            setMatrixValuesB(prevMatrixValues => {
+            const newMatrixValues = prevMatrixValues;
+            newMatrixValues[row] = value;
+            return newMatrixValues;
+            });
+        }
+    };
+    const sendRequest = async () => {
+        console.log(matrixValues);
+        console.log(matrixValuesB)
+    }
     return(
         <div>
             <input  type="number" onChange={changeNumber} />
@@ -85,6 +104,9 @@ function TableMatrix(){
                     </div>
                 </div>
             </div>
+            <Button variant="contained" color="success" style={{background : "#04AA6D"}} onClick={sendRequest}>
+                Submit
+            </Button>
         </div>
     )
 }
