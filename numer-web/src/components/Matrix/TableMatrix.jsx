@@ -10,6 +10,11 @@ function TableMatrix(){
     const [VectorX,setVectorX] = useState([]);
     const [VectorB,setVectorB] = useState([]);
     const [matrixValuesB, setMatrixValuesB] = useState([]);
+    const [Mode,setMode] = useState("");
+
+    const selectMethod = event =>{
+        setMode(event.target.value)
+    }
 
     const changeNumber = event =>{
         const numbermatrix = parseInt(event.target.value);
@@ -26,7 +31,7 @@ function TableMatrix(){
             key = 0;
             for(let i = 0;i<numbermatrix;i++){
                 for(let j=0;j<numbermatrix;j++){
-                    result.push(<div key={key} row={i} col = {j} >A{i+1}{j+1}<input style={{width : "50px",height:"50px",textAlign:"center",border:"solid 3px rgb(39, 40, 41)",borderRadius:"15px",fontSize:"18px",outline: "none"}} onFocus={(e) => e.target.style.boxShadow = "0 0 0 2px #6d6d6d"} onBlur={(e) => e.target.style.boxShadow = "none"} type="text" onChange={(event) => arrchange(i, j, event)}/></div>);
+                    result.push(<div key={key} row={i} col = {j} >A{i+1},{j+1}<input style={{width : "50px",height:"50px",textAlign:"center",border:"solid 3px rgb(39, 40, 41)",borderRadius:"15px",fontSize:"18px",outline: "none"}} onFocus={(e) => e.target.style.boxShadow = "0 0 0 2px #6d6d6d"} onBlur={(e) => e.target.style.boxShadow = "none"} type="text" onChange={(event) => arrchange(i, j, event)}/></div>);
                     key++;
                 }
             }
@@ -79,8 +84,22 @@ function TableMatrix(){
     }
     return(
         <div>
-            <input  type="number" onChange={changeNumber} />
-            <div style={{display:"flex",justifyContent:"center",alignItems: 'center'}}>
+            <div className="select-display" style={{marginBottom:"15px"}}>
+            <select onChange={selectMethod} value={Mode}>
+                <option value="select">Select option</option>
+                <option value="graphical_method">a</option>
+                <option value="bisection_method">Bisection Method</option>
+                <option value="false_position_method">False-Position Method</option>
+                <option value="one_point_iteration_method">One-Point iteration Method</option>
+                <option value="newton_raphson_method">Newton-Raphson Method</option>
+                <option value="secant_method">Secant Method</option>
+            </select>
+            </div>
+            <span style={{fontSize:"22px"}}>Size(NxN) </span>
+            <div className="display-root-item" style={{marginTop:"10px"}}>
+                <input className="input-display" type="number" onChange={changeNumber} placeholder="1"/>
+                </div>
+            <div style={{display:"flex",justifyContent:"center",alignItems: 'center',marginBottom:"10px"}}>
                 <div style={{marginRight:"10px"}}>
                     <div style={{fontSize:"28px",background:"rgb(39, 40, 41)",width:"50px",padding:"5px",height:"50px",borderRadius:"15px",color:"rgb(255, 255, 255)",margin : "auto",marginTop:"10px"}}>A</div>
                     <div style={{width : "min-content",padding:"15px",border:"solid 3px rgb(39, 40, 41)",borderRadius:"10px",margin : "auto",marginTop:"10px",display:"grid",gap:"20px",justifyContent : "center",justifyItems: "center"
