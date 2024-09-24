@@ -1,9 +1,10 @@
-import { im, number } from "mathjs";
+import { im, number, re } from "mathjs";
 import { useState } from "react";
 import "./Matrix.css";
 import { width } from "@mui/system";
 import Button from '@mui/material/Button';
-function TableMatrix(){
+import { CramerRule } from "./LinearCal";
+function TableMatrix({ onDataChange }){
     const [Number,setNumber] = useState(0);
     const [matrixValues, setMatrixValues] = useState([]);
     const [Resutl,setResult] = useState([]);
@@ -81,8 +82,8 @@ function TableMatrix(){
         }
     };
     const sendRequest = async () => {
-        console.log(matrixValues);
-        console.log(matrixValuesB)
+        const result = CramerRule(matrixValues,matrixValuesB);
+        onDataChange(result)
     }
     return(
         <div>
