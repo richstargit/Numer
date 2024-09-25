@@ -3,9 +3,10 @@ import { useState } from "react";
 import "./Matrix.css";
 import { width } from "@mui/system";
 import Button from '@mui/material/Button';
-import { CramerRule } from "./LinearCal";
+import { CramerRule, GaussElimination } from "./LinearCal";
 function TableMatrix({ onDataChange }){
-    const [Number,setNumber] = useState(0);
+    const [NumberN,setNumberN] = useState(0);
+    const [NumberM,setNumberM] = useState(0);
     const [matrixValues, setMatrixValues] = useState([]);
     const [Resutl,setResult] = useState([]);
     const [VectorX,setVectorX] = useState([]);
@@ -20,27 +21,35 @@ function TableMatrix({ onDataChange }){
     const changeNumber = async(event) =>{
         const numbermatrix = parseInt(event.target.value);
         if(numbermatrix<=10&&numbermatrix>0){
+            let N = NumberN;
+            let M = NumberM;
+            if(event.target.id=="1"){
+                setNumberN(numbermatrix)
+                N = numbermatrix;
+            }else if(event.target.id=="2"){
+                setNumberM(numbermatrix)
+                M = numbermatrix;
+            }
             let key = 0;
             let result = [];
-            setNumber(numbermatrix)
-            result = Array(numbermatrix).fill().map(()=> Array(numbermatrix).fill("0"));
+            result = Array(N).fill().map(()=> Array(M).fill("0"));
             setMatrixValues(result);
-            result = Array(numbermatrix).fill("0");
+            result = Array(N).fill("0");
             setMatrixValuesB(result);
             await setVectorX([]);
             await setVectorB([]);
             result = []
             await setResult("");
             key = 0;
-            for(let i = 0;i<numbermatrix;i++){
-                for(let j=0;j<numbermatrix;j++){
+            for(let i = 0;i<N;i++){
+                for(let j=0;j<M;j++){
                     result.push(<div key={key} row={i} col = {j} >A{i+1},{j+1}<input style={{width : "50px",height:"50px",textAlign:"center",border:"solid 3px rgb(39, 40, 41)",borderRadius:"15px",fontSize:"18px",outline: "none"}} onFocus={(e) => e.target.style.boxShadow = "0 0 0 2px #6d6d6d"} onBlur={(e) => e.target.style.boxShadow = "none"} type="text" onChange={(event) => arrchange(i, j, event)} /></div>);
                     key++;
                 }
             }
             setResult(result);
             result = [];
-            for(let i = 0;i<numbermatrix;i++){
+            for(let i = 0;i<M;i++){
                 result.push(<div key={key} row={i} >X{i+1}<div style={{width : "50px",height:"50px",textAlign:"center",border:"solid 3px rgb(39, 40, 41)",borderRadius:"15px",backgroundColor:"rgb(39, 40, 41)",display: 'flex',
                     alignItems: 'center',outline: "none",
                     justifyContent: 'center',color:"rgb(255, 255, 255)"}}>X</div></div>);
@@ -48,7 +57,7 @@ function TableMatrix({ onDataChange }){
             }
             setVectorX(result);
             result = [];
-            for(let i = 0;i<numbermatrix;i++){
+            for(let i = 0;i<N;i++){
                 result.push(<div key={key} row={i} >B{i+1}<input className="" style={{width : "50px",height:"50px",textAlign:"center",border:"solid 3px rgb(39, 40, 41)",borderRadius:"15px",outline: "none",transition:"0.3s"}} onFocus={(e) => e.target.style.boxShadow = "0 0 0 2px #6d6d6d"} onBlur={(e) => e.target.style.boxShadow = "none"} type="text" onChange={(event) => arrchangeB(i, event)} /></div>);
                 key++;
             }
@@ -82,8 +91,15 @@ function TableMatrix({ onDataChange }){
         }
     };
     const sendRequest = async () => {
-        const result = CramerRule(matrixValues,matrixValuesB);
-        onDataChange(result)
+        console.log(matrixValues)
+        console.log(matrixValuesB)
+        if(Mode=="cramer_Rule"){
+            const result = CramerRule(matrixValues,matrixValuesB);
+            onDataChange(result);
+        }else if(Mode=="gauss_elimination_method"){
+            const result = GaussElimination(matrixValues,matrixValuesB);
+            onDataChange(result);
+        }
     }
     return(
         <div>
@@ -101,15 +117,16 @@ function TableMatrix({ onDataChange }){
                 <option value="Conjugate_Gradient_Method">Conjugate Gradient Method</option>
             </select>
             </div>
-            <span style={{fontSize:"22px"}}>Size(NxN) </span>
+            <span style={{fontSize:"22px"}}>Size(NxM) </span>
             <div className="display-root-item" style={{marginTop:"10px"}}>
-                <input className="input-display" type="number" onChange={changeNumber} placeholder="1"/>
+                <input className="input-display" type="number" onChange={changeNumber} id="1" placeholder="N"/>
+                <input className="input-display" type="number" onChange={changeNumber} id="2" placeholder="M"/>
                 </div>
             <div style={{display:"flex",justifyContent:"center",alignItems: 'center',marginBottom:"10px"}}>
                 <div style={{marginRight:"10px"}}>
                     <div style={{fontSize:"28px",background:"rgb(39, 40, 41)",width:"50px",padding:"5px",height:"50px",borderRadius:"15px",color:"rgb(255, 255, 255)",margin : "auto",marginTop:"10px"}}>A</div>
                     <div style={{width : "min-content",padding:"15px",border:"solid 3px rgb(39, 40, 41)",borderRadius:"10px",margin : "auto",marginTop:"10px",display:"grid",gap:"20px",justifyContent : "center",justifyItems: "center"
-                        ,gridTemplateColumns: `repeat(${Number?Number:1},auto)`}}>
+                        ,gridTemplateColumns: `repeat(${NumberM?NumberM:1},auto)`}}>
                         {Resutl}
                     </div>
                 </div>

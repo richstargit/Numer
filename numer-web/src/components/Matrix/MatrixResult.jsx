@@ -5,28 +5,22 @@ import { useEffect, useState } from "react";
 
 function MatrixResult(props){
     const array = [[1, 2, 3], [1, 2, 3], [1, 2, 3]];
-    const [Mode,setMode] = useState(1);
     const result = props.result;
-    // if(props.result){
-    //     if(props.result.result=="det0"){
-    //         setResult("det0") 
-    //     }else{
-    //         setResult("det1") 
-    //     }
-    // }
-    // const matrixLatex = `\\begin{bmatrix} ${array.map(row => row.join(' & ')).join(' \\\\ ')} \\end{bmatrix}`;
-    // const matrixLatexB = `\\begin{bmatrix} ${array.map(row => row.join(' & ')).join(' \\\\ ')} \\end{bmatrix}`;
-    // const Result = `\\frac{${matrixLatex}}{${matrixLatex}} = \\frac{${matrixLatex}}{${matrixLatex}}`;
-    // const
-    // <div style={{fontSize:"22px"}}>Result</div>
-    //         <BlockMath math="x_1=1 , x_2 = 2" />
-    //         <BlockMath math={Result} />
-    //         <BlockMath math={Result} />
 
     const CramerRule = (result) =>{
         const data = result.result.map((v,i)=>{
             const matrixAX= `\\left| \\begin{array}{cc} ${v.matrixXn.map(row => row.join(' & ')).join(' \\\\ ')} \\end{array} \\right|`;
             const Result = `x_${i} = \\frac{${matrixAX}}{${result.det}}=\\frac{${v.detx}}{${result.det}}=${v.x}`
+            return (<BlockMath math={Result} key={i}/>)
+        })
+        return data
+    }
+    const GaussElimination = (result) =>{
+        const data = result.result.map((v,i)=>{
+            const matrixAB = `\\begin{bmatrix} \\begin{array}{cc} ${v.matrixA.map(row => row.join(' & ')).join(' \\\\ ')} \\end{array} 
+            \\begin{array}{cc} ${v.vectorB.map(row => "|").join(' \\\\ ')} \\end{array}
+             \\begin{array}{cc} ${v.vectorB.map(row => row).join(' \\\\ ')} \\end{array}   \\end{bmatrix} `;
+            const Result = `${v.Eliminat}=> ${matrixAB}`
             return (<BlockMath math={Result} key={i}/>)
         })
         return data
@@ -40,11 +34,19 @@ function MatrixResult(props){
             }
             return (<>
             <div style={{fontSize:"16px",display:"flex",justifyContent:"center"}}>{result.vectorX.map((v,i)=>{
-                return (<div style={{marginLeft:"12px",marginRight:"12px"}} key={i}><BlockMath math={`x_${i} = ${v}`}/></div>)
+                return (<div style={{marginLeft:"12px",marginRight:"12px"}} key={i}><BlockMath math={`x_${i+1} = ${v}`}/></div>)
             })}</div>
             <div>det = {result.det}</div>
             <div>{CramerRule(result)}</div>
             </>);
+        }else if(result.mode=="gauss_elimination_method"){
+            return(<><div style={{fontSize:"16px",display:"flex",justifyContent:"center"}}>{result.vectorX.map((v,i)=>{
+                return (<div style={{marginLeft:"12px",marginRight:"12px"}} key={i}><BlockMath math={`x_${i+1} = ${v}`}/></div>)
+            })}</div>
+            <div>{GaussElimination(result)}</div>
+            <div>{result.backsub.map((v,i)=>{
+                return(<BlockMath math={v} key={i}/>)
+            })}</div></>)
         }
         return (<div></div>);
     }

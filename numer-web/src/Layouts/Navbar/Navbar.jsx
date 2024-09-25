@@ -19,6 +19,12 @@ function Navbar(){
           "name": "Root of equations",
           "path": "/root_of_equations",
           "cname": "sidetext"
+        },
+        {
+            "id":3,
+            "name":"Linear Algebraic",
+            "path": "/linear",
+            "cname":"sidetext"
         }
       ];
 
