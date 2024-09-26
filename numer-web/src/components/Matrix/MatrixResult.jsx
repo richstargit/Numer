@@ -135,7 +135,7 @@ function MatrixResult(props){
              = ${vectorB}`}/></div>
              <div style={{ marginTop: "35px" }}><BlockMath math={`${`\\begin{bmatrix} \\begin{array}{cc} ${result.vectorY.map((v,i) => `Y_${i+1}`).join(' \\\\ ')} \\end{array}   \\end{bmatrix} `}
              = ${vectorY}`}/></div>
-             <div style={{ marginTop: "35px" }}><BlockMath math={`[U][X] = [Y] => ${matrixLT} X ${`\\begin{bmatrix} \\begin{array}{cc} ${result.vectorX.map((v,i) => `X_${i+1}`).join(' \\\\ ')} \\end{array}   \\end{bmatrix} `}
+             <div style={{ marginTop: "35px" }}><BlockMath math={`[L^t][X] = [Y] => ${matrixLT} X ${`\\begin{bmatrix} \\begin{array}{cc} ${result.vectorX.map((v,i) => `X_${i+1}`).join(' \\\\ ')} \\end{array}   \\end{bmatrix} `}
              = ${vectorY}`}/></div>
              <div style={{ marginTop: "35px" }}><BlockMath math={`${`\\begin{bmatrix} \\begin{array}{cc} ${result.vectorX.map((v,i) => `X_${i+1}`).join(' \\\\ ')} \\end{array}   \\end{bmatrix} `}
              = ${vectorX}`}/></div>
