@@ -3,7 +3,7 @@ import { useState } from "react";
 import "./Matrix.css";
 import { width } from "@mui/system";
 import Button from '@mui/material/Button';
-import { CramerRule, GaussElimination } from "./LinearCal";
+import { CholeskyDecomposition, CramerRule, GaussElimination, GaussJordan, LuDecomposition, MatrixInv } from "./LinearCal";
 function TableMatrix({ onDataChange }){
     const [NumberN,setNumberN] = useState(0);
     const [NumberM,setNumberM] = useState(0);
@@ -91,13 +91,23 @@ function TableMatrix({ onDataChange }){
         }
     };
     const sendRequest = async () => {
-        console.log(matrixValues)
-        console.log(matrixValuesB)
         if(Mode=="cramer_Rule"){
             const result = CramerRule(matrixValues,matrixValuesB);
             onDataChange(result);
         }else if(Mode=="gauss_elimination_method"){
             const result = GaussElimination(matrixValues,matrixValuesB);
+            onDataChange(result);
+        }else if(Mode=="gauss_jordan_Method"){
+            const result = GaussJordan(matrixValues,matrixValuesB);
+            onDataChange(result);
+        }else if(Mode=="matrix_inversion_method"){
+            const result = MatrixInv(matrixValues,matrixValuesB);
+            onDataChange(result);
+        }else if(Mode=="LU_Decomposition_Method"){
+            const result = LuDecomposition(matrixValues,matrixValuesB);
+            onDataChange(result);
+        }else if(Mode=="Cholesky_Decomposition_Method"){
+            const result = CholeskyDecomposition(matrixValues,matrixValuesB);
             onDataChange(result);
         }
     }
@@ -119,8 +129,8 @@ function TableMatrix({ onDataChange }){
             </div>
             <span style={{fontSize:"22px"}}>Size(NxM) </span>
             <div className="display-root-item" style={{marginTop:"10px"}}>
-                <input className="input-display" type="number" onChange={changeNumber} id="1" placeholder="N"/>
-                <input className="input-display" type="number" onChange={changeNumber} id="2" placeholder="M"/>
+                <input className="input-display" type="number" onChange={changeNumber} id="1" placeholder="N" style={{marginLeft:"10px",marginRight:"10px"}}/>
+                <input className="input-display" type="number" onChange={changeNumber} id="2" placeholder="M" style={{marginLeft:"10px",marginRight:"10px"}}/>
                 </div>
             <div style={{display:"flex",justifyContent:"center",alignItems: 'center',marginBottom:"10px"}}>
                 <div style={{marginRight:"10px"}}>
