@@ -69,7 +69,7 @@ export function GaussElimination(mA, vB) {
                 temp = [...matrixA[i]];
                 temp[matrixA.length] = vectorB[i];
                 temp = temp.map(n => (n / matrixA[i][i]) * matrixA[j][i]);
-                let str = `R_${j+1}=R_${j+1}-(R_${i+1}/${matrixA[i][i]})(${matrixA[j][i]})`
+                let str = `R_${j+1}=R_${j+1}-(R_${i+1}/${math.round(matrixA[i][i],6)})(${math.round(matrixA[j][i],6)})`
                 let t = 0;
                 matrixA[j] = matrixA[j].map(n => {
                     return n - temp[t++];
@@ -95,7 +95,7 @@ export function GaussElimination(mA, vB) {
             }
             vectorX[i] = (vectorB[i] - sum) / matrixA[i][i];
             vectorX[i] = math.round(vectorX[i], 12);
-            str = `x_${i+1} = \\frac{b_${i+1}^{${i>0?i:""}}${strback}}{a_{${i+1},${i+1}}^{${i>0?i:""}}} = \\frac{${vectorB[i]}${str}}{${matrixA[i][i]}} = ${vectorX[i]}`;
+            str = `x_${i+1} = \\frac{b_${i+1}^{${i>0?i:""}}${strback}}{a_{${i+1},${i+1}}^{${i>0?i:""}}} = \\frac{${math.round(vectorB[i],6)}${str}}{${math.round(matrixA[i][i],6)}} = ${math.round(vectorX[i],6)}`;
             backsub.push(str);
         }
         return ({
@@ -134,7 +134,7 @@ export function GaussJordan(mA, vB) {
                 temp = [...matrixA[i]];
                 temp[matrixA.length] = vectorB[i];
                 temp = temp.map(n => (n / matrixA[i][i]) * matrixA[j][i])
-                let str = `R_${j+1}=R_${j+1}-(R_${i+1}/${matrixA[i][i]})(${matrixA[j][i]})`
+                let str = `R_${j+1}=R_${j+1}-(R_${i+1}/${math.round(matrixA[i][i],6)})(${math.round(matrixA[j][i],6)})`
                 let t = 0;
                 matrixA[j] = matrixA[j].map(n => (n - temp[t++]))
                 vectorB[j] -= temp[matrixA.length];
@@ -146,9 +146,9 @@ export function GaussJordan(mA, vB) {
             }
         }
 
-        for (let i = matrixA.length - 1; i > 0; i--) {
-            for (let j = i - 1; j >= 0; j--) {
-                if(matrixA[j][i]==0){
+        for (let i = matrixA[0].length - 1; i > 0; i--) {
+            for (let j = i-1; j >= 0; j--) {
+                if(matrixA[j][i]==0||i>matrixA.length-1){
                     continue;
                 }
                 temp = [...matrixA[i]];
@@ -166,7 +166,10 @@ export function GaussJordan(mA, vB) {
             }
         }
 
-        for (let i = 0; i < vectorB.length; i++) {
+        for (let i = 0; i < matrixA[0].length; i++) {
+            if(i>matrixA.length-1){
+                continue;
+            }
             vectorX[i] = vectorB[i] / matrixA[i][i];
             vectorX[i] = math.round(vectorX[i], 12);
             vectorB[i] /= matrixA[i][i];
@@ -229,7 +232,7 @@ export function MatrixInv(mA, vB) {
                 tempinv = [...matrixAinv[i]];
                 temp = temp.map(n => (n / matrixA[i][i]) * matrixA[j][i])
                 tempinv = tempinv.map(n => (n / matrixA[i][i]) * matrixA[j][i])
-                let str = `R_${j+1}=R_${j+1}-(R_${i+1}/${matrixA[i][i]})(${matrixA[j][i]})`
+                let str = `R_${j+1}=R_${j+1}-(R_${i+1}/${math.round(matrixA[i][i],6)})(${math.round(matrixA[j][i],6)})`
                 let t = 0;
                 matrixA[j] = matrixA[j].map(n => (n - temp[t++]))
                 t=0;
@@ -251,7 +254,7 @@ export function MatrixInv(mA, vB) {
                 tempinv = [...matrixAinv[i]];
                 temp = temp.map(n => (n / matrixA[i][i]) * matrixA[j][i])
                 tempinv = tempinv.map(n => (n / matrixA[i][i]) * matrixA[j][i])
-                let str = `R_${j+1}=R_${j+1}-(R_${i+1}/${matrixA[i][i]})(${matrixA[j][i]})`
+                let str = `R_${j+1}=R_${j+1}-(R_${i+1}/${math.round(matrixA[i][i],6)})(${math.round(matrixA[j][i],6)})`
                 let t = 0;
                 matrixA[j] = matrixA[j].map(n => (n - temp[t++]))
                 t=0;
@@ -280,7 +283,7 @@ export function MatrixInv(mA, vB) {
             for (let j = 0; j < matrixAinv.length; j++) {
                 sum += matrixAinv[i][j] * vectorB[j];
             }
-            vectorX[i] = math.round(sum, 12);
+            vectorX[i] = math.round(sum,12);
         }
         return ({
             request: "success",
