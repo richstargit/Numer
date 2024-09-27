@@ -198,7 +198,7 @@ function MatrixResult(props){
                 <div style={{ width: "100%", background: "rgb(255, 255, 255)", height: "100%", borderRadius: "10px", alignItems: "center", fontSize: "18px", padding: "15px" }}>
                     <div>Result</div>
                     <div style={{ display: "flex",justifyContent:"center" }}>{result.vectorX ? result.vectorX.map((v, i) => {
-                        return (<div style={{ marginLeft: "12px", marginRight: "12px" }} key={i}><BlockMath math={`x_${i + 1} = ${v}`} /></div>)
+                        return (<div style={{ marginLeft: "12px", marginRight: "12px" }} key={i}><BlockMath math={`x_{${i + 1}} = ${v}`} /></div>)
                     }) : ""}</div>
                 </div>
             </div>
