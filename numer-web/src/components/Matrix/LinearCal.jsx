@@ -82,11 +82,11 @@ export function GaussElimination(mA, vB) {
                 })
             }
         }
-        for (let i = vectorB.length - 1; i >= 0; i--) {
+        for (let i = matrixA[0].length - 1; i >= 0; i--) {
             let sum = 0;
             let str= ``;
             let strback = ``;
-            for (let j = vectorB.length - 1; j > i; j--) {
+            for (let j = matrixA[0].length - 1; j > i; j--) {
                 sum += matrixA[i][j] * vectorX[j];
                 if(matrixA[i][j] * vectorX[j]!=0){
                     str+=` - (${math.round(matrixA[i][j],6)})(${math.round(vectorX[j],6)})`;
