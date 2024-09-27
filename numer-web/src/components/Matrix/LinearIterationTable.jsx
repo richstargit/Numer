@@ -7,6 +7,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { BlockMath } from 'react-katex';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -28,7 +29,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default function CustomizedTables(props) {
+function LinearIterationTable(props) {
   const result = props.result
   let sortedResult=null;
   if(result.result){
@@ -40,9 +41,8 @@ export default function CustomizedTables(props) {
         <TableHead>
           <TableRow>
           <StyledTableCell style={{width : "150px"}}>Iteration</StyledTableCell>
-            <StyledTableCell style={{minWidth : "100px", width : "300px"}}>Xi</StyledTableCell>
-            <StyledTableCell style={{minWidth : "100px", width : "500px"}}>Yi</StyledTableCell>
-            <StyledTableCell>Error</StyledTableCell>
+            <StyledTableCell style={{minWidth : "100px"}}>Xi</StyledTableCell>
+            <StyledTableCell style={{minWidth : "100px"}}>Error</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -52,10 +52,9 @@ export default function CustomizedTables(props) {
                 {row.iter}
               </StyledTableCell>
               <StyledTableCell component="th" scope="row">
-                {row.x}
-              </StyledTableCell>
-              <StyledTableCell>{row.y}</StyledTableCell>
-              <StyledTableCell>{row.error}</StyledTableCell>
+              <div style={{display:"flex"}}><BlockMath math={`\\begin{bmatrix} \\begin{array}{cc} ${row.vectorX.join(' \\\\ ')} \\end{array}   \\end{bmatrix} `}/></div>
+              </StyledTableCell >
+              <StyledTableCell component="th" scope="row"><div style={{display:"flex"}}><BlockMath math={`\\begin{bmatrix} \\begin{array}{cc} ${row.errorX.join(' \\\\ ')} \\end{array}   \\end{bmatrix} `}/></div></StyledTableCell>
             </StyledTableRow>
           )) : <StyledTableRow></StyledTableRow>}
         </TableBody>
@@ -63,3 +62,4 @@ export default function CustomizedTables(props) {
     </TableContainer>
   );
 }
+export default LinearIterationTable

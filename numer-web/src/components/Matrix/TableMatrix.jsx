@@ -3,7 +3,7 @@ import { useState } from "react";
 import "./Matrix.css";
 import { width } from "@mui/system";
 import Button from '@mui/material/Button';
-import { CholeskyDecomposition, CramerRule, GaussElimination, GaussJordan, LuDecomposition, MatrixInv } from "./LinearCal";
+import { CholeskyDecomposition, CramerRule, GaussElimination, GaussJordan, GaussSeidelIteration, JacobiIteration, LuDecomposition, MatrixInv } from "./LinearCal";
 function TableMatrix({ onDataChange }){
     const [NumberN,setNumberN] = useState(0);
     const [NumberM,setNumberM] = useState(0);
@@ -13,6 +13,9 @@ function TableMatrix({ onDataChange }){
     const [VectorB,setVectorB] = useState([]);
     const [matrixValuesB, setMatrixValuesB] = useState([]);
     const [Mode,setMode] = useState("");
+    const [matrixValuesX, setMatrixValuesX] = useState([]);
+    const [matrixiterX, setMatrixiterX] = useState([]);
+    const [Erroriter, setErroriter] = useState("");
 
     const selectMethod = event =>{
         setMode(event.target.value)
@@ -36,10 +39,13 @@ function TableMatrix({ onDataChange }){
             setMatrixValues(result);
             result = Array(N).fill("0");
             setMatrixValuesB(result);
+            result = Array(M).fill("0");
+            setMatrixValuesX(result);
             await setVectorX([]);
             await setVectorB([]);
-            result = []
+            await setMatrixiterX([]);
             await setResult("");
+            result = []
             key = 0;
             for(let i = 0;i<N;i++){
                 for(let j=0;j<M;j++){
@@ -58,16 +64,23 @@ function TableMatrix({ onDataChange }){
             setVectorX(result);
             result = [];
             for(let i = 0;i<N;i++){
-                result.push(<div key={key} row={i} >B{i+1}<input className="" style={{width : "50px",height:"50px",textAlign:"center",border:"solid 3px rgb(39, 40, 41)",borderRadius:"15px",outline: "none",transition:"0.3s"}} onFocus={(e) => e.target.style.boxShadow = "0 0 0 2px #6d6d6d"} onBlur={(e) => e.target.style.boxShadow = "none"} type="text" onChange={(event) => arrchangeB(i, event)} /></div>);
+                result.push(<div key={key} row={i} >B{i+1}<input className="" style={{width : "50px",height:"50px",textAlign:"center",border:"solid 3px rgb(39, 40, 41)",borderRadius:"15px",fontSize:"18px",outline: "none",transition:"0.3s"}} onFocus={(e) => e.target.style.boxShadow = "0 0 0 2px #6d6d6d"} onBlur={(e) => e.target.style.boxShadow = "none"} type="text" onChange={(event) => arrchangeB(i, event)} /></div>);
                 key++;
             }
             setVectorB(result);
+            result = [];
+            for(let i = 0;i<M;i++){
+                result.push(<div key={key} row={i} >X{i+1}<input className="" style={{width : "50px",height:"50px",textAlign:"center",border:"solid 3px rgb(39, 40, 41)",borderRadius:"15px",fontSize:"18px",outline: "none",transition:"0.3s"}} onFocus={(e) => e.target.style.boxShadow = "0 0 0 2px #6d6d6d"} onBlur={(e) => e.target.style.boxShadow = "none"} type="text" onChange={(event) => arrchangeX(i, event)} /></div>);
+                key++;
+            }
+            setMatrixiterX(result);
         }else{
             setMatrixValues([]);
             setMatrixValuesB([]);
             setResult([]);
             setVectorX([]);
             setVectorB([]);
+            setMatrixValuesX([]);
         }
     }
     const arrchange = (row, col, event) => {
@@ -90,25 +103,71 @@ function TableMatrix({ onDataChange }){
             });
         }
     };
+
+    const arrchangeX = (row, event) => {
+        if(event.target.value&&event.target.value!=""){
+            const value = event.target.value ? event.target.value : "";
+            setMatrixValuesX(prevMatrixValues => {
+            const newMatrixValues = prevMatrixValues;
+            newMatrixValues[row] = value;
+            return newMatrixValues;
+            });
+        }
+    };
+
+    const changeError = (e) =>{
+        setErroriter(e.target.value);
+    }
+
+    const IsIterMode = ()=>{
+        if(Mode=="Jacobi_Iteration_Method"||Mode=="Gauss-Seidel_Iteration_Method"){
+            return(<><div style={{ fontSize: "28px", background: "rgb(39, 40, 41)", width: "50px", padding: "5px", height: "50px", borderRadius: "15px", color: "rgb(255, 255, 255)", margin: "auto", marginTop: "10px" }}>Xi</div>
+                <div style={{
+                    width: "min-content", padding: "15px", border: "solid 3px rgb(39, 40, 41)", borderRadius: "10px", margin: "auto", marginTop: "10px", display: "grid", gap: "20px", justifyContent: "center", justifyItems: "center"
+                    , gridTemplateColumns: `repeat(${NumberM ? NumberM : 1},auto)`
+                }}>
+                    {matrixiterX}
+                </div>
+                <div className="display-root-item" style={{marginTop:"10px"}}>
+                    <span style={{marginLeft:"10px",marginRight:"10px"}}>Error</span>
+                <input className="input-display" type="number" onChange={changeError} value={Erroriter} placeholder="0.000001" style={{marginLeft:"10px",marginRight:"10px"}}/>
+                </div></>);
+        }
+    }
+
     const sendRequest = async () => {
-        if(Mode=="cramer_Rule"){
-            const result = CramerRule(matrixValues,matrixValuesB);
-            onDataChange(result);
-        }else if(Mode=="gauss_elimination_method"){
-            const result = GaussElimination(matrixValues,matrixValuesB);
-            onDataChange(result);
-        }else if(Mode=="gauss_jordan_Method"){
-            const result = GaussJordan(matrixValues,matrixValuesB);
-            onDataChange(result);
-        }else if(Mode=="matrix_inversion_method"){
-            const result = MatrixInv(matrixValues,matrixValuesB);
-            onDataChange(result);
-        }else if(Mode=="LU_Decomposition_Method"){
-            const result = LuDecomposition(matrixValues,matrixValuesB);
-            onDataChange(result);
-        }else if(Mode=="Cholesky_Decomposition_Method"){
-            const result = CholeskyDecomposition(matrixValues,matrixValuesB);
-            onDataChange(result);
+        try{
+            Number(matrixValues);
+            Number(matrixValuesB);
+            Number(matrixValuesX);
+            Number(Erroriter);
+            if(Mode=="cramer_Rule"){
+                const result = CramerRule(matrixValues,matrixValuesB);
+                onDataChange(result);
+            }else if(Mode=="gauss_elimination_method"){
+                const result = GaussElimination(matrixValues,matrixValuesB);
+                onDataChange(result);
+            }else if(Mode=="gauss_jordan_Method"){
+                const result = GaussJordan(matrixValues,matrixValuesB);
+                onDataChange(result);
+            }else if(Mode=="matrix_inversion_method"){
+                const result = MatrixInv(matrixValues,matrixValuesB);
+                onDataChange(result);
+            }else if(Mode=="LU_Decomposition_Method"){
+                const result = LuDecomposition(matrixValues,matrixValuesB);
+                onDataChange(result);
+            }else if(Mode=="Cholesky_Decomposition_Method"){
+                const result = CholeskyDecomposition(matrixValues,matrixValuesB);
+                onDataChange(result);
+            }else if(Mode=="Jacobi_Iteration_Method"){
+                const result = JacobiIteration(matrixValues,matrixValuesB,matrixValuesX,Erroriter);
+                onDataChange(result);
+            }else if(Mode=="Gauss-Seidel_Iteration_Method"){
+                const result = GaussSeidelIteration(matrixValues,matrixValuesB,matrixValuesX,Erroriter);
+                onDataChange(result);
+            }
+        }catch(err){
+            console.log(err)
         }
     }
     return(
@@ -154,6 +213,11 @@ function TableMatrix({ onDataChange }){
                         ,gridTemplateColumns: `repeat(1,auto)`}}>
                         {VectorB}
                     </div>
+                </div>
+            </div>
+            <div>
+                <div style={{ marginBottom: "10px" }}>
+                    {IsIterMode()}
                 </div>
             </div>
             <Button variant="contained" color="success" style={{background : "#04AA6D"}} onClick={sendRequest}>

@@ -25,7 +25,7 @@ export function CramerRule(matrixA, vectorB) {
                 temp[j][i] = vectorB[j]
             }
 
-            vectorX[i] = math.round(math.det(temp) / detA, 6);
+            vectorX[i] = math.round(math.det(temp) / detA, 12);
             result.push({
                 matrixXn: temp,
                 detx: math.det(temp),
@@ -77,25 +77,25 @@ export function GaussElimination(mA, vB) {
                 vectorB[j] -= temp[matrixA.length];
                 result.push({
                     Eliminat : str,
-                    matrixA: matrixA.map(v => v.map(n => math.round(n,6))),
+                    matrixA: matrixA.map((v,z) => v.map((n,x) => z==j&&x==i?`\\color{red}`+math.round(n,6):math.round(n,6))),
                     vectorB: vectorB.map(v=>math.round(v,6))
                 })
             }
         }
         for (let i = vectorB.length - 1; i >= 0; i--) {
             let sum = 0;
-            let str= `(`;
+            let str= ``;
+            let strback = ``;
             for (let j = vectorB.length - 1; j > i; j--) {
                 sum += matrixA[i][j] * vectorX[j];
-                str+=`(${matrixA[i][j]})(${vectorX[j]})`;
-                if(j-1 > i){
-                    str+=` + `;
+                if(matrixA[i][j] * vectorX[j]!=0){
+                    str+=` - (${math.round(matrixA[i][j],6)})(${math.round(vectorX[j],6)})`;
                 }
+                strback+= ` - a_{${i},${j}}^{${i>0?i:""}}x_{${i+1}}`;
             }
-            str+=')';
             vectorX[i] = (vectorB[i] - sum) / matrixA[i][i];
-            vectorX[i] = math.round(vectorX[i], 6);
-            str = `x_${i+1} = \\frac{${vectorB[i]}${str==`()`?``:` - `+str}}{${matrixA[i][i]}} = ${vectorX[i]}`;
+            vectorX[i] = math.round(vectorX[i], 12);
+            str = `x_${i+1} = \\frac{b_${i+1}^{${i>0?i:""}}${strback}}{a_{${i},${i}}^{${i>0?i:""}}} = \\frac{${vectorB[i]}${str}}{${matrixA[i][i]}} = ${vectorX[i]}`;
             backsub.push(str);
         }
         return ({
@@ -140,7 +140,7 @@ export function GaussJordan(mA, vB) {
                 vectorB[j] -= temp[matrixA.length];
                 result.push({
                     Eliminat : str,
-                    matrixA: matrixA.map(v => v.map(n => math.round(n,6))),
+                    matrixA: matrixA.map((v,z) => v.map((n,x) => z==j&&x==i?`\\color{red}`+math.round(n,6):math.round(n,6))),
                     vectorB: vectorB.map(v=>math.round(v,6))
                 })
             }
@@ -160,7 +160,7 @@ export function GaussJordan(mA, vB) {
                 vectorB[j] -= temp[matrixA.length];
                 result.push({
                     Eliminat : str,
-                    matrixA: matrixA.map(v => v.map(n => math.round(n,6))),
+                    matrixA: matrixA.map((v,z) => v.map((n,x) => z==j&&x==i?`\\color{red}`+math.round(n,6):math.round(n,6))),
                     vectorB: vectorB.map(v=>math.round(v,6))
                 })
             }
@@ -168,13 +168,13 @@ export function GaussJordan(mA, vB) {
 
         for (let i = 0; i < vectorB.length; i++) {
             vectorX[i] = vectorB[i] / matrixA[i][i];
-            vectorX[i] = math.round(vectorX[i], 6);
+            vectorX[i] = math.round(vectorX[i], 12);
             vectorB[i] /= matrixA[i][i];
             let str = `R_${i+1}=R_${i+1}/${matrixA[i][i]}`
             matrixA[i][i] /= matrixA[i][i];
             result.push({
                 Eliminat : str,
-                matrixA: matrixA.map(v => v.map(n => math.round(n,6))),
+                matrixA: matrixA.map((v,z) => v.map((n,x) => z==i&&x==i?`\\color{red}`+math.round(n,6):math.round(n,6))),
                 vectorB: vectorB.map(v=>math.round(v,6))
             })
         }
@@ -234,7 +234,7 @@ export function MatrixInv(mA, vB) {
                 matrixAinv[j] = matrixAinv[j].map(n => (n - tempinv[t++]))
                 result.push({
                     Eliminat : str,
-                    matrixA: matrixA.map(v => v.map(n => math.round(n,6))),
+                    matrixA: matrixA.map((v,z) => v.map((n,x) => z==j&&x==i?`\\color{red}`+math.round(n,6):math.round(n,6))),
                     matrixAinv: matrixAinv.map(v=>v.map(n => math.round(n,6)))
                 })
             }
@@ -256,7 +256,7 @@ export function MatrixInv(mA, vB) {
                 matrixAinv[j] = matrixAinv[j].map(n => (n - tempinv[t++]))
                 result.push({
                     Eliminat : str,
-                    matrixA: matrixA.map(v => v.map(n => math.round(n,6))),
+                    matrixA: matrixA.map((v,z) => v.map((n,x) => z==j&&x==i?`\\color{red}`+math.round(n,6):math.round(n,6))),
                     matrixAinv: matrixAinv.map(v=>v.map(n => math.round(n,6)))
                 })
             }
@@ -268,7 +268,7 @@ export function MatrixInv(mA, vB) {
             matrixA[i][i] /= matrixA[i][i];
             result.push({
                 Eliminat : str,
-                matrixA: matrixA.map(v => v.map(n => math.round(n,6))),
+                matrixA: matrixA.map((v,z) => v.map((n,x) => z==i&&x==i?`\\color{red}`+math.round(n,6):math.round(n,6))),
                 matrixAinv: matrixAinv.map(v=>v.map(n => math.round(n,6)))
             })
         }
@@ -278,7 +278,7 @@ export function MatrixInv(mA, vB) {
             for (let j = 0; j < matrixAinv.length; j++) {
                 sum += matrixAinv[i][j] * vectorB[j];
             }
-            vectorX[i] = math.round(sum, 6);
+            vectorX[i] = math.round(sum, 12);
         }
         return ({
             request: "success",
@@ -359,7 +359,7 @@ export function LuDecomposition(mA, vB) {
                 sum += U[i][j] * vectorX[j];
             }
             vectorX[i] = (vectorY[i] - sum) / U[i][i];
-            vectorX[i] = math.round(vectorX[i], 6);
+            vectorX[i] = math.round(vectorX[i], 12);
         }
         return ({
             request: "success",
@@ -382,6 +382,7 @@ export function LuDecomposition(mA, vB) {
         });
     }
 }
+
 //cholesky decomposition
 export function CholeskyDecomposition(mA, vB) {
     try {
@@ -440,7 +441,7 @@ export function CholeskyDecomposition(mA, vB) {
                 sum += LT[i][j] * vectorX[j];
             }
             vectorX[i] = (vectorY[i] - sum) / LT[i][i];
-            vectorX[i] = math.round(vectorX[i], 6);
+            vectorX[i] = math.round(vectorX[i], 12);
         }
         return ({
             request: "success",
@@ -459,6 +460,155 @@ export function CholeskyDecomposition(mA, vB) {
         return ({
             request: "failed",
             mode: "Cholesky_Decomposition_Method",
+            errors: error
+        });
+    }
+}
+
+//jacobi iteration
+export function JacobiIteration(mA,vB,vX,Errors) {
+    try {
+        let matrixA = mA.map(v => v.map(n => n));
+        let vectorB = vB.map(v => v);
+        let vectorX = vX.map(v => v);
+        let vectorxold;
+        let round = 1;
+        let result = [];
+        let Error = [];
+        let check = 0;
+        const errors = Number(Errors);
+        const backsub = [];
+        
+        for(let i=0;i<matrixA.length;i++){
+            let str= ``;
+            for (let j = 0; j < vectorX.length; j++) {
+                if(i!=j&&matrixA[i][j]!=0){
+                    str+=` - (${matrixA[i][j]})(x_${j+1}^k)`;
+                }
+            }
+            str = `x_${i+1}^{k+1} = \\frac{${vectorB[i]}${str}}{${matrixA[i][i]}}`;
+            backsub.push(str);
+        }
+
+        do{
+            vectorxold = [...vectorX];
+            for(let i=0;i<vectorX.length;i++){
+                let temp = vectorxold[i];
+                vectorxold[i]=0;
+                vectorX[i]=(vectorB[i]-math.multiply(matrixA[i],vectorxold))/matrixA[i][i];
+                vectorxold[i]=temp;
+            }
+
+            Error = [];
+            check = 0;
+            for(let i =0;i<vectorX.length;i++){
+                Error.push(math.round(math.abs(vectorX[i]-vectorxold[i]),6))
+                if(math.abs(vectorX[i]-vectorxold[i])>=errors){
+                    check= 1;
+                }
+            }
+
+            result.push({
+                iter : round,
+                vectorX : math.round(vectorX,6),
+                errorX : Error
+            })
+            round++;
+            if(round>1000){
+                break;
+            }
+        }while(check==1);
+
+        return ({
+            request: "success",
+            mode: "Jacobi_Iteration_Method",
+            matrixA: mA,
+            vectorB: vB,
+            vectorX: math.round(vectorX,12),
+            erroriter: Errors,
+            backsub: backsub,
+            result: result,
+        });
+
+    } catch (error) {
+        console.log(error);
+        return ({
+            request: "failed",
+            mode: "Jacobi_Iteration_Method",
+            errors: error
+        });
+    }
+}
+
+//gauss seidel iteration
+export function GaussSeidelIteration(mA,vB,vX,Errors) {
+    try {
+        let matrixA = mA.map(v => v.map(n => n));
+        let vectorB = vB.map(v => v);
+        let vectorX = vX.map(v => v);
+        let vectorxold;
+        let round = 1;
+        let result = [];
+        let Error = [];
+        let check = 0;
+        const errors = Number(Errors);
+        const backsub = [];
+        
+        for(let i=0;i<matrixA.length;i++){
+            let str= ``;
+            for (let j = 0; j < vectorX.length; j++) {
+                if(i!=j&&matrixA[i][j]!=0){
+                    str+=` - (${matrixA[i][j]})(x_${j+1}^{k${j<=i?"+ 1":""}})`;
+                }
+            }
+            str = `x_${i+1}^{k+1} = \\frac{${vectorB[i]}${str}}{${matrixA[i][i]}}`;
+            backsub.push(str);
+        }
+
+        do{
+            vectorxold = [...vectorX];
+            for(let i=0;i<vectorX.length;i++){
+                let temp = [...vectorX];
+                temp[i]=0;
+                vectorX[i]=(vectorB[i]-math.multiply(matrixA[i],temp))/matrixA[i][i];
+            }
+
+            Error = [];
+            check = 0;
+            for(let i =0;i<vectorX.length;i++){
+                Error.push(math.round(math.abs(vectorX[i]-vectorxold[i]),6))
+                if(math.abs(vectorX[i]-vectorxold[i])>=errors){
+                    check= 1;
+                }
+            }
+
+            result.push({
+                iter : round,
+                vectorX : math.round(vectorX,6),
+                errorX : Error
+            })
+            round++;
+            if(round>1000){
+                break;
+            }
+        }while(check==1);
+
+        return ({
+            request: "success",
+            mode: "Gauss-Seidel_Iteration_Method",
+            matrixA: mA,
+            vectorB: vB,
+            vectorX: math.round(vectorX,12),
+            erroriter: Errors,
+            backsub: backsub,
+            result: result,
+        });
+
+    } catch (error) {
+        console.log(error);
+        return ({
+            request: "failed",
+            mode: "Gauss-Seidel_Iteration_Method",
             errors: error
         });
     }
