@@ -5,8 +5,8 @@ import { width } from "@mui/system";
 import Button from '@mui/material/Button';
 import { CholeskyDecomposition, CramerRule, GaussElimination, GaussJordan, GaussSeidelIteration, JacobiIteration, LuDecomposition, MatrixInv } from "./LinearCal";
 function TableMatrix({ onDataChange }){
-    const [NumberN,setNumberN] = useState(0);
-    const [NumberM,setNumberM] = useState(0);
+    const [NumberN,setNumberN] = useState("");
+    const [NumberM,setNumberM] = useState("");
     const [matrixValues, setMatrixValues] = useState([]);
     const [Resutl,setResult] = useState([]);
     const [VectorX,setVectorX] = useState([]);
@@ -16,14 +16,37 @@ function TableMatrix({ onDataChange }){
     const [matrixValuesX, setMatrixValuesX] = useState([]);
     const [matrixiterX, setMatrixiterX] = useState([]);
     const [Erroriter, setErroriter] = useState("");
-
+    const limitmatrix = 10;
     const selectMethod = event =>{
         setMode(event.target.value)
     }
 
     const changeNumber = async(event) =>{
+        if(!event.target.value){
+            if(event.target.id=="1"){
+                setNumberN(event.target.value?event.target.value:"")
+            }else if(event.target.id=="2"){
+                setNumberM(event.target.value?event.target.value:"")
+            }
+            setMatrixValues([]);
+            setMatrixValuesB([]);
+            setVectorX([]);
+            setMatrixValuesX([]);
+            return;
+        }
+        setMatrixValues([]);
+        setMatrixValuesB([]);
+        setVectorX([]);
+        setMatrixValuesX([]);
         const numbermatrix = parseInt(event.target.value);
-        if(numbermatrix<=10&&numbermatrix>0){
+        if(numbermatrix==0||numbermatrix==""){
+            if(event.target.id=="1"){
+                setNumberN(numbermatrix)
+            }else if(event.target.id=="2"){
+                setNumberM(numbermatrix)
+            }
+        }
+        if(numbermatrix){
             let N = NumberN;
             let M = NumberM;
             if(event.target.id=="1"){
@@ -33,86 +56,102 @@ function TableMatrix({ onDataChange }){
                 setNumberM(numbermatrix)
                 M = numbermatrix;
             }
-            let key = 0;
+            if(N>limitmatrix){
+                N=limitmatrix;
+            }else if(N<1){
+                N=1;
+            }
+            if(M>limitmatrix){
+                M=limitmatrix;
+            }else if(M<1){
+                M=1;
+            }
             let result = [];
-            result = Array(N).fill().map(()=> Array(M).fill("0"));
+            result = Array(N).fill().map(()=> Array(M).fill(""));
             setMatrixValues(result);
-            result = Array(N).fill("0");
+            result = Array(N).fill("");
             setMatrixValuesB(result);
-            result = Array(M).fill("0");
+            result = Array(M).fill("");
+            setVectorX(result);
+            result = Array(M).fill("");
             setMatrixValuesX(result);
-            await setVectorX([]);
-            await setVectorB([]);
-            await setMatrixiterX([]);
-            await setResult("");
-            result = []
-            key = 0;
-            for(let i = 0;i<N;i++){
-                for(let j=0;j<M;j++){
-                    result.push(<div key={key} row={i} col = {j} >A{i+1},{j+1}<input style={{width : "50px",height:"50px",textAlign:"center",border:"solid 3px rgb(39, 40, 41)",borderRadius:"15px",fontSize:"18px",outline: "none"}} onFocus={(e) => e.target.style.boxShadow = "0 0 0 2px #6d6d6d"} onBlur={(e) => e.target.style.boxShadow = "none"} type="text" onChange={(event) => arrchange(i, j, event)} /></div>);
+        }
+    }
+
+    const MatrixAGenerate = (mA) =>{
+        let result = []
+        let key = 0;
+
+            for(let i = 0;i<mA.length;i++){
+                for(let j=0;j<mA[i].length;j++){
+                    result.push(<div key={key} row={i} col = {j} >A{i+1},{j+1}
+                    <input style={{width : "50px",height:"50px",textAlign:"center",border:"solid 3px rgb(39, 40, 41)"
+                    ,borderRadius:"15px",fontSize:"18px",outline: "none"}} onFocus={(e) => e.target.style.boxShadow = "0 0 0 2px #6d6d6d"} onBlur={(e) => e.target.style.boxShadow = "none"} type="text" 
+                    onChange={(event) => arrchange(i, j, event)} value={matrixValues[i][j]}/></div>);
                     key++;
                 }
             }
-            setResult(result);
-            result = [];
-            for(let i = 0;i<M;i++){
-                result.push(<div key={key} row={i} >X{i+1}<div style={{width : "50px",height:"50px",textAlign:"center",border:"solid 3px rgb(39, 40, 41)",borderRadius:"15px",backgroundColor:"rgb(39, 40, 41)",display: 'flex',
-                    alignItems: 'center',outline: "none",
-                    justifyContent: 'center',color:"rgb(255, 255, 255)"}}>X</div></div>);
-                key++;
-            }
-            setVectorX(result);
-            result = [];
-            for(let i = 0;i<N;i++){
-                result.push(<div key={key} row={i} >B{i+1}<input className="" style={{width : "50px",height:"50px",textAlign:"center",border:"solid 3px rgb(39, 40, 41)",borderRadius:"15px",fontSize:"18px",outline: "none",transition:"0.3s"}} onFocus={(e) => e.target.style.boxShadow = "0 0 0 2px #6d6d6d"} onBlur={(e) => e.target.style.boxShadow = "none"} type="text" onChange={(event) => arrchangeB(i, event)} /></div>);
-                key++;
-            }
-            setVectorB(result);
-            result = [];
-            for(let i = 0;i<M;i++){
-                result.push(<div key={key} row={i} >X{i+1}<input className="" style={{width : "50px",height:"50px",textAlign:"center",border:"solid 3px rgb(39, 40, 41)",borderRadius:"15px",fontSize:"18px",outline: "none",transition:"0.3s"}} onFocus={(e) => e.target.style.boxShadow = "0 0 0 2px #6d6d6d"} onBlur={(e) => e.target.style.boxShadow = "none"} type="text" onChange={(event) => arrchangeX(i, event)} /></div>);
-                key++;
-            }
-            setMatrixiterX(result);
-        }else{
-            setMatrixValues([]);
-            setMatrixValuesB([]);
-            setResult([]);
-            setVectorX([]);
-            setVectorB([]);
-            setMatrixValuesX([]);
-        }
+        return (<>{result}</>);
     }
-    const arrchange = (row, col, event) => {
-        if(event.target.value&&event.target.value!=""){
-            const value = event.target.value ? event.target.value : "";
-            setMatrixValues(prevMatrixValues => {
-            const newMatrixValues = prevMatrixValues.map(row => [...row]);
-            newMatrixValues[row][col] = value;
-            return newMatrixValues;
-            });
+
+    const VectorXGenerate = (vX) =>{
+        let result = []
+        let key = 0;
+        for(let i = 0;i<vX.length;i++){
+            result.push(<div key={key} row={i} >X{i+1}<div style={{width : "50px",height:"50px",textAlign:"center",border:"solid 3px rgb(39, 40, 41)",borderRadius:"15px",backgroundColor:"rgb(39, 40, 41)",display: 'flex',
+                alignItems: 'center',outline: "none",
+                justifyContent: 'center',color:"rgb(255, 255, 255)"}}>X</div></div>);
+            key++;
         }
+        return (<>{result}</>);
+    }
+
+    const VectorBGenerate = (vB) =>{
+        let result = []
+        let key = 0;
+        for(let i = 0;i<vB.length;i++){
+            result.push(<div key={key} row={i} >B{i+1}<input className="" style={{width : "50px",height:"50px",textAlign:"center",border:"solid 3px rgb(39, 40, 41)",
+                borderRadius:"15px",fontSize:"18px",outline: "none",transition:"0.3s"}} onFocus={(e) => e.target.style.boxShadow = "0 0 0 2px #6d6d6d"} 
+                onBlur={(e) => e.target.style.boxShadow = "none"} type="text" onChange={(event) => arrchangeB(i, event)} value={matrixValuesB[i]}/></div>);
+            key++;
+        }
+        return (<>{result}</>);
+    }
+
+    const VectorXIterGenerate = (vX) =>{
+        let result = []
+        let key = 0;
+
+        for(let i = 0;i<vX.length;i++){
+            result.push(<div key={key} row={i} >X{i+1}<input className="" style={{width : "50px",height:"50px",textAlign:"center",border:"solid 3px rgb(39, 40, 41)",
+                borderRadius:"15px",fontSize:"18px",outline: "none",transition:"0.3s"}} onFocus={(e) => e.target.style.boxShadow = "0 0 0 2px #6d6d6d"} 
+                onBlur={(e) => e.target.style.boxShadow = "none"} type="text" onChange={(event) => arrchangeX(i, event)} value={matrixValuesX[i]}/></div>);
+            key++;
+        }
+        return (<>{result}</>);
+    }
+
+    const arrchange = (row, col, event) => {
+        setMatrixValues(prevMatrixValues => {
+            const newMatrixValues = prevMatrixValues.map(row => [...row]);
+            newMatrixValues[row][col] = event.target.value?event.target.value:"";
+            return newMatrixValues;
+        });
     };
     const arrchangeB = (row, event) => {
-        if(event.target.value&&event.target.value!=""){
-            const value = event.target.value ? event.target.value : "";
-            setMatrixValuesB(prevMatrixValues => {
-            const newMatrixValues = prevMatrixValues;
-            newMatrixValues[row] = value;
+        setMatrixValuesB(prevMatrixValues => {
+            const newMatrixValues = prevMatrixValues.map(row=>row);
+            newMatrixValues[row] = event.target.value?event.target.value:"";
             return newMatrixValues;
             });
-        }
     };
 
     const arrchangeX = (row, event) => {
-        if(event.target.value&&event.target.value!=""){
-            const value = event.target.value ? event.target.value : "";
-            setMatrixValuesX(prevMatrixValues => {
-            const newMatrixValues = prevMatrixValues;
-            newMatrixValues[row] = value;
+        setMatrixValuesX(prevMatrixValues => {
+            const newMatrixValues = prevMatrixValues.map(row=>row);
+            newMatrixValues[row] = event.target.value?event.target.value:"";
             return newMatrixValues;
             });
-        }
     };
 
     const changeError = (e) =>{
@@ -124,9 +163,9 @@ function TableMatrix({ onDataChange }){
             return(<><div style={{ fontSize: "28px", background: "rgb(39, 40, 41)", width: "50px", padding: "5px", height: "50px", borderRadius: "15px", color: "rgb(255, 255, 255)", margin: "auto", marginTop: "10px" }}>Xi</div>
                 <div style={{
                     width: "min-content", padding: "15px", border: "solid 3px rgb(39, 40, 41)", borderRadius: "10px", margin: "auto", marginTop: "10px", display: "grid", gap: "20px", justifyContent: "center", justifyItems: "center"
-                    , gridTemplateColumns: `repeat(${NumberM ? NumberM : 1},auto)`
+                    , gridTemplateColumns: `repeat(${NumberM?NumberM>limitmatrix ? limitmatrix : NumberM<0?0:NumberM:1},auto)`
                 }}>
-                    {matrixiterX}
+                    {VectorXIterGenerate(matrixValuesX)}
                 </div>
                 <div className="display-root-item" style={{marginTop:"10px"}}>
                     <span style={{marginLeft:"10px",marginRight:"10px"}}>Error</span>
@@ -188,22 +227,22 @@ function TableMatrix({ onDataChange }){
             </div>
             <span style={{fontSize:"22px"}}>Size(NxM) </span>
             <div className="display-root-item" style={{marginTop:"10px"}}>
-                <input className="input-display" type="number" onChange={changeNumber} id="1" placeholder="N" style={{marginLeft:"10px",marginRight:"10px"}}/>
-                <input className="input-display" type="number" onChange={changeNumber} id="2" placeholder="M" style={{marginLeft:"10px",marginRight:"10px"}}/>
+                <input className="input-display" type="number" onChange={changeNumber} value={NumberN} id="1" placeholder="N" style={{marginLeft:"10px",marginRight:"10px"}}/>
+                <input className="input-display" type="number" onChange={changeNumber} value={NumberM} id="2" placeholder="M" style={{marginLeft:"10px",marginRight:"10px"}}/>
                 </div>
             <div style={{display:"flex",justifyContent:"center",alignItems: 'center',marginBottom:"10px"}}>
                 <div style={{marginRight:"10px"}}>
                     <div style={{fontSize:"28px",background:"rgb(39, 40, 41)",width:"50px",padding:"5px",height:"50px",borderRadius:"15px",color:"rgb(255, 255, 255)",margin : "auto",marginTop:"10px"}}>A</div>
                     <div style={{width : "min-content",padding:"15px",border:"solid 3px rgb(39, 40, 41)",borderRadius:"10px",margin : "auto",marginTop:"10px",display:"grid",gap:"20px",justifyContent : "center",justifyItems: "center"
-                        ,gridTemplateColumns: `repeat(${NumberM?NumberM:1},auto)`}}>
-                        {Resutl}
+                        ,gridTemplateColumns: `repeat(${NumberM?NumberM>limitmatrix ? limitmatrix : NumberM<0?0:NumberM:1},auto)`}}>
+                        {MatrixAGenerate(matrixValues)}
                     </div>
                 </div>
                 <div>
                     <div style={{fontSize:"28px",background:"rgb(39, 40, 41)",width:"50px",padding:"5px",height:"50px",borderRadius:"15px",color:"rgb(255, 255, 255)",margin : "auto",marginTop:"10px"}}>X</div>
                     <div style={{width : "min-content",padding:"15px",border:"solid 3px rgb(39, 40, 41)",borderRadius:"10px",margin : "auto",marginTop:"10px",display:"grid",gap:"20px",justifyContent : "center",justifyItems: "center"
                         ,gridTemplateColumns: `repeat(1,auto)`}}>
-                        {VectorX}
+                        {VectorXGenerate(VectorX)}
                     </div>
                 </div>
                 <div style={{marginLeft:"10px",marginRight:"10px",marginTop:"85px",fontSize:"38px"}}>=</div>
@@ -211,7 +250,7 @@ function TableMatrix({ onDataChange }){
                     <div style={{fontSize:"28px",background:"rgb(39, 40, 41)",width:"50px",padding:"5px",height:"50px",borderRadius:"15px",color:"rgb(255, 255, 255)",margin : "auto",marginTop:"10px"}}>B</div>
                     <div style={{width : "min-content",padding:"15px",border:"solid 3px rgb(39, 40, 41)",borderRadius:"10px",margin : "auto",marginTop:"10px",display:"grid",gap:"20px",justifyContent : "center",justifyItems: "center"
                         ,gridTemplateColumns: `repeat(1,auto)`}}>
-                        {VectorB}
+                        {VectorBGenerate(matrixValuesB)}
                     </div>
                 </div>
             </div>

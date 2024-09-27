@@ -95,7 +95,7 @@ export function GaussElimination(mA, vB) {
             }
             vectorX[i] = (vectorB[i] - sum) / matrixA[i][i];
             vectorX[i] = math.round(vectorX[i], 12);
-            str = `x_${i+1} = \\frac{b_${i+1}^{${i>0?i:""}}${strback}}{a_{${i},${i}}^{${i>0?i:""}}} = \\frac{${vectorB[i]}${str}}{${matrixA[i][i]}} = ${vectorX[i]}`;
+            str = `x_${i+1} = \\frac{b_${i+1}^{${i>0?i:""}}${strback}}{a_{${i+1},${i+1}}^{${i>0?i:""}}} = \\frac{${vectorB[i]}${str}}{${matrixA[i][i]}} = ${vectorX[i]}`;
             backsub.push(str);
         }
         return ({
@@ -218,6 +218,8 @@ export function MatrixInv(mA, vB) {
             }
         }
 
+        const matrixI = matrixAinv.map(v=>v.map(n=>n));
+
         for (let i = 0; i < matrixA.length - 1; i++) {
             for (let j = i + 1; j < matrixA.length; j++) {
                 if(matrixA[j][i]==0){
@@ -287,6 +289,7 @@ export function MatrixInv(mA, vB) {
             matrixAinv : matrixAinv.map(v=>v.map(n => math.round(n,6))),
             vectorB: vB,
             vectorX: vectorX,
+            matrixI:matrixI,
             result: result,
         });
 
@@ -525,6 +528,7 @@ export function JacobiIteration(mA,vB,vX,Errors) {
             matrixA: mA,
             vectorB: vB,
             vectorX: math.round(vectorX,12),
+            vectorXiter:vX,
             erroriter: Errors,
             backsub: backsub,
             result: result,
@@ -598,6 +602,7 @@ export function GaussSeidelIteration(mA,vB,vX,Errors) {
             mode: "Gauss-Seidel_Iteration_Method",
             matrixA: mA,
             vectorB: vB,
+            vectorXiter:vX,
             vectorX: math.round(vectorX,12),
             erroriter: Errors,
             backsub: backsub,

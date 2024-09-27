@@ -146,10 +146,14 @@ function MatrixResult(props){
                 })}</div></>)
         } else if (result.mode == "gauss_jordan_Method") {
             return (<>
+            <div style={{ marginTop: "35px" }}><BlockMath math={`\\begin{bmatrix} \\begin{array}{cc} ${result.matrixA.map(row => row.join(' & ')).join(' \\\\ ')} \\end{array} 
+                \\begin{array}{|cc} ${result.vectorB.map(row => row).join(' \\\\ ')} \\end{array}   \\end{bmatrix} `} /></div>
                 <div>{GaussJordan(result)}</div>
             </>)
         } else if (result.mode == "matrix_inversion_method") {
             return(<>
+            <div style={{ marginTop: "35px" }}><BlockMath math={`\\begin{bmatrix} \\begin{array}{cc} ${result.matrixA.map(row => row.join(' & ')).join(' \\\\ ')} \\end{array} 
+                \\begin{array}{|cc} ${result.matrixI.map(row => row.join(' & ')).join(' \\\\ ')} \\end{array}   \\end{bmatrix} `} /></div>
             {MatrixInv(result)}
             </>)
         }else if(result.mode == "LU_Decomposition_Method"){
@@ -193,7 +197,7 @@ function MatrixResult(props){
             <div style={{ width: "max-content", height: "max-content", background: "rgb(255, 217, 51)", marginLeft: "auto", marginRight: "auto", marginTop: "10px", minWidth: "350px", border: "solid 5px rgb(39, 40, 41)", borderRadius: "15px", padding: "5px 5px 5px 5px" }}>
                 <div style={{ width: "100%", background: "rgb(255, 255, 255)", height: "100%", borderRadius: "10px", alignItems: "center", fontSize: "18px", padding: "15px" }}>
                     <div>Result</div>
-                    <div style={{ display: "flex" }}>{result.vectorX ? result.vectorX.map((v, i) => {
+                    <div style={{ display: "flex",justifyContent:"center" }}>{result.vectorX ? result.vectorX.map((v, i) => {
                         return (<div style={{ marginLeft: "12px", marginRight: "12px" }} key={i}><BlockMath math={`x_${i + 1} = ${v}`} /></div>)
                     }) : ""}</div>
                 </div>
