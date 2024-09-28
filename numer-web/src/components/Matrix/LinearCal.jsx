@@ -245,9 +245,9 @@ export function MatrixInv(mA, vB) {
             }
         }
 
-        for (let i = matrixA.length - 1; i > 0; i--) {
+        for (let i = matrixA[0].length - 1; i > 0; i--) {
             for (let j = i - 1; j >= 0; j--) {
-                if(matrixA[j][i]==0){
+                if(matrixA[j][i]==0||i>matrixA.length-1){
                     continue;
                 }
                 temp = [...matrixA[i]];
@@ -267,7 +267,10 @@ export function MatrixInv(mA, vB) {
             }
         }
 
-        for (let i = 0; i < matrixA.length; i++) {
+        for (let i = 0; i < matrixA[0].length; i++) {
+            if(i>matrixA.length-1){
+                continue;
+            }
             matrixAinv[i] = matrixAinv[i].map(n => (n/matrixA[i][i]))
             let str = `R_${i+1}=R_${i+1}/${matrixA[i][i]}`
             matrixA[i][i] /= matrixA[i][i];
