@@ -1,21 +1,39 @@
 import { im, number, re } from "mathjs";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import "./Matrix.css";
 import { width } from "@mui/system";
 import Button from '@mui/material/Button';
 import { CholeskyDecomposition, CramerRule, GaussElimination, GaussJordan, GaussSeidelIteration, JacobiIteration, LuDecomposition, MatrixInv } from "./LinearCal";
+import { CircularProgress,Box  } from '@mui/material';
+import { useLocation } from 'react-router-dom';
+import Swal from 'sweetalert2';
 function TableMatrix({ onDataChange }){
-    const [NumberN,setNumberN] = useState("");
-    const [NumberM,setNumberM] = useState("");
-    const [matrixValues, setMatrixValues] = useState([]);
-    const [Resutl,setResult] = useState([]);
-    const [VectorX,setVectorX] = useState([]);
-    const [VectorB,setVectorB] = useState([]);
-    const [matrixValuesB, setMatrixValuesB] = useState([]);
-    const [Mode,setMode] = useState("");
-    const [matrixValuesX, setMatrixValuesX] = useState([]);
-    const [matrixiterX, setMatrixiterX] = useState([]);
-    const [Erroriter, setErroriter] = useState("");
+
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
+    const modeselect = params.get("mode");
+    const Nselect = params.get("nsize");
+    const Mselect = params.get("msize");
+    const MatrixAselect = params.get("matrixa");
+    const VectorBselect = params.get("vectorb");
+    const VectorXselect = params.get("vectorx");
+    const Errorselect = params.get("error");
+
+    const [loading, setLoading] = useState(false);
+    const [NumberN,setNumberN] = useState(Nselect||"");
+    const [NumberM,setNumberM] = useState(Mselect||"");
+    useEffect(() => {
+        setLoading(true);
+        setTimeout(() => {
+            sendRequest();
+        }, 0);
+    }, [location]);
+    const [matrixValues, setMatrixValues] = useState(JSON.parse(MatrixAselect)||[]);
+    const [VectorX,setVectorX] = useState(JSON.parse(VectorXselect)||[]);
+    const [matrixValuesB, setMatrixValuesB] = useState(JSON.parse(VectorBselect)||[]);
+    const [Mode,setMode] = useState(modeselect||"");
+    const [matrixValuesX, setMatrixValuesX] = useState(JSON.parse(VectorXselect)||[]);
+    const [Erroriter, setErroriter] = useState(Errorselect||"");
     const limitmatrix = 10;
     const selectMethod = event =>{
         setMode(event.target.value)
@@ -174,7 +192,26 @@ function TableMatrix({ onDataChange }){
         }
     }
 
+    const checksuccess = (result) =>{
+        if(result.request=="success"){
+            Swal.fire({
+                title: "Success!",
+                text: "You has been success.",
+                icon: "success"
+              });
+        }else{
+            Swal.fire({
+                title: "Error!",
+                text: "Please check your equations.",
+                icon: "error"
+              });
+        }
+    }
+
     const sendRequest = async () => {
+        console.log(matrixValues)
+        setLoading(true);
+        setTimeout(() => {
         try{
             Number(matrixValues);
             Number(matrixValuesB);
@@ -182,32 +219,43 @@ function TableMatrix({ onDataChange }){
             Number(Erroriter);
             if(Mode=="cramer_Rule"){
                 const result = CramerRule(matrixValues,matrixValuesB);
+                checksuccess(result);
                 onDataChange(result);
             }else if(Mode=="gauss_elimination_method"){
                 const result = GaussElimination(matrixValues,matrixValuesB);
+                checksuccess(result);
                 onDataChange(result);
             }else if(Mode=="gauss_jordan_Method"){
                 const result = GaussJordan(matrixValues,matrixValuesB);
+                checksuccess(result);
                 onDataChange(result);
             }else if(Mode=="matrix_inversion_method"){
                 const result = MatrixInv(matrixValues,matrixValuesB);
+                checksuccess(result);
                 onDataChange(result);
             }else if(Mode=="LU_Decomposition_Method"){
                 const result = LuDecomposition(matrixValues,matrixValuesB);
+                checksuccess(result);
                 onDataChange(result);
             }else if(Mode=="Cholesky_Decomposition_Method"){
                 const result = CholeskyDecomposition(matrixValues,matrixValuesB);
+                checksuccess(result);
                 onDataChange(result);
             }else if(Mode=="Jacobi_Iteration_Method"){
                 const result = JacobiIteration(matrixValues,matrixValuesB,matrixValuesX,Erroriter);
+                checksuccess(result);
                 onDataChange(result);
             }else if(Mode=="Gauss-Seidel_Iteration_Method"){
                 const result = GaussSeidelIteration(matrixValues,matrixValuesB,matrixValuesX,Erroriter);
+                checksuccess(result);
                 onDataChange(result);
             }
+            setLoading(false);
         }catch(err){
-            console.log(err)
+            console.log(err);
+            setLoading(false);
         }
+        }, 0);
     }
     return(
         <div>
@@ -259,6 +307,24 @@ function TableMatrix({ onDataChange }){
                     {IsIterMode()}
                 </div>
             </div>
+            {loading && (
+                <Box
+                    style={{
+                        position: 'fixed',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        backgroundColor: 'rgba(255, 255, 255, 0.8)', // Semi-transparent background
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        zIndex: 9999
+                    }}
+                >
+                    <CircularProgress disableShrink />
+                </Box>
+            )}
             <Button variant="contained" color="success" style={{background : "#04AA6D"}} onClick={sendRequest}>
                 Submit
             </Button>
