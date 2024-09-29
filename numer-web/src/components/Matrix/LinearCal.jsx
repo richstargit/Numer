@@ -413,25 +413,25 @@ export function CholeskyDecomposition(mA, vB) {
 
         for (let i = 0; i < matrixA.length; i++) {
             for (let j = i; j < matrixA.length; j++) {
-                let str ="(";
+                let str ="";
+                let backsub = "";
                 let sum = 0;
                 for (let k = 0; k < matrixA.length; k++) {
                     sum += L[i][k] * LT[k][j];
-                    str+=(L[i][k] * LT[k][j]!=0&&k>0?" + ":"");
-                    str+=(L[i][k] * LT[k][j]==0?"":`(${math.round(L[i][k],6)})(${math.round(LT[k][j],6)})`);
+                    str+=(L[i][k] * LT[k][j]==0?"":` - (${math.round(L[i][k],6)})(${math.round(LT[k][j],6)})`);
+                    backsub+=(L[i][k] * LT[k][j]==0?"":` - L_{${i+1},${k+1}}L_{${k+1},${j+1}}^t`);
                 }
-                str+=")";
                 if (i == j) {
                     LT[i][j] = math.sqrt(matrixA[i][j] - sum);
                     L[j][i] = LT[i][j];
                     result.push({
-                        LT : str=="()"?`L_{${i+1},${j+1}}=\\sqrt{${math.round(matrixA[i][j],6)}} = ${L[j][i]}`:`L_{${i+1},${j+1}} = \\sqrt{${math.round(matrixA[i][j],6)} - ${str}} = ${math.round(L[j][i],6)}`,
+                        LT : `L_{${j+1},${i+1}} = \\sqrt{a_{${i+1},${j+1}}${backsub}} =\\sqrt{${math.round(matrixA[i][j],6)}${str}} = ${math.round(L[j][i],6)}`,
                     })
                 } else {
                     LT[i][j] = (matrixA[i][j] - sum) / L[i][i];
                     L[j][i] = LT[i][j];
                     result.push({
-                        LT : str=="()"?`L_{${i+1},${j+1}} = \\frac {${math.round(matrixA[i][j],6)}}{${math.round(L[i][i],6)}} = ${L[j][i]}`:`L_{${i+1},${j+1}} = \\frac {${math.round(matrixA[i][j],6)} - ${str}}{${math.round(L[i][i],6)}} = ${math.round(L[j][i],6)}`,
+                        LT : `L_{${j+1},${i+1}} = \\frac {a_{${i+1},${j+1}}${backsub}}{L_{${i+1},${i+1}}} = \\frac {${math.round(matrixA[i][j],6)}${str}}{${math.round(L[i][i],6)}} = ${math.round(L[j][i],6)}`,
                     })
                 }
             }
@@ -620,6 +620,55 @@ export function GaussSeidelIteration(mA,vB,vX,Errors) {
         return ({
             request: "failed",
             mode: "Gauss-Seidel_Iteration_Method",
+            errors: error
+        });
+    }
+}
+
+//conjugate gradient
+export function ConjugateGradient(mA,vB,vX,Errors) {
+    try {
+        let matrixA = mA.map(v => v.map(n => n));
+        let vectorB = vB.map(v => v);
+        let vectorX = vX.map(v => v);
+        let result = [];
+        const errors = Number(Errors);
+        let vectorR = math.subtract(math.multiply(matrixA, vectorX), vectorB);
+        let vectorD = math.multiply(-1, vectorR);
+        let round = 1;
+        do {
+            let lamda = -1 * (math.multiply(math.transpose(vectorD), vectorR)) / (math.multiply(math.multiply(math.transpose(vectorD), matrixA), vectorD));
+            vectorX = math.add(vectorX, math.multiply(lamda, vectorD));
+            vectorR = math.subtract(math.multiply(matrixA, vectorX), vectorB);
+            console.log(round + " " + math.round(vectorX, 6));
+            let alp = math.multiply(math.multiply(math.transpose(vectorR), matrixA), vectorD) / math.multiply(math.multiply(math.transpose(vectorD), matrixA), vectorD);
+            vectorD = math.subtract(vectorR, math.multiply(alp, vectorD));
+
+            result.push({
+                iter : round,
+                vectorX : math.round(vectorX,6),
+                errorX : [math.sqrt(math.multiply(math.transpose(vectorR), vectorR))]
+            })
+
+            round++;
+        } while (math.sqrt(math.multiply(math.transpose(vectorR), vectorR)) >= errors);
+
+        return ({
+            request: "success",
+            mode: "Conjugate_Gradient_Method",
+            matrixA: mA,
+            vectorB: vB,
+            vectorXiter:vX,
+            vectorX: math.round(vectorX,12),
+            erroriter: Errors,
+            result: result,
+        });
+
+    } catch (error) {
+        console.log(error);
+        return ({
+            request: "failed",
+            mode: "Conjugate_Gradient_Method",
             errors: error
         });
     }

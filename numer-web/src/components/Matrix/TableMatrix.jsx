@@ -3,7 +3,7 @@ import { useState,useEffect } from "react";
 import "./Matrix.css";
 import { width } from "@mui/system";
 import Button from '@mui/material/Button';
-import { CholeskyDecomposition, CramerRule, GaussElimination, GaussJordan, GaussSeidelIteration, JacobiIteration, LuDecomposition, MatrixInv } from "./LinearCal";
+import { CholeskyDecomposition, ConjugateGradient, CramerRule, GaussElimination, GaussJordan, GaussSeidelIteration, JacobiIteration, LuDecomposition, MatrixInv } from "./LinearCal";
 import { CircularProgress,Box  } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import Swal from 'sweetalert2';
@@ -177,7 +177,7 @@ function TableMatrix({ onDataChange }){
     }
 
     const IsIterMode = ()=>{
-        if(Mode=="Jacobi_Iteration_Method"||Mode=="Gauss-Seidel_Iteration_Method"){
+        if(Mode=="Jacobi_Iteration_Method"||Mode=="Gauss-Seidel_Iteration_Method"||Mode=="Conjugate_Gradient_Method"){
             return(<><div style={{ fontSize: "28px", background: "rgb(39, 40, 41)", width: "50px", padding: "5px", height: "50px", borderRadius: "15px", color: "rgb(255, 255, 255)", margin: "auto", marginTop: "10px" }}>Xi</div>
                 <div style={{
                     width: "min-content", padding: "15px", border: "solid 3px rgb(39, 40, 41)", borderRadius: "10px", margin: "auto", marginTop: "10px", display: "grid", gap: "20px", justifyContent: "center", justifyItems: "center"
@@ -247,6 +247,10 @@ function TableMatrix({ onDataChange }){
                 onDataChange(result);
             }else if(Mode=="Gauss-Seidel_Iteration_Method"){
                 const result = GaussSeidelIteration(matrixValues,matrixValuesB,matrixValuesX,Erroriter);
+                checksuccess(result);
+                onDataChange(result);
+            }else if(Mode=="Conjugate_Gradient_Method"){
+                const result = ConjugateGradient(matrixValues,matrixValuesB,matrixValuesX,Erroriter);
                 checksuccess(result);
                 onDataChange(result);
             }

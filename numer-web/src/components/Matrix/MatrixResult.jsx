@@ -3,6 +3,7 @@ import { BlockMath } from 'react-katex';
 import 'katex/dist/katex.min.css';
 import { useEffect, useState } from "react";
 import LinearIterationTable from './LinearIterationTable';
+import ConjugateGraph from './ConjugateGraph';
 
 function MatrixResult(props){
     const array = [[1, 2, 3], [1, 2, 3], [1, 2, 3]];
@@ -126,6 +127,10 @@ function MatrixResult(props){
         return result.backsub.map((v,i)=>(<BlockMath math={v} key={i}></BlockMath>))
     }
 
+    const ConjugateGradient = (result) =>{
+        
+    }
+
     const Requestdata = () => {
         console.log(result)
         if (result.mode == "cramer_Rule") {
@@ -172,6 +177,10 @@ function MatrixResult(props){
             return(<>
             {GaussSeidelIteration(result)}
             </>)
+        }else if(result.mode == "Conjugate_Gradient_Method"){
+            return(<>
+            {ConjugateGradient(result)}
+            </>)
         }
         return (<div></div>);
     }
@@ -184,6 +193,13 @@ function MatrixResult(props){
                 {result.request=="success"?Requestdata():(<div></div>)}
             </div>
             <div style={{marginTop:"35px",width:"80%",marginLeft:"auto",marginRight:"auto"}}><LinearIterationTable result={result}/></div></>)
+        }else if(result.mode=="Conjugate_Gradient_Method"){
+            return(<>
+            <div className="root-graph" style={{width : "60%",height : "500px",marginLeft :"auto",marginRight:"auto",overflow:"hidden"}}>
+                <ConjugateGraph/>
+            </div>
+            <div style={{marginTop:"35px",width:"80%",marginLeft:"auto",marginRight:"auto"}}><LinearIterationTable result={result}/></div>
+            </>)
         }else{
             return(<div style={{width:"80%",background:"rgb(255, 255, 255)",height:"",margin:"auto",paddingTop:"10px",paddingBottom:"10px",marginTop:"15px",borderRadius:"15px",border:"2px solid #272829"}}>
                 <div style={{fontSize:"22px"}}>Solution</div>
