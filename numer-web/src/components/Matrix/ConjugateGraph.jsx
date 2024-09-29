@@ -25,6 +25,7 @@ const ConjugateGraph3D = (props) => {
     if(props.result.request == "success"){
       if(result.matrixA.length>=2&&result.matrixA[0].length>=2){
       simulateConjugateGradient();
+      
       }
     }
   }, [result]);
