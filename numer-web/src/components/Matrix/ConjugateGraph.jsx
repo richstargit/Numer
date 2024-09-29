@@ -75,12 +75,12 @@ const ConjugateGraph3D = (props) => {
           zaxis: { title: 'Z Axis' },
         },
         autosize: true,
-        dragmode: Dimension?'turntable':'pan'
-      }}
-      config={{
-        scrollZoom: true,
-      }}
-    />
+            dragmode: Dimension ? 'turntable' : 'pan'
+          }}
+          config={{
+            scrollZoom: true,
+          }}
+        />
     </div>
     </>
   );
