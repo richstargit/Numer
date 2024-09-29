@@ -63,25 +63,25 @@ const ConjugateGraph3D = (props) => {
           line: {
             color: 'red',
             width: 2,
-          },
-          name: 'Conjugate Gradient Steps',
-        },
-      ]}
-      layout={{
-        title: 'Conjugate Graph',
-        scene: {
-          xaxis: { title: 'X Axis' },
-          yaxis: { title: 'Y Axis' },
-          zaxis: { title: 'Z Axis' },
-        },
-        autosize: true,
+              },
+              name: 'Conjugate Gradient Steps',
+            },
+          ]}
+          layout={{
+            title: 'Conjugate Graph',
+            scene: {
+              xaxis: { title: 'X Axis' },
+              yaxis: { title: 'Y Axis' },
+              zaxis: { title: 'Z Axis' },
+            },
+            autosize: true,
             dragmode: Dimension ? 'turntable' : 'pan'
           }}
           config={{
             scrollZoom: true,
           }}
         />
-    </div>
+      </div>
     </>
   );
 };
