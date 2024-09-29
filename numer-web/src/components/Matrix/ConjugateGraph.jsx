@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Plot from 'react-plotly.js';
+import Switch from '@mui/material/Switch';
+import { e } from 'mathjs';
 
 const ConjugateGraph3D = (props) => {
   const result = props.result;
+  const [Dimension,setDimension] = useState(true);
   const Sol = (x,y) => {
     if(result.request == "success"){
       if(result.matrixA.length>=2&&result.matrixA[0].length>=2)
@@ -35,13 +38,16 @@ const ConjugateGraph3D = (props) => {
   const zValues = xValues.map((x) => yValues.map((y) => Sol(x, y)));
 
   return (
+    <>
+    <div style={{marginTop:"15px"}}>2D<Switch checked={Dimension} onChange={() => setDimension(!Dimension)} name="dimension"color="primary"/>3D</div>
+    <div className="root-graph" style={{width : "60%",height : "500px",marginLeft :"auto",marginRight:"auto",overflow:"hidden"}}>
     <Plot
       data={[
         {
           z: zValues,
           x: xValues,
           y: yValues,
-          type: 'surface',
+          type: Dimension?'surface':'contour',
           colorscale: 'Jet',
         },
         {
@@ -49,7 +55,7 @@ const ConjugateGraph3D = (props) => {
           y: steps.map((s) => s.y),
           z: steps.map((s) => s.z),
           mode: 'lines+markers',
-          type: 'scatter3d',
+          type: Dimension?'scatter3d':'scatter',
           marker: {
             color: 'red',
             size: 5,
@@ -62,15 +68,21 @@ const ConjugateGraph3D = (props) => {
         },
       ]}
       layout={{
-        title: '3D Conjugate Graph',
+        title: 'Conjugate Graph',
         scene: {
           xaxis: { title: 'X Axis' },
           yaxis: { title: 'Y Axis' },
           zaxis: { title: 'Z Axis' },
         },
-        autosize: true
+        autosize: true,
+        dragmode: Dimension?'turntable':'pan'
+      }}
+      config={{
+        scrollZoom: true,
       }}
     />
+    </div>
+    </>
   );
 };
 

@@ -195,10 +195,8 @@ function MatrixResult(props){
             <div style={{marginTop:"35px",width:"80%",marginLeft:"auto",marginRight:"auto"}}><LinearIterationTable result={result}/></div></>)
         }else if(result.mode=="Conjugate_Gradient_Method"){
             return(<>
-            <div className="root-graph" style={{width : "60%",height : "500px",marginLeft :"auto",marginRight:"auto",overflow:"hidden"}}>
                 <ConjugateGraph result={result}/>
                 {Requestdata()}
-            </div>
             <div style={{marginTop:"35px",width:"80%",marginLeft:"auto",marginRight:"auto"}}><LinearIterationTable result={result}/></div>
             </>)
         }else{
