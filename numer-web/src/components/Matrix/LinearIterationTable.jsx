@@ -8,6 +8,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { BlockMath } from 'react-katex';
+import { create, all, mode } from 'mathjs';
+
+const math = create(all);
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -52,9 +55,9 @@ function LinearIterationTable(props) {
                 {row.iter}
               </StyledTableCell>
               <StyledTableCell component="th" scope="row">
-              <div style={{display:"flex"}}><BlockMath math={`\\begin{bmatrix} \\begin{array}{cc} ${row.vectorX.join(' \\\\ ')} \\end{array}   \\end{bmatrix} `}/></div>
+              <div style={{display:"flex"}}><BlockMath math={`\\begin{bmatrix} \\begin{array}{cc} ${row.vectorX.map(v=>math.round(v,6)).join(' \\\\ ')} \\end{array}   \\end{bmatrix} `}/></div>
               </StyledTableCell >
-              <StyledTableCell component="th" scope="row"><div style={{display:"flex"}}><BlockMath math={`\\begin{bmatrix} \\begin{array}{cc} ${row.errorX.join(' \\\\ ')} \\end{array}   \\end{bmatrix} `}/></div></StyledTableCell>
+              <StyledTableCell component="th" scope="row"><div style={{display:"flex"}}><BlockMath math={`\\begin{bmatrix} \\begin{array}{cc} ${row.errorX.map(v=>math.round(v,6)).join(' \\\\ ')} \\end{array}   \\end{bmatrix} `}/></div></StyledTableCell>
             </StyledTableRow>
           )) : <StyledTableRow></StyledTableRow>}
         </TableBody>

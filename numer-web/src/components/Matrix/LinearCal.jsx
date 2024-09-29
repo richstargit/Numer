@@ -511,7 +511,7 @@ export function JacobiIteration(mA,vB,vX,Errors) {
             Error = [];
             check = 0;
             for(let i =0;i<vectorX.length;i++){
-                Error.push(math.round(math.abs(vectorX[i]-vectorxold[i]),6))
+                Error.push(math.abs(vectorX[i]-vectorxold[i]))
                 if(math.abs(vectorX[i]-vectorxold[i])>=errors){
                     check= 1;
                 }
@@ -519,7 +519,7 @@ export function JacobiIteration(mA,vB,vX,Errors) {
 
             result.push({
                 iter : round,
-                vectorX : math.round(vectorX,6),
+                vectorX : vectorX,
                 errorX : Error
             })
             round++;
@@ -586,7 +586,7 @@ export function GaussSeidelIteration(mA,vB,vX,Errors) {
             Error = [];
             check = 0;
             for(let i =0;i<vectorX.length;i++){
-                Error.push(math.round(math.abs(vectorX[i]-vectorxold[i]),6))
+                Error.push(math.abs(vectorX[i]-vectorxold[i]))
                 if(math.abs(vectorX[i]-vectorxold[i])>=errors){
                     check= 1;
                 }
@@ -594,7 +594,7 @@ export function GaussSeidelIteration(mA,vB,vX,Errors) {
 
             result.push({
                 iter : round,
-                vectorX : math.round(vectorX,6),
+                vectorX : vectorX,
                 errorX : Error
             })
             round++;
@@ -640,13 +640,12 @@ export function ConjugateGradient(mA,vB,vX,Errors) {
             let lamda = -1 * (math.multiply(math.transpose(vectorD), vectorR)) / (math.multiply(math.multiply(math.transpose(vectorD), matrixA), vectorD));
             vectorX = math.add(vectorX, math.multiply(lamda, vectorD));
             vectorR = math.subtract(math.multiply(matrixA, vectorX), vectorB);
-            console.log(round + " " + math.round(vectorX, 6));
             let alp = math.multiply(math.multiply(math.transpose(vectorR), matrixA), vectorD) / math.multiply(math.multiply(math.transpose(vectorD), matrixA), vectorD);
             vectorD = math.subtract(vectorR, math.multiply(alp, vectorD));
 
             result.push({
                 iter : round,
-                vectorX : math.round(vectorX,6),
+                vectorX : vectorX,
                 errorX : [math.sqrt(math.multiply(math.transpose(vectorR), vectorR))]
             })
 
