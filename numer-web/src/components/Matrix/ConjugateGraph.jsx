@@ -41,7 +41,7 @@ const ConjugateGraph3D = (props) => {
     <>
     <div style={{marginTop:"15px"}}>2D<Switch checked={Dimension} onChange={() => setDimension(!Dimension)} name="dimension"color="primary"/>3D</div>
     <div className="root-graph" style={{width : "60%",height : "500px",marginLeft :"auto",marginRight:"auto",overflow:"hidden"}}>
-    <Plot
+    <Plot style={{width:"100%",height:"100%"}}
       data={[
         {
           z: zValues,
@@ -75,6 +75,7 @@ const ConjugateGraph3D = (props) => {
               zaxis: { title: 'Z Axis' },
             },
             autosize: true,
+            margin: { t: 35, r: 15, b: 35, l: 35 },
             dragmode: Dimension ? 'turntable' : 'pan'
           }}
           config={{
