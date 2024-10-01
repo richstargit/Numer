@@ -57,8 +57,11 @@ const ConjugateGraph3D = (props) => {
               mode: 'lines+markers',
               type: Dimension ? 'scatter3d' : 'scatter',
               marker: {
+                symbol:'arrow',
+                angleref:"previous",
+                standoff:3,
                 color: 'red',
-                size: 5,
+                size: Dimension ?5:10,
               },
               line: {
                 color: 'red',
