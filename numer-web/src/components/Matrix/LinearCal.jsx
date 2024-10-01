@@ -86,12 +86,18 @@ export function GaussElimination(mA, vB) {
             let sum = 0;
             let str= ``;
             let strback = ``;
+            if(i>matrixA.length-1){
+                continue;
+            }
             for (let j = matrixA[0].length - 1; j > i; j--) {
+                if(j>matrixA.length-1){
+                    continue;
+                }
                 sum += matrixA[i][j] * vectorX[j];
                 if(matrixA[i][j] * vectorX[j]!=0){
                     str+=` - (${math.round(matrixA[i][j],6)})(${math.round(vectorX[j],6)})`;
                 }
-                strback+= ` - a_{${i},${j}}^{${i>0?i:""}}x_{${i+1}}`;
+                strback+= ` - a_{${i+1},${j+1}}^{${i>0?i:""}}x_{${i+1}}`;
             }
             vectorX[i] = (vectorB[i] - sum) / matrixA[i][i];
             vectorX[i] = math.round(vectorX[i], 12);
@@ -332,11 +338,17 @@ export function LuDecomposition(mA, vB) {
             }
         }
         for (let i = 0; i < matrixA.length; i++) {
+            if(i>matrixA[0].length-1){
+                continue;
+            }
             for (let j = 0; j < matrixA[i].length; j++) {
                 let str =``;
                 let backsub = ``;
                 let sum = 0;
-                for (let k = 0; k < matrixA.length; k++) {
+                for (let k = 0; k < matrixA[0].length; k++) {
+                    if(k>matrixA.length-1){
+                        continue;
+                    }
                     sum += L[i][k] * U[k][j];
                     str+=(L[i][k] * U[k][j]==0?``:` - (${math.round(L[i][k],6)})(${math.round(U[k][j],6)})`);
                     backsub+=(L[i][k] * U[k][j]==0?``:` - L_{${i+1},${k+1}}U_{${k+1},${j+1}}`);
