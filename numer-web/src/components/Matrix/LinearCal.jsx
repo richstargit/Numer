@@ -338,20 +338,20 @@ export function LuDecomposition(mA, vB) {
             }
         }
         for (let i = 0; i < matrixA.length; i++) {
-            if(i>matrixA[0].length-1){
+            if (i > matrixA[0].length - 1) {
                 continue;
             }
             for (let j = 0; j < matrixA[i].length; j++) {
-                let str =``;
+                let str = ``;
                 let backsub = ``;
                 let sum = 0;
                 for (let k = 0; k < matrixA[0].length; k++) {
-                    if(k>matrixA.length-1){
+                    if (k > matrixA.length - 1) {
                         continue;
                     }
                     sum += L[i][k] * U[k][j];
-                    str+=(L[i][k] * U[k][j]==0?``:` - (${math.round(L[i][k],6)})(${math.round(U[k][j],6)})`);
-                    backsub+=(L[i][k] * U[k][j]==0?``:` - L_{${i+1},${k+1}}U_{${k+1},${j+1}}`);
+                    str += (L[i][k] * U[k][j] == 0 ? `` : ` - (${math.round(L[i][k], 6)})(${math.round(U[k][j], 6)})`);
+                    backsub += (L[i][k] * U[k][j] == 0 ? `` : ` - L_{${i + 1},${k + 1}}U_{${k + 1},${j + 1}}`);
                 }
                 if (j <= i) {
                     L[i][j] = (matrixA[i][j] - sum) / U[i][i];
