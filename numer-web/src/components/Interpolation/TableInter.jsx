@@ -40,11 +40,11 @@ function TableInter() {
         }
     }
 
-    const ChangeValueX = () => {
+    const ChangeValueX = (i) => {
 
     }
 
-    const ChangeValueY = () => {
+    const ChangeValueY = (i) => {
 
     }
 
@@ -57,8 +57,8 @@ function TableInter() {
                     width: "35px", height: "35px", textAlign: "center", border: "solid 3px rgb(39, 40, 41)", borderRadius: "10px", backgroundColor: "rgb(39, 40, 41)", display: 'flex', alignItems: 'center', fontSize: "18px"
                     , justifyContent: 'center', color: "rgb(255, 255, 255)"
                 }}>{i + 1}</div>
-                <input className="input-display" type="number" onChange={ChangeValueX} value={NumberN} placeholder="X" style={{ marginLeft: "10px", marginRight: "10px", width: "150px" }} />
-                <input className="input-display" type="number" onChange={ChangeValueY} value={NumberN} placeholder="Y" style={{ marginLeft: "10px", marginRight: "10px", width: "150px" }} />
+                <input className="input-display" type="number" onChange={ChangeValueX(i)} value={NumberN} placeholder="X" style={{ marginLeft: "10px", marginRight: "10px", width: "150px" }} />
+                <input className="input-display" type="number" onChange={ChangeValueY(i)} value={NumberN} placeholder="Y" style={{ marginLeft: "10px", marginRight: "10px", width: "150px" }} />
             </div>);
         }
         return result;
