@@ -88,6 +88,9 @@ img{
     text-decoration: none;
     color: #000000;
     transition: 0.25s;
+    display: flex;
+    width: max-content;
+    max-width: 200px;
 }
 
 .sidetext:hover{

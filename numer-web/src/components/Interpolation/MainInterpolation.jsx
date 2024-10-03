@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import TableInter from "./TableInter";
+import InterResult from "./InterResultTable";
 
 function MainInterpolation(){
     const [DataResult,setData] = useState("");
@@ -12,7 +13,8 @@ function MainInterpolation(){
     return(
         <div className="home-text">
             <div style={{fontSize:"32px",marginBottom:"16px"}}>Interpolation and Extrapolation</div>
-            <TableInter/>
+            <TableInter onDataChange={handleDataChange}/>
+            <div style={{marginTop:"35px",width:"80%",marginLeft:"auto",marginRight:"auto"}}><InterResult result = {DataResult}/></div>
         </div>
     )
 }

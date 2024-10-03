@@ -25,6 +25,12 @@ function Navbar(){
             "name":"Linear Algebraic",
             "path": "/linear",
             "cname":"sidetext"
+        },
+        {
+            "id":4,
+            "name":"Interpolation and extrapolation",
+            "path": "/interpolation",
+            "cname":"sidetext"
         }
       ];
 
