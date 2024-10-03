@@ -6,6 +6,7 @@ import './index.css'
 import Home from './components/Home/Home.jsx';
 import Root_of_equations from './components/Root/MainRoot.jsx'
 import MainLinear from './components/Matrix/MainLinear.jsx'
+import MainInterpolation from './components/Interpolation/MainInterpolation.jsx';
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: 'linear',
         element: <MainLinear />,
+      },
+      {
+        path: 'interpolation',
+        element: <MainInterpolation />,
       }
     ],
   },
