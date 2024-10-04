@@ -31,6 +31,12 @@ function Navbar(){
             "name":"Interpolation and extrapolation",
             "path": "/interpolation",
             "cname":"sidetext"
+        },
+        {
+            "id":5,
+            "name":"Least-squares regression",
+            "path": "/leastsquares",
+            "cname":"sidetext"
         }
       ];
 
