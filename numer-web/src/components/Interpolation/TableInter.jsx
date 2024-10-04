@@ -144,6 +144,7 @@ function TableInter({ onDataChange }) {
                 const result = NewtonDivided(Xsend,Ysend,ResultX);
                 checksuccess(result);
                 onDataChange(result);
+                console.log(result)
             }else if(Mode=="lagrange_interpolation"){
                 const result = Lagrange(Xsend,Ysend,ResultX);
                 checksuccess(result);
