@@ -33,6 +33,7 @@ export function NewtonDivided(x, y, xresult) {
             mode: "newton_divided",
             X:X,
             Y:Y,
+            C:C,
             result: result
         });
 
@@ -123,6 +124,7 @@ export function Spline(x, y, xresult) {
             mode: "spline",
             X:X,
             Y:Y,
+            M:M,
             result: result
         });
 
