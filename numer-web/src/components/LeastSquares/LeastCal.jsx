@@ -1,4 +1,4 @@
-import { create, all} from 'mathjs';
+import { create, all } from 'mathjs';
 
 const math = create(all);
 
@@ -49,14 +49,14 @@ export function SimpleRegression(xsend, y, xresult, order) {
 
         const A = math.multiply(math.inv(Matrix), Vector);
 
-        for(let r=0;r<x.length;r++){
+        for (let r = 0; r < x.length; r++) {
             let sum = 0;
             for (let i = 0; i < M + 1; i++) {
                 sum += A[i] * math.pow(x[r], i);
             }
             result.push({
-                x:x[r],
-                y:sum
+                x: x[r],
+                y: sum
             })
         }
         return ({
@@ -83,48 +83,48 @@ export function SimpleRegression(xsend, y, xresult, order) {
 export function MultipleRegression(xsend, y, xresult) {
     try {
         const Xin = math.transpose(math.number(xsend));
-        const X = [Array(Xin[0].length).fill(1),...Xin];
+        const X = [Array(Xin[0].length).fill(1), ...Xin];
         const Y = math.number(y)
         const x = math.number(xresult);
         const K = X.length;
-        const Matrix = Array(K).fill().map(()=>Array(K).fill(0));
+        const Matrix = Array(K).fill().map(() => Array(K).fill(0));
         console.log(Matrix)
         const Vector = Array(K).fill(0);
         const result = []
 
-        const SumAB = (A,B)=>{
+        const SumAB = (A, B) => {
             let sum = 0;
-            for(let i=0;i<A.length;i++){
-                sum+=A[i]*B[i];
+            for (let i = 0; i < A.length; i++) {
+                sum += A[i] * B[i];
             }
             return sum;
         }
 
-        for(let i=0;i<K;i++){
-            for(let j=0+i;j<K;j++){
-                if(i==0&&j==0){
-                    Matrix[i][j]=X[i].length;
-                }else if(i==j){
-                    const sum = SumAB(X[i],X[j]);
+        for (let i = 0; i < K; i++) {
+            for (let j = 0 + i; j < K; j++) {
+                if (i == 0 && j == 0) {
+                    Matrix[i][j] = X[i].length;
+                } else if (i == j) {
+                    const sum = SumAB(X[i], X[j]);
                     Matrix[i][j] = sum;
-                }else{
-                    const sum = SumAB(X[i],X[j]);
+                } else {
+                    const sum = SumAB(X[i], X[j]);
                     Matrix[i][j] = sum;
                     Matrix[j][i] = sum;
                 }
             }
-            Vector[i]=SumAB(Y,X[i]);
+            Vector[i] = SumAB(Y, X[i]);
         }
 
-        const A = math.multiply(math.inv(Matrix),Vector);
-        for(let r = 0;r<x.length;r++){
+        const A = math.multiply(math.inv(Matrix), Vector);
+        for (let r = 0; r < x.length; r++) {
             let sum = 0;
-            for(let i=0;i<K;i++){
-                sum+=A[i]*(i-1<0?1:x[r][i-1]);
+            for (let i = 0; i < K; i++) {
+                sum += A[i] * (i - 1 < 0 ? 1 : x[r][i - 1]);
             }
             result.push({
-                x:x[r],
-                y:sum
+                x: x[r],
+                y: sum
             })
         }
         return ({
