@@ -54,7 +54,7 @@ function LeastResultTable(props) {
               <StyledTableCell component="th" scope="row">
                 {i+1}
               </StyledTableCell>
-              <StyledTableCell component="th" scope="row">{row.x}</StyledTableCell >
+              <StyledTableCell component="th" scope="row">{Array.isArray(row.x)?row.x.join(","):row.x}</StyledTableCell >
               <StyledTableCell component="th" scope="row">{row.y?row.y:""}</StyledTableCell>
             </StyledTableRow>
           )) : <StyledTableRow></StyledTableRow>}

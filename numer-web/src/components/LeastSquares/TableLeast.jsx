@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import Swal from 'sweetalert2';
 import { CircularProgress, Box } from '@mui/material';
 import { matrix, mode } from "mathjs";
+import { MultipleRegression, SimpleRegression } from "./LeastCal";
 
 function TableLeast({ onDataChange }) {
 
@@ -73,7 +74,8 @@ function TableLeast({ onDataChange }) {
         if (numbermatrix > 0 && numbermatrix <= maxsize && N > 0 && N <= maxsize) {
             const result = Array(N).fill().map(() => Array(numbermatrix).fill(0));
             setTableValuesXK(result);
-            setResultXK(Array(NumberX).fill().map(() => Array(numbermatrix).fill(0)))
+            const resultxk = Array(parseInt(NumberX?NumberX:0)).fill().map(() => Array(numbermatrix).fill(0));
+            setResultXK(resultxk)
         }
     }
 
@@ -204,22 +206,30 @@ function TableLeast({ onDataChange }) {
     const sendRequest = async () => {
         const Xsend = [];
         const Ysend = [];
+        const XKsend = [];
         TableChecked.map((v, i) => {
             if (v == true) {
-                Xsend.push(TableValuesXK[i]);
+                Xsend.push(TableValuesX[i]);
                 Ysend.push(TableValuesY[i]);
+                XKsend.push(TableValuesXK[i])
             }
         })
-        console.log({ x: Xsend, y: Ysend, xsol: ResultX });
         setLoading(true);
         setTimeout(() => {
             try {
 
                 if (Mode == "simple_regression") {
-                    // const result = NewtonDivided(Xsend,Ysend,ResultX);
-                    // checksuccess(result);
-                    // onDataChange(result);
-                    // console.log(result)
+                    console.log({ x: Xsend, y: Ysend, m: OrderM,xsol: ResultX });
+                    const result = SimpleRegression(Xsend,Ysend,ResultX,OrderM);
+                    checksuccess(result);
+                    onDataChange(result);
+                    console.log(result)
+                }else if(Mode == "multiple_linear_regression"){
+                    console.log({ x: XKsend, y: Ysend, k: NumberK,xsol: ResultXK });
+                    const result = MultipleRegression(XKsend,Ysend,ResultXK);
+                    checksuccess(result);
+                    onDataChange(result);
+                    console.log(result)
                 }
                 setLoading(false);
             } catch (err) {
