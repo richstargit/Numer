@@ -219,17 +219,13 @@ function TableLeast({ onDataChange }) {
             try {
 
                 if (Mode == "simple_regression") {
-                    console.log({ x: Xsend, y: Ysend, m: OrderM,xsol: ResultX });
                     const result = SimpleRegression(Xsend,Ysend,ResultX,OrderM);
                     checksuccess(result);
                     onDataChange(result);
-                    console.log(result)
                 }else if(Mode == "multiple_linear_regression"){
-                    console.log({ x: XKsend, y: Ysend, k: NumberK,xsol: ResultXK });
                     const result = MultipleRegression(XKsend,Ysend,ResultXK);
                     checksuccess(result);
                     onDataChange(result);
-                    console.log(result)
                 }
                 setLoading(false);
             } catch (err) {
