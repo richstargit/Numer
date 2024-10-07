@@ -6,21 +6,6 @@ import { e } from 'mathjs';
 const LeastGraph = (props) => {
   const result = props.result;
 
-//   useEffect(() => {
-//     const simulateConjugateGradient = () => {
-//       const stepData = [];
-//       result.X.map((v,i)=>stepData.push({
-//         x:result.X[i],
-//         y:result.Y[i]
-//       }))
-//       setValue(stepData);
-//     };
-//     if (props.result.request == "success") {
-//         simulateConjugateGradient();
-//     }
-//   }, [result]);
-
-
   return (
     <>
       <div className="root-graph" style={{ width: "60%", height: "500px", marginLeft: "auto", marginRight: "auto", overflow: "hidden" }}>
