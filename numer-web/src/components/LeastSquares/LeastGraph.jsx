@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Plot from 'react-plotly.js';
-import Switch from '@mui/material/Switch';
-import { e } from 'mathjs';
 
 const LeastGraph = (props) => {
   const result = props.result;
