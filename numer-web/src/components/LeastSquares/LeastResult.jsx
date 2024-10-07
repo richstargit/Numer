@@ -20,7 +20,7 @@ function LeastResult(props){
             }
         }
     }
-
+    
     return (
         <>
             <div style={{width:"80%",background:"rgb(255, 255, 255)",height:"",margin:"auto",paddingTop:"10px",paddingBottom:"10px",marginTop:"15px",borderRadius:"15px",border:"2px solid #272829",marginBottom:"15px"}}>
