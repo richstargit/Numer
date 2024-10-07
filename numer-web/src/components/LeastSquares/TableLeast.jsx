@@ -74,7 +74,7 @@ function TableLeast({ onDataChange }) {
         if (numbermatrix > 0 && numbermatrix <= maxsize && N > 0 && N <= maxsize) {
             const result = Array(N).fill().map(() => Array(numbermatrix).fill(0));
             setTableValuesXK(result);
-            const resultxk = Array(parseInt(NumberX?NumberX:0)).fill().map(() => Array(numbermatrix).fill(0));
+            const resultxk = Array(parseInt(NumberX ? NumberX : 0)).fill().map(() => Array(numbermatrix).fill(0));
             setResultXK(resultxk)
         }
     }
@@ -142,7 +142,7 @@ function TableLeast({ onDataChange }) {
     const MultipleResult = (n, i) => {
         const result = [];
         for (let j = 0; j < n; j++) {
-            result.push(<input key={i + "" + j} className="input-display" type="number" onChange={(event) => ChangeResultXK(i, j, event)} value={ResultXK[i]?ResultXK[i][j]:""} placeholder={"X" + (i + 1)+","+(j+1)} style={{ marginLeft: "10px", marginRight: "10px", width: "80px" }} />)
+            result.push(<input key={i + "" + j} className="input-display" type="number" onChange={(event) => ChangeResultXK(i, j, event)} value={ResultXK[i] ? ResultXK[i][j] : ""} placeholder={"X" + (i + 1) + "," + (j + 1)} style={{ marginLeft: "10px", marginRight: "10px", width: "80px" }} />)
         }
         return result;
     }
@@ -179,10 +179,10 @@ function TableLeast({ onDataChange }) {
         return result;
     }
 
-    const TableResultX = (value,mode) => {
+    const TableResultX = (value, mode) => {
         const result = [];
         for (let i = 0; i < value.length; i++) {
-            result.push(<span key={i}>{mode=="multiple_linear_regression"?(MultipleResult(NumberK,i)):(<input className="input-display" type="number" onChange={(event) => ChangeResultX(i, event)} value={ResultX[i]} placeholder={"X" + (i + 1)} style={{ marginLeft: "10px", marginRight: "10px", width: "80px" }} />)},</span>);
+            result.push(<span key={i}>{mode == "multiple_linear_regression" ? (MultipleResult(NumberK, i)) : (<input className="input-display" type="number" onChange={(event) => ChangeResultX(i, event)} value={ResultX[i]} placeholder={"X" + (i + 1)} style={{ marginLeft: "10px", marginRight: "10px", width: "80px" }} />)},</span>);
         }
         return result;
     }
@@ -219,11 +219,11 @@ function TableLeast({ onDataChange }) {
             try {
 
                 if (Mode == "simple_regression") {
-                    const result = SimpleRegression(Xsend,Ysend,ResultX,OrderM);
+                    const result = SimpleRegression(Xsend, Ysend, ResultX, OrderM);
                     checksuccess(result);
                     onDataChange(result);
-                }else if(Mode == "multiple_linear_regression"){
-                    const result = MultipleRegression(XKsend,Ysend,ResultXK);
+                } else if (Mode == "multiple_linear_regression") {
+                    const result = MultipleRegression(XKsend, Ysend, ResultXK);
                     checksuccess(result);
                     onDataChange(result);
                 }
@@ -254,7 +254,7 @@ function TableLeast({ onDataChange }) {
             </div>
 
             <div style={{ marginTop: "30px", fontSize: "22px", display: "flex", justifyContent: "center", alignItems: "center", width: "80%", marginLeft: "auto", marginRight: "auto" }}>Find <input className="input-display" type="number" onChange={changeNumberX} value={NumberX} placeholder="X" style={{ marginLeft: "10px", marginRight: "10px", width: "100px" }} />
-                X = {'\{'} {(<div>{TableResultX(ResultX,Mode)}
+                X = {'\{'} {(<div>{TableResultX(ResultX, Mode)}
                 </div>)} {'\}'}</div>
             {loading && (
                 <Box
