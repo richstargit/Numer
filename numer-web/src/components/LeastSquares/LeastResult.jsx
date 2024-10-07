@@ -12,8 +12,6 @@ function LeastResult(props){
             result.A.map((_,i)=>{sol+=`${i>0?" + ":""}a_{${i}}${i>0?`x^{${i==1?"":i}}`:""}`})
             return(<>{result.A.map((v,i)=>(<div key={i}><BlockMath math={`a_{${i}} = ${v}`}/></div>))}{<BlockMath math={sol}/>}</>);
         }else if(result.mode=="multiple_linear_regression"){
-            // let x = "";
-            // result.A.map((_,i)=>{x+=`${i>0?`x_${i}`:""}${i+1<result.A.l}`})
             const x =  result.A.map((_,i)=>(`${i>0?`x_${i}`:""}`));
             let sol = `f(${x.slice(1).join(",")}) = `;
             result.A.map((_,i)=>{sol+=`${i>0?" + ":""}a_{${i}}${i>0?`x_{${i==1?"":i}}`:""}`})
