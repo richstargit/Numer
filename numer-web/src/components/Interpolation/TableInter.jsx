@@ -4,16 +4,26 @@ import Button from '@mui/material/Button';
 import Swal from 'sweetalert2';
 import { CircularProgress,Box  } from '@mui/material';
 import { Lagrange, NewtonDivided, Spline } from "./InterCal";
+import { useLocation } from 'react-router-dom';
 
 function TableInter({ onDataChange }) {
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
+    const modeselect = params.get("mode");
+    const Nselect = params.get("nsize");
+    const Xselect = params.get("xsize");
+    const TableX = params.get("tablex");
+    const TableY = params.get("tabley");
+    const Rex = params.get("resultx");
+    const TableCheck = params.get("check");
 
-    const [NumberN, setNumberN] = useState("");
-    const [NumberX, setNumberX] = useState("");
-    const [TableValuesX, setTableValuesX] = useState([]);
-    const [TableValuesY, setTableValuesY] = useState([]);
-    const [TableChecked, setTableChecked] = useState([]);
-    const [ResultX, setResultX] = useState([]);
-    const [Mode,setMode] = useState("");
+    const [NumberN, setNumberN] = useState(Nselect||"");
+    const [NumberX, setNumberX] = useState(Xselect||"");
+    const [TableValuesX, setTableValuesX] = useState(TableX||[]);
+    const [TableValuesY, setTableValuesY] = useState(TableY||[]);
+    const [TableChecked, setTableChecked] = useState(TableCheck||[]);
+    const [ResultX, setResultX] = useState(Rex||[]);
+    const [Mode,setMode] = useState(modeselect||"");
     const [loading, setLoading] = useState(false);
     const maxsize = 100;
 
@@ -115,8 +125,18 @@ function TableInter({ onDataChange }) {
             Swal.fire({
                 title: "Success!",
                 text: "You has been success.",
-                icon: "success"
-              });
+                icon: "success",
+                showCancelButton: true,
+                confirmButtonText: "Save"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Success!",
+                        text: "You has been success.",
+                        icon: "success"
+                      });
+                }
+            });
         }else{
             Swal.fire({
                 title: "Error!",

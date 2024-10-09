@@ -66,6 +66,8 @@ export function SimpleRegression(xsend, y, xresult, order) {
             Y: Y,
             M: M,
             A: A,
+            Matrix:Matrix,
+            Vector:Vector,
             result: result
         });
 
@@ -134,6 +136,8 @@ export function MultipleRegression(xsend, y, xresult) {
             Y: Y,
             K: K,
             A: A,
+            Matrix:Matrix,
+            Vector:Vector,
             result: result
         });
 

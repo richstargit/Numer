@@ -5,22 +5,44 @@ import Swal from 'sweetalert2';
 import { CircularProgress, Box } from '@mui/material';
 import { matrix, mode } from "mathjs";
 import { MultipleRegression, SimpleRegression } from "./LeastCal";
+import { useLocation } from 'react-router-dom';
 
 function TableLeast({ onDataChange }) {
 
-    const [NumberN, setNumberN] = useState("");
-    const [NumberX, setNumberX] = useState("");
-    const [OrderM, setOrderM] = useState("");
-    const [NumberK, setNumberK] = useState("");
-    const [TableValuesX, setTableValuesX] = useState([]);
-    const [TableValuesXK, setTableValuesXK] = useState([]);
-    const [TableValuesY, setTableValuesY] = useState([]);
-    const [TableChecked, setTableChecked] = useState([]);
-    const [ResultX, setResultX] = useState([]);
-    const [ResultXK, setResultXK] = useState([]);
-    const [Mode, setMode] = useState("");
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
+    const modeselect = params.get("mode");
+    const Nselect = params.get("nsize");
+    const Xselect = params.get("xsize");
+    const Mselect = params.get("msize");
+    const Kselect = params.get("Ksize");
+    const TableX = params.get("tablex");
+    const TableXK = params.get("tablexk");
+    const TableY = params.get("tabley");
+    const Rex = params.get("resultx");
+    const Rexk = params.get("resultxk");
+    const TableCheck = params.get("check");
+
+    const [NumberN, setNumberN] = useState(Nselect||"");
+    const [NumberX, setNumberX] = useState(Xselect||"");
+    const [OrderM, setOrderM] = useState(Mselect||"");
+    const [NumberK, setNumberK] = useState(Kselect||"");
+    const [TableValuesX, setTableValuesX] = useState(TableX||[]);
+    const [TableValuesXK, setTableValuesXK] = useState(TableXK||[]);
+    const [TableValuesY, setTableValuesY] = useState(TableY||[]);
+    const [TableChecked, setTableChecked] = useState(TableCheck||[]);
+    const [ResultX, setResultX] = useState(Rex||[]);
+    const [ResultXK, setResultXK] = useState(Rexk||[]);
+    const [Mode, setMode] = useState(modeselect||"");
     const [loading, setLoading] = useState(false);
     const maxsize = 100;
+
+    useEffect(() => {
+        setLoading(true);
+        setTimeout(() => {
+            sendRequest();
+        }, 0);
+    }, [location]);
 
     const changeNumber = async (event) => {
         setNumberN(event.target.value);
@@ -192,7 +214,17 @@ function TableLeast({ onDataChange }) {
             Swal.fire({
                 title: "Success!",
                 text: "You has been success.",
-                icon: "success"
+                icon: "success",
+                showCancelButton: true,
+                confirmButtonText: "Save"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Success!",
+                        text: "You has been success.",
+                        icon: "success"
+                      });
+                }
             });
         } else {
             Swal.fire({

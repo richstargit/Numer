@@ -197,8 +197,18 @@ function TableMatrix({ onDataChange }){
             Swal.fire({
                 title: "Success!",
                 text: "You has been success.",
-                icon: "success"
-              });
+                icon: "success",
+                showCancelButton: true,
+                confirmButtonText: "Save"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Success!",
+                        text: "You has been success.",
+                        icon: "success"
+                      });
+                }
+            });
         }else{
             Swal.fire({
                 title: "Error!",

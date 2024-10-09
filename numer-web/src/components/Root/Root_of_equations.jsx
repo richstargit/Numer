@@ -112,6 +112,18 @@ const Root_of_equations = ({ onDataChange }) =>{
     }
 
     const sendRequest = async () => {
+        Swal.fire({
+            title: "You want to save?",
+            text: "Yow want to save your solution?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, save it!"
+          }).then((result) => {
+            if (result.isConfirmed) {
+            }
+          });
         setLoading(true);
         setTimeout(() => {
         try{
@@ -134,8 +146,18 @@ const Root_of_equations = ({ onDataChange }) =>{
                     Swal.fire({
                         title: "Success!",
                         text: "You has been success.",
-                        icon: "success"
-                      });
+                        icon: "success",
+                        showCancelButton: true,
+                        confirmButtonText: "Save"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Swal.fire({
+                                title: "Success!",
+                                text: "You has been success.",
+                                icon: "success"
+                              });
+                        }
+                    });
                 }else{
                     Swal.fire({
                         title: "Error!",
@@ -158,8 +180,18 @@ const Root_of_equations = ({ onDataChange }) =>{
                     Swal.fire({
                         title: "Success!",
                         text: "You has been success.",
-                        icon: "success"
-                      });
+                        icon: "success",
+                        showCancelButton: true,
+                        confirmButtonText: "Save"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Swal.fire({
+                                title: "Success!",
+                                text: "You has been success.",
+                                icon: "success"
+                              });
+                        }
+                    });
                 }else{
                     Swal.fire({
                         title: "Error!",
@@ -182,8 +214,18 @@ const Root_of_equations = ({ onDataChange }) =>{
                     Swal.fire({
                         title: "Success!",
                         text: "You has been success.",
-                        icon: "success"
-                      });
+                        icon: "success",
+                        showCancelButton: true,
+                        confirmButtonText: "Save"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Swal.fire({
+                                title: "Success!",
+                                text: "You has been success.",
+                                icon: "success"
+                              });
+                        }
+                    });
                 }else{
                     Swal.fire({
                         title: "Error!",
@@ -206,8 +248,18 @@ const Root_of_equations = ({ onDataChange }) =>{
                     Swal.fire({
                         title: "Success!",
                         text: "You has been success.",
-                        icon: "success"
-                      });
+                        icon: "success",
+                        showCancelButton: true,
+                        confirmButtonText: "Save"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Swal.fire({
+                                title: "Success!",
+                                text: "You has been success.",
+                                icon: "success"
+                              });
+                        }
+                    });
                 }else{
                     Swal.fire({
                         title: "Error!",
@@ -230,8 +282,18 @@ const Root_of_equations = ({ onDataChange }) =>{
                     Swal.fire({
                         title: "Success!",
                         text: "You has been success.",
-                        icon: "success"
-                      });
+                        icon: "success",
+                        showCancelButton: true,
+                        confirmButtonText: "Save"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Swal.fire({
+                                title: "Success!",
+                                text: "You has been success.",
+                                icon: "success"
+                              });
+                        }
+                    });
                 }else{
                     Swal.fire({
                         title: "Error!",
@@ -254,8 +316,18 @@ const Root_of_equations = ({ onDataChange }) =>{
                     Swal.fire({
                         title: "Success!",
                         text: "You has been success.",
-                        icon: "success"
-                      });
+                        icon: "success",
+                        showCancelButton: true,
+                        confirmButtonText: "Save"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Swal.fire({
+                                title: "Success!",
+                                text: "You has been success.",
+                                icon: "success"
+                              });
+                        }
+                    });
                 }else{
                     Swal.fire({
                         title: "Error!",
