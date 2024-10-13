@@ -6,6 +6,9 @@ import { CircularProgress, Box } from '@mui/material';
 import { matrix, mode } from "mathjs";
 import { MultipleRegression, SimpleRegression } from "./LeastCal";
 import { useLocation } from 'react-router-dom';
+import { create, all } from 'mathjs';
+
+const math = create(all);
 
 function TableLeast({ onDataChange }) {
 
@@ -15,7 +18,7 @@ function TableLeast({ onDataChange }) {
     const Nselect = params.get("nsize");
     const Xselect = params.get("xsize");
     const Mselect = params.get("msize");
-    const Kselect = params.get("Ksize");
+    const Kselect = params.get("ksize");
     const TableX = params.get("tablex");
     const TableXK = params.get("tablexk");
     const TableY = params.get("tabley");
@@ -27,12 +30,12 @@ function TableLeast({ onDataChange }) {
     const [NumberX, setNumberX] = useState(Xselect||"");
     const [OrderM, setOrderM] = useState(Mselect||"");
     const [NumberK, setNumberK] = useState(Kselect||"");
-    const [TableValuesX, setTableValuesX] = useState(TableX||[]);
-    const [TableValuesXK, setTableValuesXK] = useState(TableXK||[]);
-    const [TableValuesY, setTableValuesY] = useState(TableY||[]);
-    const [TableChecked, setTableChecked] = useState(TableCheck||[]);
-    const [ResultX, setResultX] = useState(Rex||[]);
-    const [ResultXK, setResultXK] = useState(Rexk||[]);
+    const [TableValuesX, setTableValuesX] = useState(JSON.parse(TableX)||[]);
+    const [TableValuesXK, setTableValuesXK] = useState(JSON.parse(TableXK)||[]);
+    const [TableValuesY, setTableValuesY] = useState(JSON.parse(TableY)||[]);
+    const [TableChecked, setTableChecked] = useState(JSON.parse(TableCheck)||[]);
+    const [ResultX, setResultX] = useState(JSON.parse(Rex)||[]);
+    const [ResultXK, setResultXK] = useState(JSON.parse(Rexk)||[]);
     const [Mode, setMode] = useState(modeselect||"");
     const [loading, setLoading] = useState(false);
     const maxsize = 100;
@@ -238,7 +241,7 @@ function TableLeast({ onDataChange }) {
     const sendRequest = async () => {
         const Xsend = [];
         const Ysend = [];
-        const XKsend = [];
+        const XKsend= [];
         TableChecked.map((v, i) => {
             if (v == true) {
                 Xsend.push(TableValuesX[i]);
@@ -246,6 +249,9 @@ function TableLeast({ onDataChange }) {
                 XKsend.push(TableValuesXK[i])
             }
         })
+    
+
+        console.log(XKsend)
         setLoading(true);
         setTimeout(() => {
             try {

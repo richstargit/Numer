@@ -8,6 +8,7 @@ import Root_of_equations from './components/Root/MainRoot.jsx'
 import MainLinear from './components/Matrix/MainLinear.jsx'
 import MainInterpolation from './components/Interpolation/MainInterpolation.jsx';
 import MainLeastSquares from './components/LeastSquares/MainLeastSquares.jsx';
+import MainIntegration from './components/Integration/MainIntegration.jsx';
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,9 @@ const router = createBrowserRouter([
       },{
         path: 'leastsquares',
         element: <MainLeastSquares />,
+      },{
+        path: 'integration',
+        element: <MainIntegration />,
       }
     ],
   },

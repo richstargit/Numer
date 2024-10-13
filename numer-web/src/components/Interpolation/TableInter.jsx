@@ -19,13 +19,20 @@ function TableInter({ onDataChange }) {
 
     const [NumberN, setNumberN] = useState(Nselect||"");
     const [NumberX, setNumberX] = useState(Xselect||"");
-    const [TableValuesX, setTableValuesX] = useState(TableX||[]);
-    const [TableValuesY, setTableValuesY] = useState(TableY||[]);
-    const [TableChecked, setTableChecked] = useState(TableCheck||[]);
-    const [ResultX, setResultX] = useState(Rex||[]);
+    const [TableValuesX, setTableValuesX] = useState(JSON.parse(TableX)||[]);
+    const [TableValuesY, setTableValuesY] = useState(JSON.parse(TableY)||[]);
+    const [TableChecked, setTableChecked] = useState(JSON.parse(TableCheck)||[]);
+    const [ResultX, setResultX] = useState(JSON.parse(Rex)||[]);
     const [Mode,setMode] = useState(modeselect||"");
     const [loading, setLoading] = useState(false);
     const maxsize = 100;
+
+    useEffect(() => {
+        setLoading(true);
+        setTimeout(() => {
+            sendRequest();
+        }, 0);
+    }, [location]);
 
     const changeNumber = async (event) => {
         setNumberN(event.target.value);
