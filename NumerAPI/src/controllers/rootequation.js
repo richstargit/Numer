@@ -1,4 +1,7 @@
-const { pool } = require("../index");
+const { Pool } = require('pg');
+const pool = new Pool({
+    connectionString: process.env.POSTGRES_URL,
+});
 
 exports.bisection = async (req, res) => {
     try {

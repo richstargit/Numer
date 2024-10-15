@@ -35,10 +35,6 @@ exports.pool = new Pool({
     connectionString: process.env.POSTGRES_URL,
 });
 
-// Export pool เพื่อให้สามารถใช้ใน router อื่น ๆ ได้
-
-// ตัวอย่างการใช้งาน pool เพื่อดึงข้อมูล
-
 readdirSync(path.join(__dirname, 'router'))
     .map((r) => app.use('/api', require('./router/' + r)))
 
