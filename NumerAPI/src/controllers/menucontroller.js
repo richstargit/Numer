@@ -1,5 +1,8 @@
 //const {connection} = require("../index");
-
+const { Pool } = require('pg');
+const pool = new Pool({
+    connectionString: process.env.POSTGRES_URL,
+});
 exports.menu = async(req,res) =>{
     try{
         // connection.query("select * from numer_menu",(errors,result,fields)=>{
