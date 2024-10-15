@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import IntegrationData from "./IntegrationData";
+import IntegrationResult from "./IntegrationResult";
 
 function MainIntegration(){
     const [DataResult,setData] = useState("");
@@ -12,7 +13,8 @@ function MainIntegration(){
       return(
         <div className="home-text">
             <div style={{fontSize:"32px",marginBottom:"16px"}}>Integration</div>
-            <IntegrationData/>
+            <IntegrationData onDataChange={handleDataChange}/>
+            <IntegrationResult result={DataResult}/>
         </div>
     )
 }

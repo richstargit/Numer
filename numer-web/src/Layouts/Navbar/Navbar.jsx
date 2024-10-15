@@ -11,7 +11,7 @@ function Navbar(){
         {
           "id": 1,
           "name": "Home",
-          "path": "/",
+          "path": "/home",
           "cname": "sidetext"
         },
         {
