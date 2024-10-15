@@ -7,7 +7,7 @@ const mysql = require('mysql2')
 const { readdirSync } = require('fs')
 const path = require('path');
 const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./swagger.json');
+const swaggerDocument = require('./src/swagger.json');
 //const swaggerAutogen = require("./swagger-autogen");
 
 const app = express()
