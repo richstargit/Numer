@@ -1,9 +1,4 @@
-const { Pool } = require('pg');
-
-// Initialize a connection pool
-const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-});
+const { pool } = require("../index");
 
 exports.bisection = async (req, res) => {
     try {
