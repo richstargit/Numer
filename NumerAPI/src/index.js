@@ -31,9 +31,12 @@ app.use("/api-docs",swaggerUi.serve,swaggerUi.setup(swaggerDocument));
 // })
 // const { Pool } = require('pg');
 
-exports.pool = new Pool({
+const pool = new Pool({
     connectionString: process.env.POSTGRES_URL,
 });
+
+// Export pool เพื่อให้สามารถใช้ใน router อื่น ๆ ได้
+module.exports = { pool };
 
 // ตัวอย่างการใช้งาน pool เพื่อดึงข้อมูล
 
