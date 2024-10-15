@@ -6,6 +6,20 @@ exports.menu = async(req,res) =>{
         //     if(errors) throw errors;
         //     return res.status(200).send(result);
         // });
+        return res.status(200).send([
+          {
+            "id": 1,
+            "name": "Home",
+            "path": "/",
+            "cname": "sidetext"
+          },
+          {
+            "id": 2,
+            "name": "Root of equations",
+            "path": "/root_of_equations",
+            "cname": "sidetext"
+          }
+        ]);
     }catch(error){
         return res.status(200).send([
             {
