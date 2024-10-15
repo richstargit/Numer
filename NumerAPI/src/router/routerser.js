@@ -6,5 +6,4 @@ const router = express.Router();
 router.get('/getdata',bisection);
 router.get("/getmenu",menu)
 
-
 module.exports = router;
