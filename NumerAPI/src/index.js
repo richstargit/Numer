@@ -28,6 +28,16 @@ app.use("/api-docs",swaggerUi.serve,swaggerUi.setup(swaggerDocument));
 //     password: process.env.DB_PASS,
 //     database: process.env.DB_NAME
 // })
+const { Pool } = require('pg');
+
+// Initialize a connection pool
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+});
+
+pool.connect()
+    .then(() => console.log('Connected to Postgres database'))
+    .catch(err => console.error('Connection error', err.stack));
 
 
 readdirSync(path.join(__dirname, 'router'))
