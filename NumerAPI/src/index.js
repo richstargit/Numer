@@ -31,7 +31,7 @@ app.use("/api-docs",swaggerUi.serve,swaggerUi.setup(swaggerDocument));
 // })
 // const { Pool } = require('pg');
 
-exports.pool = new Pool({
+const pool = new Pool({
     connectionString: process.env.POSTGRES_URL,
 });
 
