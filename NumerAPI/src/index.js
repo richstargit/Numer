@@ -35,8 +35,6 @@ exports.pool = new Pool({
     connectionString: process.env.DATABASE_URL,
 });
 
-
-
 readdirSync(path.join(__dirname, 'router'))
     .map((r) => app.use('/api', require('./router/' + r)))
 
