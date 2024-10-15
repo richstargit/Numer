@@ -6,9 +6,6 @@ exports.bisection = async(req,res) =>{
         //         request : "success",
         //     });
         // }
-        // return res.status(200).send({
-        //     request : "failed",
-        // });
         return res.status(200).send({
             request : "success",
         });
