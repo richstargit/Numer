@@ -1,9 +1,4 @@
-const { Pool } = require('pg');
-
-// สร้าง pool สำหรับเชื่อมต่อกับ PostgreSQL
-const pool = new Pool({
-    connectionString: process.env.POSTGRES_URL,
-});
+const { pool } = require("../index");
 
 exports.bisection = async (req, res) => {
     try {
