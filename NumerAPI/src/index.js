@@ -28,12 +28,12 @@ app.use("/api-docs",swaggerUi.serve,swaggerUi.setup(swaggerDocument));
 //     password: process.env.DB_PASS,
 //     database: process.env.DB_NAME
 // })
-const { Pool } = require('pg');
+// const { Pool } = require('pg');
 
-// Initialize a connection pool
-exports.pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-});
+// // Initialize a connection pool
+// exports.pool = new Pool({
+//     connectionString: process.env.DATABASE_URL,
+// });
 
 readdirSync(path.join(__dirname, 'router'))
     .map((r) => app.use('/api', require('./router/' + r)))
