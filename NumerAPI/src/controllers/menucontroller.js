@@ -1,4 +1,4 @@
-const {connection} = require("../../index");
+const {connection} = require("../index");
 
 exports.menu = async(req,res) =>{
     try{
