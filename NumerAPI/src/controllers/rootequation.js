@@ -1,9 +1,14 @@
-//const { pool } = require("../index");
+const { Pool } = require('pg');
+
+// สร้าง pool สำหรับเชื่อมต่อกับ PostgreSQL
+const pool = new Pool({
+    connectionString: process.env.POSTGRES_URL,
+});
 
 exports.bisection = async (req, res) => {
     try {
         // ทำการ query ข้อมูลจากฐานข้อมูล
-        //const result = await pool.query('SELECT * FROM your_table'); // แทนที่ your_table ด้วยชื่อ table ที่คุณต้องการเลือกข้อมูล
+        const result = await pool.query('SELECT * FROM persons'); // แทนที่ your_table ด้วยชื่อ table ที่คุณต้องการเลือกข้อมูล
         
         // ส่งข้อมูลที่ได้กลับไปยัง client
         return res.status(200).send({

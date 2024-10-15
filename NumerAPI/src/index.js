@@ -9,6 +9,7 @@ const path = require('path');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 //const swaggerAutogen = require("./swagger-autogen");
+const { Pool } = require('pg');
 
 const app = express()
 
@@ -30,10 +31,11 @@ app.use("/api-docs",swaggerUi.serve,swaggerUi.setup(swaggerDocument));
 // })
 // const { Pool } = require('pg');
 
-// // Initialize a connection pool
-// exports.pool = new Pool({
-//     connectionString: process.env.DATABASE_URL,
-// });
+const pool = new Pool({
+    connectionString: process.env.POSTGRES_URL,
+});
+
+// ตัวอย่างการใช้งาน pool เพื่อดึงข้อมูล
 
 readdirSync(path.join(__dirname, 'router'))
     .map((r) => app.use('/api', require('./router/' + r)))
