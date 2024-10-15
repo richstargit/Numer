@@ -4,5 +4,6 @@ const { menu } = require("../controllers/menucontroller");
 const router = express.Router();
 
 router.get('/getdata',bisection);
+router.get("/menu",menu)
 
 module.exports = router;
