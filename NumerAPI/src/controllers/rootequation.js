@@ -3,15 +3,27 @@ const pool = new Pool({
     connectionString: process.env.POSTGRES_URL,
 });
 
-exports.bisection = async (req, res) => {
+exports.rootofequations = async (req, res) => {
     try {
-        // ทำการ query ข้อมูลจากฐานข้อมูล
-        const result = await pool.query('SELECT * FROM persons'); // แทนที่ your_table ด้วยชื่อ table ที่คุณต้องการเลือกข้อมูล
+        const result = await pool.query('SELECT * FROM rootofequation');
         
-        // ส่งข้อมูลที่ได้กลับไปยัง client
         return res.status(200).send({
             request: "success",
-            data: result.rows, // ข้อมูลที่เลือกจะอยู่ใน result.rows
+            data: result.rows,
+        });
+
+    } catch (error) {
+        console.error('Database query error', error);
+        res.status(500).send(`${error}`);
+    }
+};
+
+exports.rootsave = async (req, res) => {
+    try {
+        const { equation, xl, xr, error, mode, iteration, result } = req.body;
+        
+        return res.status(200).send({
+            request: "success",
         });
 
     } catch (error) {

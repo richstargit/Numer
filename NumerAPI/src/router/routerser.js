@@ -1,9 +1,9 @@
 const express = require("express");
-const { bisection } = require("../controllers/rootequation");
+const { rootofequations, rootsave } = require("../controllers/rootequation");
 const { menu } = require("../controllers/menucontroller");
 const router = express.Router();
 
-router.get('/getdata',bisection);
-router.get("/getmenu",menu)
+router.get('/root',rootofequations);
+router.post('/rootsave',rootsave);
 
 module.exports = router;

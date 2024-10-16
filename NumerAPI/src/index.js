@@ -9,7 +9,6 @@ const path = require('path');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 //const swaggerAutogen = require("./swagger-autogen");
-const { Pool } = require('pg');
 
 const app = express()
 
@@ -22,18 +21,6 @@ app.use(bodyParser.json())
 app.use(compression())
 
 app.use("/api-docs",swaggerUi.serve,swaggerUi.setup(swaggerDocument));
-
-// exports.connection = mysql.createConnection({
-//     host: process.env.DB_HOST,
-//     user: process.env.DB_USER,
-//     password: process.env.DB_PASS,
-//     database: process.env.DB_NAME
-// })
-// const { Pool } = require('pg');
-
-const pool = new Pool({
-    connectionString: process.env.POSTGRES_URL,
-});
 
 readdirSync(path.join(__dirname, 'router'))
     .map((r) => app.use('/api', require('./router/' + r)))
