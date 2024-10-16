@@ -142,6 +142,7 @@ const Root_of_equations = ({ onDataChange }) =>{
                       });
                 }else{
                 const result = graphical(fx,start,end,errors);
+                console.log(result)
                 if(result.request=="success"){
                     Swal.fire({
                         title: "Success!",
@@ -176,6 +177,7 @@ const Root_of_equations = ({ onDataChange }) =>{
                       });
                 }else{
                 const result = bisection(fx,xl,xr,errors);
+                console.log(result)
                 if(result.request=="success"){
                     Swal.fire({
                         title: "Success!",
@@ -210,6 +212,7 @@ const Root_of_equations = ({ onDataChange }) =>{
                       });
                 }else{
                 const result = falseposition(fx,xl,xr,errors);
+                console.log(result)
                 if(result.request=="success"){
                     Swal.fire({
                         title: "Success!",
@@ -244,6 +247,7 @@ const Root_of_equations = ({ onDataChange }) =>{
                       });
                 }else{
                 const result = onepoint(fx,xl,errors);
+                console.log(result)
                 if(result.request=="success"){
                     Swal.fire({
                         title: "Success!",
@@ -278,6 +282,7 @@ const Root_of_equations = ({ onDataChange }) =>{
                       });
                 }else{
                 const result = newton(fx,xr,errors);
+                console.log(result)
                 if(result.request=="success"){
                     Swal.fire({
                         title: "Success!",
@@ -312,6 +317,7 @@ const Root_of_equations = ({ onDataChange }) =>{
                       });
                 }else{
                 const result = secant(fx,xl,xr,errors);
+                console.log(result)
                 if(result.request=="success"){
                     Swal.fire({
                         title: "Success!",
