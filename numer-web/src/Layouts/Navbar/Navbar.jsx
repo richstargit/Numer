@@ -37,6 +37,11 @@ function Navbar(){
             "name":"Least-squares regression",
             "path": "/leastsquares",
             "cname":"sidetext"
+        },{
+            "id":6,
+            "name":"Integration",
+            "path": "/integration",
+            "cname":"sidetext"
         }
       ];
 

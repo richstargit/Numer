@@ -112,18 +112,6 @@ const Root_of_equations = ({ onDataChange }) =>{
     }
 
     const sendRequest = async () => {
-        Swal.fire({
-            title: "You want to save?",
-            text: "Yow want to save your solution?",
-            icon: "question",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, save it!"
-          }).then((result) => {
-            if (result.isConfirmed) {
-            }
-          });
         setLoading(true);
         setTimeout(() => {
         try{

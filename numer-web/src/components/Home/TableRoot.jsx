@@ -11,6 +11,7 @@ import TableSortLabel from '@mui/material/TableSortLabel';
 import { BlockMath } from 'react-katex';
 import { useNavigate } from 'react-router-dom';
 import 'katex/dist/katex.min.css'; // Import KaTeX CSS
+import { useEffect, useState } from "react";
 
 // Column definitions
 const columns = [
@@ -30,8 +31,8 @@ const columns = [
 ];
 
 // Function to create data
-function createData(index, name, method, iteration, result) {
-  return { index, name, method, iteration, result };
+function createData(index, name, method, iteration, result,xl,xr) {
+  return { index, name, method, iteration, result,xl,xr };
 }
 
 // Sample data
@@ -71,11 +72,41 @@ const stableSort = (array, comparator) => {
 };
 
 export default function StickyHeadTable() {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('index');
+  const [rows, setRows] = useState([]);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [order, setOrder] = useState('asc');
+  const [orderBy, setOrderBy] = useState('id');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Function to fetch data from API
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://numer-api.vercel.app/api/root');
+        const jsonData = await response.json();
+        
+        if (jsonData.request === 'success') {
+          const apiRows = jsonData.data.map(item => 
+            createData(
+              item.id,
+              item.equation,
+              item.mode,
+              item.iteration,
+              parseFloat(item.result),  // Convert string to float for result
+              parseFloat(item.xl),      // Convert string to float for xl
+              parseFloat(item.xr)       // Convert string to float for xr
+            )
+          );
+          setRows(apiRows);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleRequestSort = (property) => {
     const isAsc = orderBy === property && order === 'asc';

@@ -4,14 +4,32 @@ import Button from '@mui/material/Button';
 import 'katex/dist/katex.min.css';
 import { CircularProgress,Box  } from '@mui/material';
 import { useLocation } from 'react-router-dom';
+import { CompositeSimpson, CompositeTra, Simpson, Trapezoidel } from "./IntegrationCal";
+import Swal from 'sweetalert2';
 
 function IntegrationData({onDataChange}){
 
-    const [Mode,setMode] = useState("");
-    const [NumberX0, setNumberX0] = useState("");
-    const [NumberX1, setNumberX1] = useState("");
-    const [Sol,setSol] = useState("");
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
+    const modeselect = params.get("mode");
+    const Nselect = params.get("nsize");
+    const X0select = params.get("x0");
+    const X1select = params.get("x1");
+    const Solselect = params.get("sol");
+
+    const [Mode,setMode] = useState(modeselect||"");
+    const [NumberX0, setNumberX0] = useState(X0select||"");
+    const [NumberX1, setNumberX1] = useState(X1select||"");
+    const [NumberN, setNumberN] = useState(modeselect||"");
+    const [Sol,setSol] = useState(Solselect||"");
     const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        setLoading(true);
+        setTimeout(() => {
+            sendRequest();
+        }, 0);
+    }, [location]);
 
     const selectMethod = event => {
         setMode(event.target.value)
@@ -23,8 +41,37 @@ function IntegrationData({onDataChange}){
     const ChangeX1 = event => {
         setNumberX1(event.target.value)
     }
+    const ChangeN = event => {
+        setNumberN(event.target.value)
+    }
     const solchange = event =>{
         setSol(event.target.value)
+    }
+
+    const checksuccess = (result) =>{
+        if(result.request=="success"){
+            Swal.fire({
+                title: "Success!",
+                text: "You has been success.",
+                icon: "success",
+                showCancelButton: true,
+                confirmButtonText: "Save"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Success!",
+                        text: "You has been success.",
+                        icon: "success"
+                      });
+                }
+            });
+        }else{
+            Swal.fire({
+                title: "Error!",
+                text: "Please check your equations.",
+                icon: "error"
+              });
+        }
     }
 
     const sendRequest = async () => {
@@ -33,7 +80,25 @@ function IntegrationData({onDataChange}){
         try{
 
             if(Mode=="trapezoidal_rule"){
-
+                const result = Trapezoidel(Sol,NumberX0,NumberX1);
+                checksuccess(result);
+                onDataChange(result);
+                console.log(result)
+            }else if(Mode=="composite_trapezoidal"){
+                const result = CompositeTra(Sol,NumberX0,NumberX1,NumberN);
+                checksuccess(result);
+                onDataChange(result);
+                console.log(result)
+            }else if(Mode=="simpson_rule"){
+                const result = Simpson(Sol,NumberX0,NumberX1);
+                checksuccess(result);
+                onDataChange(result);
+                console.log(result)
+            }else if(Mode=="composite_simpson"){
+                const result = CompositeSimpson(Sol,NumberX0,NumberX1,NumberN);
+                checksuccess(result);
+                onDataChange(result);
+                console.log(result)
             }
             setLoading(false);
         }catch(err){
@@ -66,6 +131,7 @@ function IntegrationData({onDataChange}){
                 <div style={{marginTop:"15px"}}>
                 <span style={{marginLeft:"10px"}}>a</span><input className="input-display" type="number" onChange={ChangeX0} value={NumberX0}  placeholder="a" style={{ marginLeft: "5px", marginRight: "10px" }} />
                 <span style={{marginLeft:"10px"}}>b</span><input className="input-display" type="number" onChange={ChangeX1} value={NumberX1} placeholder="b" style={{ marginLeft: "5px", marginRight: "10px" }} />
+                {(Mode=="composite_trapezoidal"||Mode=="composite_simpson")?<><span style={{marginLeft:"10px"}}>n</span><input className="input-display" type="number" onChange={ChangeN} value={NumberN} placeholder="2,4,6" style={{ marginLeft: "5px", marginRight: "10px" }} /></>:<></>}
                 {loading && (
                 <Box
                     style={{
