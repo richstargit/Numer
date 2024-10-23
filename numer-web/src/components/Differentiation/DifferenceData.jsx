@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { BlockMath } from 'react-katex';
 import Button from '@mui/material/Button';
 import 'katex/dist/katex.min.css';
-import { CircularProgress,Box  } from '@mui/material';
+import { CircularProgress, Box } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { BackwardOh1, BackwardOh2, CentralOh2, ForwardOh1 } from "./DifferenceCal";
 
-function DifferenceData({onDataChange}){
+function DifferenceData({ onDataChange }) {
 
     const location = useLocation();
     const params = new URLSearchParams(location.search);
@@ -17,11 +17,11 @@ function DifferenceData({onDataChange}){
     const Hselect = params.get("h");
     const Solselect = params.get("sol");
 
-    const [Mode,setMode] = useState(modeselect||"");
-    const [NumberX, setNumberX] = useState(Xselect||"");
-    const [NumberH, setNumberH] = useState(Hselect||"");
-    const [Sol,setSol] = useState(Solselect||"");
-    const [Oh,setOh] = useState(ohselect||"");
+    const [Mode, setMode] = useState(modeselect || "");
+    const [NumberX, setNumberX] = useState(Xselect || "");
+    const [NumberH, setNumberH] = useState(Hselect || "");
+    const [Sol, setSol] = useState(Solselect || "");
+    const [Oh, setOh] = useState(ohselect || "");
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -45,12 +45,12 @@ function DifferenceData({onDataChange}){
     const ChangeH = event => {
         setNumberH(event.target.value)
     }
-    const solchange = event =>{
+    const solchange = event => {
         setSol(event.target.value)
     }
 
-    const checksuccess = (result) =>{
-        if(result.request=="success"){
+    const checksuccess = (result) => {
+        if (result.request == "success") {
             Swal.fire({
                 title: "Success!",
                 text: "You has been success.",
@@ -63,63 +63,63 @@ function DifferenceData({onDataChange}){
                         title: "Success!",
                         text: "You has been success.",
                         icon: "success"
-                      });
+                    });
                 }
             });
-        }else{
+        } else {
             Swal.fire({
                 title: "Error!",
                 text: "Please check your equations.",
                 icon: "error"
-              });
+            });
         }
     }
 
     const sendRequest = async () => {
         setLoading(true);
         setTimeout(() => {
-        try{
+            try {
 
-            if(Mode=="forward"&&Oh=="oh1/2"){
-                const result = ForwardOh1(Sol,NumberX,NumberH);
-                checksuccess(result);
-                onDataChange(result);
-                console.log(result)
-            }else if(Mode=="backward"&&Oh=="oh1/2"){
-                const result = BackwardOh1(Sol,NumberX,NumberH);
-                checksuccess(result);
-                onDataChange(result);
-                console.log(result)
-            }else if(Mode=="central"&&Oh=="oh1/2"){
-                const result = CentralOh2(Sol,NumberX,NumberH);
-                checksuccess(result);
-                onDataChange(result);
-                console.log(result)
-            }else if(Mode=="forward"&&Oh=="oh2/4"){
-                const result = BackwardOh2(Sol,NumberX,NumberH);
-                checksuccess(result);
-                onDataChange(result);
-                console.log(result)
-            }else if(Mode=="backward"&&Oh=="oh2/4"){
-                const result = BackwardOh2(Sol,NumberX,NumberH);
-                checksuccess(result);
-                onDataChange(result);
-                console.log(result)
-            }else if(Mode=="central"&&Oh=="oh2/4"){
-                const result = CentralOh2(Sol,NumberX,NumberH);
-                checksuccess(result);
-                onDataChange(result);
-                console.log(result)
+                if (Mode == "forward" && Oh == "oh1/2") {
+                    const result = ForwardOh1(Sol, NumberX, NumberH);
+                    checksuccess(result);
+                    onDataChange(result);
+                    console.log(result)
+                } else if (Mode == "backward" && Oh == "oh1/2") {
+                    const result = BackwardOh1(Sol, NumberX, NumberH);
+                    checksuccess(result);
+                    onDataChange(result);
+                    console.log(result)
+                } else if (Mode == "central" && Oh == "oh1/2") {
+                    const result = CentralOh2(Sol, NumberX, NumberH);
+                    checksuccess(result);
+                    onDataChange(result);
+                    console.log(result)
+                } else if (Mode == "forward" && Oh == "oh2/4") {
+                    const result = BackwardOh2(Sol, NumberX, NumberH);
+                    checksuccess(result);
+                    onDataChange(result);
+                    console.log(result)
+                } else if (Mode == "backward" && Oh == "oh2/4") {
+                    const result = BackwardOh2(Sol, NumberX, NumberH);
+                    checksuccess(result);
+                    onDataChange(result);
+                    console.log(result)
+                } else if (Mode == "central" && Oh == "oh2/4") {
+                    const result = CentralOh2(Sol, NumberX, NumberH);
+                    checksuccess(result);
+                    onDataChange(result);
+                    console.log(result)
+                }
+                setLoading(false);
+            } catch (err) {
+                console.log(err);
+                setLoading(false);
             }
-            setLoading(false);
-        }catch(err){
-            console.log(err);
-            setLoading(false);
-        }
         }, 0);
     }
 
-    return(
+    return (
         <div>
             <div className="select-display" style={{ marginBottom: "15px" }}>
                 <select onChange={selectMethod} value={Mode}>
@@ -130,39 +130,39 @@ function DifferenceData({onDataChange}){
                 </select>
 
                 <div style={{
-                        height: "80px", background: "white", width: "fit-content", margin: "auto", borderRadius: "10px"
-                        , minWidth: "150px", display: "flex", justifyContent: "center", marginTop: "15px", overflow: "hidden", maxWidth: "450px", paddingLeft: "15px", paddingRight: "15px"
-                    }}>
-                        <div><BlockMath math={`\\frac {dy}{dx} = ${Sol?Sol:"..."}`}/></div>
+                    height: "80px", background: "white", width: "fit-content", margin: "auto", borderRadius: "10px"
+                    , minWidth: "150px", display: "flex", justifyContent: "center", marginTop: "15px", overflow: "hidden", maxWidth: "450px", paddingLeft: "15px", paddingRight: "15px"
+                }}>
+                    <div><BlockMath math={`\\frac {dy}{dx} = ${Sol ? Sol : "..."}`} /></div>
                 </div>
 
-                <span style={{marginRight:"10px"}}>f(x)</span><input className="input-display" style={{width:"200px",marginTop:"15px"}} onChange={solchange} value={Sol} type="text" placeholder="x^2-x-1" />
+                <span style={{ marginRight: "10px" }}>f(x)</span><input className="input-display" style={{ width: "200px", marginTop: "15px" }} onChange={solchange} value={Sol} type="text" placeholder="x^2-x-1" />
 
-                <div style={{marginTop:"15px"}}>
-                <span style={{marginLeft:"10px"}}>x</span><input className="input-display" type="number" onChange={ChangeX} value={NumberX}  placeholder="1" style={{ marginLeft: "5px", marginRight: "10px" }} />
-                <span style={{marginLeft:"10px"}}>h</span><input className="input-display" type="number" onChange={ChangeH} value={NumberH} placeholder="0.1" style={{ marginLeft: "5px", marginRight: "10px" }} />
-                <span style={{marginLeft:"10px"}}>Oh</span><select onChange={selectoh} value={Oh} style={{ marginLeft: "5px", marginRight: "10px" }}>
-                <option value="select">select Oh</option>
-                    <option value="oh1/2">Oh^1,oh^2</option>
-                    <option value="oh2/4">Oh^2,oh^4</option></select>
-                {loading && (
-                <Box
-                    style={{
-                        position: 'fixed',
-                        top: 0,
-                        left: 0,
-                        width: '100%',
-                        height: '100%',
-                        backgroundColor: 'rgba(255, 255, 255, 0.8)', // Semi-transparent background
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        zIndex: 9999
-                    }}
-                >
-                    <CircularProgress disableShrink />
-                </Box>
-            )}
+                <div style={{ marginTop: "15px" }}>
+                    <span style={{ marginLeft: "10px" }}>x</span><input className="input-display" type="number" onChange={ChangeX} value={NumberX} placeholder="1" style={{ marginLeft: "5px", marginRight: "10px" }} />
+                    <span style={{ marginLeft: "10px" }}>h</span><input className="input-display" type="number" onChange={ChangeH} value={NumberH} placeholder="0.1" style={{ marginLeft: "5px", marginRight: "10px" }} />
+                    <span style={{ marginLeft: "10px" }}>Oh</span><select onChange={selectoh} value={Oh} style={{ marginLeft: "5px", marginRight: "10px" }}>
+                        <option value="select">select Oh</option>
+                        <option value="oh1/2">Oh^1,oh^2</option>
+                        <option value="oh2/4">Oh^2,oh^4</option></select>
+                    {loading && (
+                        <Box
+                            style={{
+                                position: 'fixed',
+                                top: 0,
+                                left: 0,
+                                width: '100%',
+                                height: '100%',
+                                backgroundColor: 'rgba(255, 255, 255, 0.8)', // Semi-transparent background
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                zIndex: 9999
+                            }}
+                        >
+                            <CircularProgress disableShrink />
+                        </Box>
+                    )}
                 </div>
             </div>
             <Button variant="contained" color="success" style={{ background: "#04AA6D", marginTop: "15px" }} onClick={sendRequest}>
