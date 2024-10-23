@@ -42,6 +42,11 @@ function Navbar(){
             "name":"Integration",
             "path": "/integration",
             "cname":"sidetext"
+        },{
+            "id":7,
+            "name":"Differentiation",
+            "path": "/differentiation",
+            "cname":"sidetext"
         }
       ];
 

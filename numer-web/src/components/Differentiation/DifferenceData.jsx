@@ -4,24 +4,24 @@ import Button from '@mui/material/Button';
 import 'katex/dist/katex.min.css';
 import { CircularProgress,Box  } from '@mui/material';
 import { useLocation } from 'react-router-dom';
-import { CompositeSimpson, CompositeTra, Simpson, Trapezoidel } from "./IntegrationCal";
 import Swal from 'sweetalert2';
+import { BackwardOh1, BackwardOh2, CentralOh2, ForwardOh1 } from "./DifferenceCal";
 
-function IntegrationData({onDataChange}){
+function DifferenceData({onDataChange}){
 
     const location = useLocation();
     const params = new URLSearchParams(location.search);
     const modeselect = params.get("mode");
-    const Nselect = params.get("n");
-    const X0select = params.get("x0");
-    const X1select = params.get("x1");
+    const ohselect = params.get("oh");
+    const Xselect = params.get("x");
+    const Hselect = params.get("h");
     const Solselect = params.get("sol");
 
     const [Mode,setMode] = useState(modeselect||"");
-    const [NumberX0, setNumberX0] = useState(X0select||"");
-    const [NumberX1, setNumberX1] = useState(X1select||"");
-    const [NumberN, setNumberN] = useState(Nselect||"");
+    const [NumberX, setNumberX] = useState(Xselect||"");
+    const [NumberH, setNumberH] = useState(Hselect||"");
     const [Sol,setSol] = useState(Solselect||"");
+    const [Oh,setOh] = useState(ohselect||"");
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -35,14 +35,15 @@ function IntegrationData({onDataChange}){
         setMode(event.target.value)
     }
 
-    const ChangeX0 = event => {
-        setNumberX0(event.target.value)
+    const selectoh = event => {
+        setOh(event.target.value)
     }
-    const ChangeX1 = event => {
-        setNumberX1(event.target.value)
+
+    const ChangeX = event => {
+        setNumberX(event.target.value)
     }
-    const ChangeN = event => {
-        setNumberN(event.target.value)
+    const ChangeH = event => {
+        setNumberH(event.target.value)
     }
     const solchange = event =>{
         setSol(event.target.value)
@@ -79,23 +80,33 @@ function IntegrationData({onDataChange}){
         setTimeout(() => {
         try{
 
-            if(Mode=="trapezoidal_rule"){
-                const result = Trapezoidel(Sol,NumberX0,NumberX1);
+            if(Mode=="forward"&&Oh=="oh1/2"){
+                const result = ForwardOh1(Sol,NumberX,NumberH);
                 checksuccess(result);
                 onDataChange(result);
                 console.log(result)
-            }else if(Mode=="composite_trapezoidal"){
-                const result = CompositeTra(Sol,NumberX0,NumberX1,NumberN);
+            }else if(Mode=="backward"&&Oh=="oh1/2"){
+                const result = BackwardOh1(Sol,NumberX,NumberH);
                 checksuccess(result);
                 onDataChange(result);
                 console.log(result)
-            }else if(Mode=="simpson_rule"){
-                const result = Simpson(Sol,NumberX0,NumberX1);
+            }else if(Mode=="central"&&Oh=="oh1/2"){
+                const result = CentralOh2(Sol,NumberX,NumberH);
                 checksuccess(result);
                 onDataChange(result);
                 console.log(result)
-            }else if(Mode=="composite_simpson"){
-                const result = CompositeSimpson(Sol,NumberX0,NumberX1,NumberN);
+            }else if(Mode=="forward"&&Oh=="oh2/4"){
+                const result = BackwardOh2(Sol,NumberX,NumberH);
+                checksuccess(result);
+                onDataChange(result);
+                console.log(result)
+            }else if(Mode=="backward"&&Oh=="oh2/4"){
+                const result = BackwardOh2(Sol,NumberX,NumberH);
+                checksuccess(result);
+                onDataChange(result);
+                console.log(result)
+            }else if(Mode=="central"&&Oh=="oh2/4"){
+                const result = CentralOh2(Sol,NumberX,NumberH);
                 checksuccess(result);
                 onDataChange(result);
                 console.log(result)
@@ -113,25 +124,27 @@ function IntegrationData({onDataChange}){
             <div className="select-display" style={{ marginBottom: "15px" }}>
                 <select onChange={selectMethod} value={Mode}>
                     <option value="select">Select option</option>
-                    <option value="trapezoidal_rule">Trapezoidal Rule</option>
-                    <option value="composite_trapezoidal">Composite Trapezoidal Rule</option>
-                    <option value="simpson_rule">Simpson's Rule</option>
-                    <option value="composite_simpson">Composite Simpson's Rule</option>
+                    <option value="forward">Forward Divided</option>
+                    <option value="backward">Backward Divided</option>
+                    <option value="central">Central Divided</option>
                 </select>
 
                 <div style={{
                         height: "80px", background: "white", width: "fit-content", margin: "auto", borderRadius: "10px"
                         , minWidth: "150px", display: "flex", justifyContent: "center", marginTop: "15px", overflow: "hidden", maxWidth: "450px", paddingLeft: "15px", paddingRight: "15px"
                     }}>
-                        <div><BlockMath math={`\\int_{${NumberX0?NumberX0:"a"}}^{${NumberX1?NumberX1:"b"}} ${Sol?Sol:"..."} \\space\\large dx`}/></div>
+                        <div><BlockMath math={`\\frac {dy}{dx} = ${Sol?Sol:"..."}`}/></div>
                 </div>
 
                 <span style={{marginRight:"10px"}}>f(x)</span><input className="input-display" style={{width:"200px",marginTop:"15px"}} onChange={solchange} value={Sol} type="text" placeholder="x^2-x-1" />
 
                 <div style={{marginTop:"15px"}}>
-                <span style={{marginLeft:"10px"}}>a</span><input className="input-display" type="number" onChange={ChangeX0} value={NumberX0}  placeholder="a" style={{ marginLeft: "5px", marginRight: "10px" }} />
-                <span style={{marginLeft:"10px"}}>b</span><input className="input-display" type="number" onChange={ChangeX1} value={NumberX1} placeholder="b" style={{ marginLeft: "5px", marginRight: "10px" }} />
-                {(Mode=="composite_trapezoidal"||Mode=="composite_simpson")?<><span style={{marginLeft:"10px"}}>n</span><input className="input-display" type="number" onChange={ChangeN} value={NumberN} placeholder="2,4,6" style={{ marginLeft: "5px", marginRight: "10px" }} /></>:<></>}
+                <span style={{marginLeft:"10px"}}>x</span><input className="input-display" type="number" onChange={ChangeX} value={NumberX}  placeholder="1" style={{ marginLeft: "5px", marginRight: "10px" }} />
+                <span style={{marginLeft:"10px"}}>h</span><input className="input-display" type="number" onChange={ChangeH} value={NumberH} placeholder="0.1" style={{ marginLeft: "5px", marginRight: "10px" }} />
+                <span style={{marginLeft:"10px"}}>Oh</span><select onChange={selectoh} value={Oh} style={{ marginLeft: "5px", marginRight: "10px" }}>
+                <option value="select">select Oh</option>
+                    <option value="oh1/2">Oh^1,oh^2</option>
+                    <option value="oh2/4">Oh^2,oh^4</option></select>
                 {loading && (
                 <Box
                     style={{
@@ -159,4 +172,4 @@ function IntegrationData({onDataChange}){
     )
 }
 
-export default IntegrationData;
+export default DifferenceData;
