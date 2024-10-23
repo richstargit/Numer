@@ -182,9 +182,9 @@ export function CompositeSimpson(Solution,NumberX0,NumberX1,NumberN) {
             let str2 = ``;
             for(let i=1;i<2*n;i++){
                 if(i%2!=0){
-                    str1+=` + 4(${FX(a+((b-a)/n)*i)})`;
+                    str1+=` + 4(${FX(a+((b-a)/(2*n))*i)})`;
                 }else{
-                    str2+=` + 2(${FX(a+((b-a)/n)*i)})`;
+                    str2+=` + 2(${FX(a+((b-a)/(2*n))*i)})`;
                 }
             }
             return `\\frac {${(b-a)/(2*n)}}{3}(${FX(a)} + ${FX(b)} ${str1} ${str2}`;
