@@ -30,9 +30,9 @@ exports.rootsave = async (req, res) => {
         const values = [equation, xl, xr, error, mode, iteration, result];
 
         await pool.query(query, values);
-        
+
         return res.status(200).send({
-            data :values,
+            data: values,
             request: "success",
         });
 
