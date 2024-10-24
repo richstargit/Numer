@@ -125,30 +125,32 @@ const Root_of_equations = ({ onDataChange }) =>{
                     const response = await fetch('https://numer-api.vercel.app/api/rootsave', {
                         method: 'POST',
                         headers: {
-                          'Content-Type': 'application/json',
+                            'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify({equation:Sol,
-                            xl:XLs,
-                            xr:XRs,
-                            error:Errors,
-                            mode:Mode,
-                            iteration:result.iteration,
-                            result:result.xresult}),
-                      });
-                      if(response.ok){
+                        body: JSON.stringify({
+                            equation: Sol,
+                            xl: XLs,
+                            xr: XRs,
+                            error: Errors,
+                            mode: Mode,
+                            iteration: result.iteration,
+                            result: result.xresult
+                        }),
+                    });
+                    if (response.ok) {
                         Swal.fire({
                             title: "Success!",
                             text: "You has been success.",
                             icon: "success"
-                          });
-                      }else{
+                        });
+                    } else {
                         Swal.fire({
                             title: "Error!",
                             text: "Please try again.",
                             icon: "error"
-                          });
-                      }
-                      setLoading(false);
+                        });
+                    }
+                    setLoading(false);
                 }
             });
         }else{
