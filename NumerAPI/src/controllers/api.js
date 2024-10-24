@@ -32,6 +32,7 @@ exports.rootsave = async (req, res) => {
         await pool.query(query, values);
         
         return res.status(200).send({
+            data :values,
             request: "success",
         });
 
