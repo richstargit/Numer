@@ -80,7 +80,6 @@ export default function StickyHeadTable() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Function to fetch data from API
     const fetchData = async () => {
       try {
         const response = await fetch('https://numer-api.vercel.app/api/root');
@@ -93,9 +92,9 @@ export default function StickyHeadTable() {
               item.equation,
               item.mode,
               item.iteration,
-              parseFloat(item.result),  // Convert string to float for result
-              parseFloat(item.xl),      // Convert string to float for xl
-              parseFloat(item.xr)       // Convert string to float for xr
+              parseFloat(item.result),
+              parseFloat(item.xl),
+              parseFloat(item.xr)
             )
           );
           setRows(apiRows);

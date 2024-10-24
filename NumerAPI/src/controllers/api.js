@@ -21,6 +21,15 @@ exports.rootofequations = async (req, res) => {
 exports.rootsave = async (req, res) => {
     try {
         const { equation, xl, xr, error, mode, iteration, result } = req.body;
+
+        const query = `
+            INSERT INTO rootofequation (equation, xl, xr, error, mode, iteration, result)
+            VALUES ($1, $2, $3, $4, $5, $6, $7)
+        `;
+
+        const values = [equation, xl, xr, error, mode, iteration, result];
+
+        await pool.query(query, values);
         
         return res.status(200).send({
             request: "success",

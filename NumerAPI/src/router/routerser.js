@@ -1,5 +1,5 @@
 const express = require("express");
-const { rootofequations, rootsave } = require("../controllers/rootequation");
+const { rootofequations, rootsave } = require("../controllers/api");
 const router = express.Router();
 
 router.get('/root',rootofequations);

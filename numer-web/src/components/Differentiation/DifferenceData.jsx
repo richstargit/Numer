@@ -80,32 +80,32 @@ function DifferenceData({ onDataChange }) {
         setTimeout(() => {
             try {
 
-                if (Mode == "forward" && Oh == "oh1/2") {
+                if (Mode == "forward" && Oh == "oh^1") {
                     const result = ForwardOh1(Sol, NumberX, NumberH);
                     checksuccess(result);
                     onDataChange(result);
                     console.log(result)
-                } else if (Mode == "backward" && Oh == "oh1/2") {
+                } else if (Mode == "backward" && Oh == "oh^1") {
                     const result = BackwardOh1(Sol, NumberX, NumberH);
                     checksuccess(result);
                     onDataChange(result);
                     console.log(result)
-                } else if (Mode == "central" && Oh == "oh1/2") {
+                } else if (Mode == "central" && Oh == "oh^2") {
                     const result = CentralOh2(Sol, NumberX, NumberH);
                     checksuccess(result);
                     onDataChange(result);
                     console.log(result)
-                } else if (Mode == "forward" && Oh == "oh2/4") {
+                } else if (Mode == "forward" && Oh == "oh^2") {
                     const result = BackwardOh2(Sol, NumberX, NumberH);
                     checksuccess(result);
                     onDataChange(result);
                     console.log(result)
-                } else if (Mode == "backward" && Oh == "oh2/4") {
+                } else if (Mode == "backward" && Oh == "oh^2") {
                     const result = BackwardOh2(Sol, NumberX, NumberH);
                     checksuccess(result);
                     onDataChange(result);
                     console.log(result)
-                } else if (Mode == "central" && Oh == "oh2/4") {
+                } else if (Mode == "central" && Oh == "oh^4") {
                     const result = CentralOh2(Sol, NumberX, NumberH);
                     checksuccess(result);
                     onDataChange(result);
@@ -143,8 +143,9 @@ function DifferenceData({ onDataChange }) {
                     <span style={{ marginLeft: "10px" }}>h</span><input className="input-display" type="number" onChange={ChangeH} value={NumberH} placeholder="0.1" style={{ marginLeft: "5px", marginRight: "10px" }} />
                     <span style={{ marginLeft: "10px" }}>Oh</span><select onChange={selectoh} value={Oh} style={{ marginLeft: "5px", marginRight: "10px" }}>
                         <option value="select">select Oh</option>
-                        <option value="oh1/2">Oh^1,oh^2</option>
-                        <option value="oh2/4">Oh^2,oh^4</option></select>
+                        <option value="oh^1">Oh^1</option>
+                        <option value="oh^2">Oh^2</option>
+                        <option value="oh^4">Oh^4</option></select>
                     {loading && (
                         <Box
                             style={{

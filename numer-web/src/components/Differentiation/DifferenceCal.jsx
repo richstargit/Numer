@@ -39,7 +39,7 @@ export function ForwardOh1(Sol,NumberX,NumberH) {
         return ({
             request: "success",
             mode: "forward",
-            Oh:"oh1/2",
+            Oh:"oh^1",
             result: [forh1p1(),forh1p2(),forh1p3(),forh1p4()],
             error: [Err(forh1p1(),1),Err(forh1p2(),2),Err(forh1p3(),3),Err(forh1p4(),4)]
         });
@@ -90,7 +90,7 @@ export function BackwardOh1(Sol,NumberX,NumberH) {
         return ({
             request: "success",
             mode: "backward",
-            Oh:"oh1/2",
+            Oh:"oh^1",
             result: [back1p1(),back1p2(),back1p3(),back1p4()],
             error: [Err(back1p1(),1),Err(back1p2(),2),Err(back1p3(),3),Err(back1p4(),4)]
         });
@@ -141,7 +141,7 @@ export function CentralOh2(Sol,NumberX,NumberH) {
         return ({
             request: "success",
             mode: "central",
-            Oh:"oh1/2",
+            Oh:"oh^2",
             result: [cen1p1(),cen1p2(),cen1p3(),cen1p4()],
             error: [Err(cen1p1(),1),Err(cen1p2(),2),Err(cen1p3(),3),Err(cen1p4(),4)]
         });
@@ -192,7 +192,7 @@ export function ForwardOh2(Sol,NumberX,NumberH) {
         return ({
             request: "success",
             mode: "forward",
-            Oh:"oh2/4",
+            Oh:"oh^2",
             result: [forh2p1(),forh2p2(),forh2p3(),forh2p4()],
             error: [Err(forh2p1(),1),Err(forh2p2(),2),Err(forh2p3(),3),Err(forh2p4(),4)]
         });
@@ -243,7 +243,7 @@ export function BackwardOh2(Sol,NumberX,NumberH) {
         return ({
             request: "success",
             mode: "backward",
-            Oh:"oh2/4",
+            Oh:"oh^2",
             result: [back2p1(),back2p2(),back2p3(),back2p4()],
             error: [Err(back2p1(),1),Err(back2p2(),2),Err(back2p3(),3),Err(back2p4(),4)]
         });
@@ -294,7 +294,7 @@ export function CentralOh4(Sol,NumberX,NumberH) {
         return ({
             request: "success",
             mode: "central",
-            Oh:"oh2/4",
+            Oh:"oh^4",
             result: [cen2p1(),cen2p2(),cen2p3(),cen2p4()],
             error: [Err(cen2p1(),1),Err(cen2p2(),2),Err(cen3p3(),3),Err(cen4p4(),4)]
         });

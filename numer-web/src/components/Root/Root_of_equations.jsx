@@ -111,6 +111,55 @@ const Root_of_equations = ({ onDataChange }) =>{
          )
     }
 
+    const checksuccess = (result) =>{
+        if(result.request=="success"){
+            Swal.fire({
+                title: "Success!",
+                text: "You has been success.",
+                icon: "success",
+                showCancelButton: true,
+                confirmButtonText: "Save"
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    setLoading(true);
+                    const response = await fetch('https://numer-api.vercel.app/api/rootsave', {
+                        method: 'POST',
+                        headers: {
+                          'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({equation:Sol,
+                            xl:XLs,
+                            xr:XRs,
+                            error:Errors,
+                            mode:Mode,
+                            iteration:result.iteration?result.iteration:"",
+                            result:result.xresult}),
+                      });
+                      if(response.ok){
+                        Swal.fire({
+                            title: "Success!",
+                            text: "You has been success.",
+                            icon: "success"
+                          });
+                      }else{
+                        Swal.fire({
+                            title: "Error!",
+                            text: "Please try again.",
+                            icon: "error"
+                          });
+                      }
+                      setLoading(false);
+                }
+            });
+        }else{
+            Swal.fire({
+                title: "Error!",
+                text: "Please check your equations.",
+                icon: "error"
+              });
+        }
+    }
+
     const sendRequest = async () => {
         setLoading(true);
         setTimeout(() => {
@@ -131,29 +180,7 @@ const Root_of_equations = ({ onDataChange }) =>{
                 }else{
                 const result = graphical(fx,start,end,errors);
                 console.log(result)
-                if(result.request=="success"){
-                    Swal.fire({
-                        title: "Success!",
-                        text: "You has been success.",
-                        icon: "success",
-                        showCancelButton: true,
-                        confirmButtonText: "Save"
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            Swal.fire({
-                                title: "Success!",
-                                text: "You has been success.",
-                                icon: "success"
-                              });
-                        }
-                    });
-                }else{
-                    Swal.fire({
-                        title: "Error!",
-                        text: "Please check your equations.",
-                        icon: "error"
-                      });
-                }
+                checksuccess(result);
                 onDataChange(result);
             }
             }else if(Mode=="bisection_method"){
@@ -166,29 +193,7 @@ const Root_of_equations = ({ onDataChange }) =>{
                 }else{
                 const result = bisection(fx,xl,xr,errors);
                 console.log(result)
-                if(result.request=="success"){
-                    Swal.fire({
-                        title: "Success!",
-                        text: "You has been success.",
-                        icon: "success",
-                        showCancelButton: true,
-                        confirmButtonText: "Save"
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            Swal.fire({
-                                title: "Success!",
-                                text: "You has been success.",
-                                icon: "success"
-                              });
-                        }
-                    });
-                }else{
-                    Swal.fire({
-                        title: "Error!",
-                        text: "Please check your equations.",
-                        icon: "error"
-                      });
-                }
+                checksuccess(result);
                 onDataChange(result);
             }
             }else if(Mode=="false_position_method"){
@@ -201,29 +206,7 @@ const Root_of_equations = ({ onDataChange }) =>{
                 }else{
                 const result = falseposition(fx,xl,xr,errors);
                 console.log(result)
-                if(result.request=="success"){
-                    Swal.fire({
-                        title: "Success!",
-                        text: "You has been success.",
-                        icon: "success",
-                        showCancelButton: true,
-                        confirmButtonText: "Save"
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            Swal.fire({
-                                title: "Success!",
-                                text: "You has been success.",
-                                icon: "success"
-                              });
-                        }
-                    });
-                }else{
-                    Swal.fire({
-                        title: "Error!",
-                        text: "Please check your equations.",
-                        icon: "error"
-                      });
-                }
+                checksuccess(result);
                 onDataChange(result);
             }
             }else if(Mode=="one_point_iteration_method"){
@@ -236,29 +219,7 @@ const Root_of_equations = ({ onDataChange }) =>{
                 }else{
                 const result = onepoint(fx,xl,errors);
                 console.log(result)
-                if(result.request=="success"){
-                    Swal.fire({
-                        title: "Success!",
-                        text: "You has been success.",
-                        icon: "success",
-                        showCancelButton: true,
-                        confirmButtonText: "Save"
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            Swal.fire({
-                                title: "Success!",
-                                text: "You has been success.",
-                                icon: "success"
-                              });
-                        }
-                    });
-                }else{
-                    Swal.fire({
-                        title: "Error!",
-                        text: "Please check your equations.",
-                        icon: "error"
-                      });
-                }
+                checksuccess(result);
                 onDataChange(result);
             }
             }else if(Mode=="newton_raphson_method"){
@@ -271,29 +232,7 @@ const Root_of_equations = ({ onDataChange }) =>{
                 }else{
                 const result = newton(fx,xr,errors);
                 console.log(result)
-                if(result.request=="success"){
-                    Swal.fire({
-                        title: "Success!",
-                        text: "You has been success.",
-                        icon: "success",
-                        showCancelButton: true,
-                        confirmButtonText: "Save"
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            Swal.fire({
-                                title: "Success!",
-                                text: "You has been success.",
-                                icon: "success"
-                              });
-                        }
-                    });
-                }else{
-                    Swal.fire({
-                        title: "Error!",
-                        text: "Please check your equations.",
-                        icon: "error"
-                      });
-                }
+                checksuccess(result);
                 onDataChange(result);
             }
             }else if(Mode=="secant_method"){
@@ -306,29 +245,7 @@ const Root_of_equations = ({ onDataChange }) =>{
                 }else{
                 const result = secant(fx,xl,xr,errors);
                 console.log(result)
-                if(result.request=="success"){
-                    Swal.fire({
-                        title: "Success!",
-                        text: "You has been success.",
-                        icon: "success",
-                        showCancelButton: true,
-                        confirmButtonText: "Save"
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            Swal.fire({
-                                title: "Success!",
-                                text: "You has been success.",
-                                icon: "success"
-                              });
-                        }
-                    });
-                }else{
-                    Swal.fire({
-                        title: "Error!",
-                        text: "Please check your equations.",
-                        icon: "error"
-                      });
-                }
+                checksuccess(result);
                 onDataChange(result);
             }
             }
