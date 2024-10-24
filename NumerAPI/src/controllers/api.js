@@ -56,3 +56,36 @@ exports.linear = async (req, res) => {
         res.status(500).send(`${error}`);
     }
 };
+
+exports.linearsave = async (req, res) => {
+    try {
+        const { matrixA, mode, vectorB, result, n, m, vectorX, error } = req.body;
+
+        const query = `
+            INSERT INTO linear (matrixA, mode, vectorB, result, n, m, vectorX, error)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+        `;
+
+        const values = [
+            matrixA,
+            mode,
+            vectorB,
+            result,
+            n,
+            m,
+            vectorX,
+            error || 0
+        ];
+
+        await pool.query(query, values);
+
+        return res.status(200).send({
+            data: values,
+            request: "success",
+        });
+
+    } catch (error) {
+        console.error('Database query error', error);
+        res.status(500).send(`${error}`);
+    }
+};

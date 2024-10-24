@@ -77,12 +77,14 @@ export default function TalbeLinear() {
           const apiRows = jsonData.data.map(item => 
             createData(
               item.id,
-              item.equation,
+              item.matrixa,
               item.mode,
-              item.iteration,
-              parseFloat(item.result),
-              parseFloat(item.xl),
-              parseFloat(item.xr)
+              item.vectorb,
+              item.result,
+              parseInt(item.n),
+              parseInt(item.m),
+              item.vectorx,
+              parseFloat(item.error)
             )
           );
           setRows(apiRows);
