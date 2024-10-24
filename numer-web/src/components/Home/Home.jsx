@@ -1,4 +1,5 @@
 import "./Home.css"
+import TalbeLinear from "./TableLinear"
 import StickyHeadTable from "./TableRoot"
 
 function Home(){
@@ -13,7 +14,7 @@ function Home(){
             </div>
             <div style={{marginTop:"35px",fontSize:"36px"}}>Linear Algebraic</div>
             <div style={{width:"80%",marginLeft:"auto",marginRight:"auto",marginTop:"15px"}}>
-                <StickyHeadTable></StickyHeadTable>
+                <TalbeLinear></TalbeLinear>
             </div>
         </div>
     )

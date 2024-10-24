@@ -85,13 +85,13 @@ function TableMatrix({ onDataChange }){
                 M=1;
             }
             let result = [];
-            result = Array(N).fill().map(()=> Array(M).fill(""));
+            result = Array(N).fill().map(()=> Array(M).fill(0));
             setMatrixValues(result);
-            result = Array(N).fill("");
+            result = Array(N).fill(0);
             setMatrixValuesB(result);
-            result = Array(M).fill("");
+            result = Array(M).fill(0);
             setVectorX(result);
-            result = Array(M).fill("");
+            result = Array(M).fill(0);
             setMatrixValuesX(result);
         }
     }

@@ -41,3 +41,18 @@ exports.rootsave = async (req, res) => {
         res.status(500).send(`${error}`);
     }
 };
+
+exports.linear = async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM linear');
+        
+        return res.status(200).send({
+            request: "success",
+            data: result.rows,
+        });
+
+    } catch (error) {
+        console.error('Database query error', error);
+        res.status(500).send(`${error}`);
+    }
+};
