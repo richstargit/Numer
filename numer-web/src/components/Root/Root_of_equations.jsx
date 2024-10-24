@@ -119,8 +119,8 @@ const Root_of_equations = ({ onDataChange }) =>{
                 icon: "success",
                 showCancelButton: true,
                 confirmButtonText: "Save"
-            }).then(async (result) => {
-                if (result.isConfirmed) {
+            }).then(async (res) => {
+                if (res.isConfirmed) {
                     setLoading(true);
                     const response = await fetch('https://numer-api.vercel.app/api/rootsave', {
                         method: 'POST',
@@ -132,7 +132,7 @@ const Root_of_equations = ({ onDataChange }) =>{
                             xr:XRs,
                             error:Errors,
                             mode:Mode,
-                            iteration:result.iteration?result.iteration:"",
+                            iteration:result.iteration,
                             result:result.xresult}),
                       });
                       if(response.ok){
