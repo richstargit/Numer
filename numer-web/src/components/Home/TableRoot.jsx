@@ -31,8 +31,8 @@ const columns = [
 ];
 
 // Function to create data
-function createData(index, name, method, iteration, result,xl,xr) {
-  return { index, name, method, iteration, result,xl,xr };
+function createData(index, name, method, iteration, result,xl,xr,error) {
+  return { index, name, method, iteration, result,xl,xr,error };
 }
 
 // Sample data
@@ -94,7 +94,8 @@ export default function StickyHeadTable() {
               item.iteration,
               parseFloat(item.result),
               parseFloat(item.xl),
-              parseFloat(item.xr)
+              parseFloat(item.xr),
+              parseFloat(item.error)
             )
           );
           setRows(apiRows);
@@ -126,9 +127,9 @@ export default function StickyHeadTable() {
     const queryParams = new URLSearchParams({
       mode : row.method,
       equation : row.name,
-      xs : 1,
-      xe : 10,
-      error : 0.000001
+      xs : row.xl,
+      xe : row.xr,
+      error : row.error
 
     }).toString();
     navigate(`/root_of_equations?${queryParams}`);

@@ -27,7 +27,7 @@ exports.rootsave = async (req, res) => {
             VALUES ($1, $2, $3, $4, $5, $6, $7)
         `;
 
-        const values = [equation, xl, xr, error, mode, iteration, result];
+        const values = [equation, xl?xl:0, xr?xr:0, error?error:0, mode, iteration, result];
 
         await pool.query(query, values);
 
