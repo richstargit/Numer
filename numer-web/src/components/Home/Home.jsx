@@ -32,7 +32,7 @@ function Home(){
             <div style={{ width: "80%", marginLeft: "auto", marginRight: "auto", marginTop: "15px" }}>
                 <TableIntegration></TableIntegration>
             </div>
-            <div style={{ marginTop: "35px", fontSize: "36px" }}>Integration</div>
+            <div style={{ marginTop: "35px", fontSize: "36px" }}>difference</div>
             <div style={{ width: "80%", marginLeft: "auto", marginRight: "auto", marginTop: "15px" }}>
                 <TableDifference></TableDifference>
             </div>
