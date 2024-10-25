@@ -254,7 +254,7 @@ function TableLeast({ onDataChange }) {
                             });
                         }
                     } else {
-                        const response = await fetch('https://numer-api.vercel.app/api/intersave', {
+                        const response = await fetch('https://numer-api.vercel.app/api/leastsave', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
