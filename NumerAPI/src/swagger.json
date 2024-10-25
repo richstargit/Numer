@@ -12,7 +12,7 @@
     "https"
   ],
   "paths": {
-    "/getdata": {
+    "/root": {
       "get": {
         "description": "",
         "responses": {
@@ -25,9 +25,221 @@
         }
       }
     },
-    "/menu": {
+    "/rootsave": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "equation": {
+                  "example": "any"
+                },
+                "xl": {
+                  "example": "any"
+                },
+                "xr": {
+                  "example": "any"
+                },
+                "error": {
+                  "example": "any"
+                },
+                "mode": {
+                  "example": "any"
+                },
+                "iteration": {
+                  "example": "any"
+                },
+                "result": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/linear": {
       "get": {
         "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/linearsave": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "matrixA": {
+                  "example": "any"
+                },
+                "mode": {
+                  "example": "any"
+                },
+                "vectorB": {
+                  "example": "any"
+                },
+                "result": {
+                  "example": "any"
+                },
+                "n": {
+                  "example": "any"
+                },
+                "m": {
+                  "example": "any"
+                },
+                "vectorX": {
+                  "example": "any"
+                },
+                "error": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/inter": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/intersave": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "tablex": {
+                  "example": "any"
+                },
+                "tabley": {
+                  "example": "any"
+                },
+                "mode": {
+                  "example": "any"
+                },
+                "result": {
+                  "example": "any"
+                },
+                "n": {
+                  "example": "any"
+                },
+                "xsize": {
+                  "example": "any"
+                },
+                "resultx": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/least": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/leastsave": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "tablex": {
+                  "example": "any"
+                },
+                "tabley": {
+                  "example": "any"
+                },
+                "mode": {
+                  "example": "any"
+                },
+                "result": {
+                  "example": "any"
+                },
+                "n": {
+                  "example": "any"
+                },
+                "order": {
+                  "example": "any"
+                },
+                "xsize": {
+                  "example": "any"
+                },
+                "resultx": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"

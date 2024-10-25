@@ -136,3 +136,51 @@ exports.intersave = async (req, res) => {
         res.status(500).send(`${error}`);
     }
 };
+
+exports.least = async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM leastsquares order by id');
+        
+        return res.status(200).send({
+            request: "success",
+            data: result.rows,
+        });
+
+    } catch (error) {
+        console.error('Database query error', error);
+        res.status(500).send(`${error}`);
+    }
+};
+
+exports.leastsave = async (req, res) => {
+    try {
+        const { tablex, tabley, mode, result, n,order, xsize, resultx } = req.body;
+
+        const query = `
+            INSERT INTO leastsquares (tablex, tabley, mode, result, n,ordermandk, xsize, resultx)
+            VALUES ($1, $2, $3, $4, $5, $6, $7,&8)
+        `;
+
+        const values = [
+            tablex,
+            tabley,
+            mode,
+            result,
+            n,
+            order,
+            xsize,
+            resultx
+        ];
+
+        await pool.query(query, values);
+
+        return res.status(200).send({
+            request: "success",
+            data: values,
+        });
+
+    } catch (error) {
+        console.error('Database query error', error);
+        res.status(500).send(`${error}`);
+    }
+};
