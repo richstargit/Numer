@@ -56,13 +56,37 @@ function IntegrationData({onDataChange}){
                 icon: "success",
                 showCancelButton: true,
                 confirmButtonText: "Save"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire({
-                        title: "Success!",
-                        text: "You has been success.",
-                        icon: "success"
-                      });
+            }).then(async (res) => {
+                if (res.isConfirmed) {
+                    setLoading(true);
+                    const response = await fetch('https://numer-api.vercel.app/api/integrationsave', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            equation: Sol,
+                            mode: Mode,
+                            a: NumberX0,
+                            b: NumberX1,
+                            n: NumberN,
+                            result: result.result
+                        }),
+                    });
+                    if (response.ok) {
+                        Swal.fire({
+                            title: "Success!",
+                            text: "You has been success.",
+                            icon: "success"
+                        });
+                    } else {
+                        Swal.fire({
+                            title: "Error!",
+                            text: "Please try again.",
+                            icon: "error"
+                        });
+                    }
+                    setLoading(false);
                 }
             });
         }else{

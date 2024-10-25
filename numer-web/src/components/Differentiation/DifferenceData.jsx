@@ -50,28 +50,52 @@ function DifferenceData({ onDataChange }) {
     }
 
     const checksuccess = (result) => {
-        if (result.request == "success") {
+        if(result.request=="success"){
             Swal.fire({
                 title: "Success!",
                 text: "You has been success.",
                 icon: "success",
                 showCancelButton: true,
                 confirmButtonText: "Save"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire({
-                        title: "Success!",
-                        text: "You has been success.",
-                        icon: "success"
+            }).then(async (res) => {
+                if (res.isConfirmed) {
+                    setLoading(true);
+                    const response = await fetch('https://numer-api.vercel.app/api/differencesave', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            equation: Sol,
+                            mode: Mode,
+                            oh: Oh,
+                            x: NumberX,
+                            h: NumberH,
+                            result: result.result
+                        }),
                     });
+                    if (response.ok) {
+                        Swal.fire({
+                            title: "Success!",
+                            text: "You has been success.",
+                            icon: "success"
+                        });
+                    } else {
+                        Swal.fire({
+                            title: "Error!",
+                            text: "Please try again.",
+                            icon: "error"
+                        });
+                    }
+                    setLoading(false);
                 }
             });
-        } else {
+        }else{
             Swal.fire({
                 title: "Error!",
                 text: "Please check your equations.",
                 icon: "error"
-            });
+              });
         }
     }
 

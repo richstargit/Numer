@@ -1,4 +1,6 @@
 import "./Home.css"
+import TableDifference from "./TableDifference"
+import TableIntegration from "./TableIntegration"
 import TableInter from "./TableInter"
 import TableLeast from "./Tableleast"
 import TalbeLinear from "./TableLinear"
@@ -25,6 +27,14 @@ function Home(){
             <div style={{ marginTop: "35px", fontSize: "36px" }}>Leastsquares</div>
             <div style={{ width: "80%", marginLeft: "auto", marginRight: "auto", marginTop: "15px" }}>
                 <TableLeast></TableLeast>
+            </div>
+            <div style={{ marginTop: "35px", fontSize: "36px" }}>Integration</div>
+            <div style={{ width: "80%", marginLeft: "auto", marginRight: "auto", marginTop: "15px" }}>
+                <TableIntegration></TableIntegration>
+            </div>
+            <div style={{ marginTop: "35px", fontSize: "36px" }}>Integration</div>
+            <div style={{ width: "80%", marginLeft: "auto", marginRight: "auto", marginTop: "15px" }}>
+                <TableDifference></TableDifference>
             </div>
         </div>
     )
