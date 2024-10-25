@@ -212,29 +212,87 @@ function TableLeast({ onDataChange }) {
         return result;
     }
 
-    const checksuccess = (result) => {
-        if (result.request == "success") {
+    const checksuccess = (result,matrixk) => {
+        if(result.request=="success"){
             Swal.fire({
                 title: "Success!",
                 text: "You has been success.",
                 icon: "success",
                 showCancelButton: true,
                 confirmButtonText: "Save"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire({
-                        title: "Success!",
-                        text: "You has been success.",
-                        icon: "success"
-                      });
+            }).then(async (res) => {
+                if (res.isConfirmed) {
+                    setLoading(true);
+                    if (result.mode == "multiple_linear_regression") {
+                        const response = await fetch('https://numer-api.vercel.app/api/leastsave', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                tablex: JSON.stringify(matrixk),
+                                tabley: JSON.stringify(result.Y),
+                                mode: Mode,
+                                result: JSON.stringify(result.result.map((v) => { return v.y })),
+                                n: NumberN,
+                                order:NumberK,
+                                xsize: NumberX,
+                                resultx: JSON.stringify(ResultXK),
+                            }),
+                        });
+                        if (response.ok) {
+                            Swal.fire({
+                                title: "Success!",
+                                text: "You has been success.",
+                                icon: "success"
+                            });
+                        } else {
+                            Swal.fire({
+                                title: "Error!",
+                                text: "Please try again.",
+                                icon: "error"
+                            });
+                        }
+                    } else {
+                        const response = await fetch('https://numer-api.vercel.app/api/intersave', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                tablex: JSON.stringify(result.X),
+                                tabley: JSON.stringify(result.Y),
+                                mode: Mode,
+                                result: JSON.stringify(result.result.map((v) => { return v.y })),
+                                n: NumberN,
+                                order:OrderM,
+                                xsize: NumberX,
+                                resultx: JSON.stringify(ResultX),
+                            }),
+                        });
+                        if (response.ok) {
+                            Swal.fire({
+                                title: "Success!",
+                                text: "You has been success.",
+                                icon: "success"
+                            });
+                        } else {
+                            Swal.fire({
+                                title: "Error!",
+                                text: "Please try again.",
+                                icon: "error"
+                            });
+                        }
+                    }
+                    setLoading(false);
                 }
             });
-        } else {
+        }else{
             Swal.fire({
                 title: "Error!",
                 text: "Please check your equations.",
                 icon: "error"
-            });
+              });
         }
     }
 
@@ -258,11 +316,11 @@ function TableLeast({ onDataChange }) {
 
                 if (Mode == "simple_regression") {
                     const result = SimpleRegression(Xsend, Ysend, ResultX, OrderM);
-                    checksuccess(result);
+                    checksuccess(result,Xsend);
                     onDataChange(result);
                 } else if (Mode == "multiple_linear_regression") {
                     const result = MultipleRegression(XKsend, Ysend, ResultXK);
-                    checksuccess(result);
+                    checksuccess(result,XKsend);
                     onDataChange(result);
                 }
                 setLoading(false);
