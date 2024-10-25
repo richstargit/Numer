@@ -135,13 +135,38 @@ function TableInter({ onDataChange }) {
                 icon: "success",
                 showCancelButton: true,
                 confirmButtonText: "Save"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire({
-                        title: "Success!",
-                        text: "You has been success.",
-                        icon: "success"
-                      });
+            }).then(async (res) => {
+                if (res.isConfirmed) {
+                    setLoading(true);
+                    const response = await fetch('https://numer-api.vercel.app/api/intersave', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            tablex: JSON.stringify(result.X),
+                            tabley: JSON.stringify(result.Y),
+                            mode: Mode,
+                            result: JSON.stringify(result.result.map((v)=>{return v.y})),
+                            n:NumberN,
+                            xsize:NumberX,
+                            resultx: JSON.stringify(ResultX),
+                        }),
+                    });
+                    if (response.ok) {
+                        Swal.fire({
+                            title: "Success!",
+                            text: "You has been success.",
+                            icon: "success"
+                        });
+                    } else {
+                        Swal.fire({
+                            title: "Error!",
+                            text: "Please try again.",
+                            icon: "error"
+                        });
+                    }
+                    setLoading(false);
                 }
             });
         }else{
