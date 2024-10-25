@@ -16,33 +16,21 @@ import { useEffect, useState } from "react";
 // Column definitions
 const columns = [
   { id: 'index', label: 'id', minWidth: 50, align: 'right' },
-  { id: 'name', label: 'Equation', minWidth: 170 },
+  { id: 'tablex', label: 'tableX', minWidth: 170 },
+  {id: 'tabley',label: 'tableY',minWidth: 170,},
   { id: 'method', label: 'Method', minWidth: 100 },
-  {
-    id: 'iteration',
-    label: 'Iteration',
-    minWidth: 170,
-  },
-  {
-    id: 'result',
-    label: 'Result',
-    minWidth: 170,
-  }
+  {id: 'resultx',label: 'X',minWidth: 170,},
+  {id: 'result',label: 'Result',minWidth: 170,}
 ];
 
 // Function to create data
-function createData(index, name, method, iteration, result,xl,xr,error) {
-  return { index, name, method, iteration, result,xl,xr,error };
+function createData(index, tablex,tabley,method,result,n,xsize,resultx) {
+  return { index, tablex,tabley,method,result,n,xsize,resultx,check:Array(n).fill(true)};
 }
 
 // Sample data
 const rows = [
-  createData(1, 'x^2 - 7', 'graphical_method', 39, 2.645751),
-  createData(2, 'e^2 + x', 'graphical_method', 33, -7.389056	),
-  createData(3, 'sqrt(7)-2x', 'graphical_method', 35, 1.322876	),
-  createData(4, 'x^2 - 7', 'bisection_method', 24, 2.645751),
-  createData(5, 'e^2 + x', 'bisection_method', 27, -7.389056),
-  createData(6, 'sqrt(7)-2x', 'bisection_method', 20, 1.322876),
+  createData(1, '[1,2,3,4,5]','[8,12,5,1,2]', 'newton_divided','[1,2,3,4,5]',5,2,'[1,2]'),
 ];
 
 const descendingComparator = (a, b, orderBy) => {
@@ -71,7 +59,7 @@ const stableSort = (array, comparator) => {
   return stabilizedThis.map((el) => el[0]);
 };
 
-export default function StickyHeadTable() {
+export default function TableInter() {
   const [rows, setRows] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -82,20 +70,20 @@ export default function StickyHeadTable() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://numer-api.vercel.app/api/root');
+        const response = await fetch('https://numer-api.vercel.app/api/inter');
         const jsonData = await response.json();
         
         if (jsonData.request === 'success') {
           const apiRows = jsonData.data.map(item => 
             createData(
               item.id,
-              item.equation,
+              item.tablex,
+              item.tabley,
               item.mode,
-              item.iteration,
-              parseFloat(item.result),
-              parseFloat(item.xl),
-              parseFloat(item.xr),
-              parseFloat(item.error)
+              item.result,
+              parseInt(item.n),
+              parseInt(item.xsize),
+              item.resultx
             )
           );
           setRows(apiRows);
@@ -126,13 +114,15 @@ export default function StickyHeadTable() {
   const handleRowClick = (row) => {
     const queryParams = new URLSearchParams({
       mode : row.method,
-      equation : row.name,
-      xs : row.xl,
-      xe : row.xr,
-      error : row.error
+      nsize:parseInt(row.n),
+      xsize:parseInt(row.xsize),
+      tablex : row.tablex,
+      tabley : row.tabley,
+      resultx : row.resultx,
+      check:JSON.stringify(row.check)
 
     }).toString();
-    navigate(`/root_of_equations?${queryParams}`);
+    navigate(`/interpolation?${queryParams}`);
     console.log(row);
   };
 
@@ -180,15 +170,17 @@ export default function StickyHeadTable() {
                     try {
                       return (
                         <TableCell key={column.id} align={column.align}>
-                          {column.id === 'name' ? (
-                            <BlockMath math={value} />
-                          ) : column.id === 'method' ? (
-                            value.replace(/_/g, ' ')
-                          ) : (
-                            value
-                          )}
-                        </TableCell>
-                      );
+                        {column.id === 'result'||column.id === 'tablex'||column.id === 'tabley'||column.id === 'resultx' ? (
+                          <BlockMath
+                            math={`\\begin{bmatrix}${JSON.parse(value).join('&')}\\end{bmatrix}`}
+                          />
+                        ) : column.id === 'method' ? (
+                          value.replace(/_/g, ' ')
+                        ) : (
+                          value
+                        )}
+                      </TableCell>
+                    );
                     } catch (error) {
                       
                     }

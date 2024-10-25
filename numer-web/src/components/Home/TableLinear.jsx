@@ -168,7 +168,8 @@ export default function TalbeLinear() {
                 >
                   {columns.map((column) => {
                     const value = row[column.id];
-                    return (
+                    try {
+                      return (
                         <TableCell key={column.id} align={column.align}>
                         {column.id === 'matrixA' ? (
                           <BlockMath
@@ -189,6 +190,9 @@ export default function TalbeLinear() {
                         )}
                       </TableCell>
                     );
+                    } catch (error) {
+                      
+                    }
                   })}
                 </TableRow>
               ))}

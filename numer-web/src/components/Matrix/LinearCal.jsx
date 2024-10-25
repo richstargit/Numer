@@ -531,7 +531,7 @@ export function JacobiIteration(mA,vB,vX,Errors) {
 
             result.push({
                 iter : round,
-                vectorX : vectorX,
+                vectorX : [...vectorX],
                 errorX : Error
             })
             round++;
@@ -606,7 +606,7 @@ export function GaussSeidelIteration(mA,vB,vX,Errors) {
 
             result.push({
                 iter : round,
-                vectorX : vectorX,
+                vectorX : [...vectorX],
                 errorX : Error
             })
             round++;

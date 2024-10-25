@@ -1,4 +1,5 @@
 import "./Home.css"
+import TableInter from "./TableInter"
 import TalbeLinear from "./TableLinear"
 import StickyHeadTable from "./TableRoot"
 
@@ -15,6 +16,10 @@ function Home(){
             <div style={{ marginTop: "35px", fontSize: "36px" }}>Linear Algebraic</div>
             <div style={{ width: "80%", marginLeft: "auto", marginRight: "auto", marginTop: "15px" }}>
                 <TalbeLinear></TalbeLinear>
+            </div>
+            <div style={{ marginTop: "35px", fontSize: "36px" }}>Interpolation</div>
+            <div style={{ width: "80%", marginLeft: "auto", marginRight: "auto", marginTop: "15px" }}>
+                <TableInter></TableInter>
             </div>
         </div>
     )
