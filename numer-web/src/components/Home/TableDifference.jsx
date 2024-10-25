@@ -18,20 +18,20 @@ const columns = [
   { id: 'index', label: 'id', minWidth: 50, align: 'right' },
   { id: 'name', label: 'Equation', minWidth: 170 },
   { id: 'method', label: 'Method', minWidth: 100 },
-  {id: 'oh',label: 'Oh',minWidth: 170,},
-  {id: 'x',label: 'x',minWidth: 170,},
-  {id: 'h',label: 'h',minWidth: 170,},
-  {id: 'result',label: 'Result',minWidth: 170,}
+  { id: 'oh', label: 'Oh', minWidth: 170, },
+  { id: 'x', label: 'x', minWidth: 170, },
+  { id: 'h', label: 'h', minWidth: 170, },
+  { id: 'result', label: 'Result', minWidth: 170, }
 ];
 
 // Function to create data
-function createData(index, name, method, oh,x,h,result) {
-  return { index, name, method, oh,x,h,result };
+function createData(index, name, method, oh, x, h, result) {
+  return { index, name, method, oh, x, h, result };
 }
 
 // Sample data
 const rows = [
-  createData(1, 'x^2 - 7', 'forward', 'oh^1',2,1, 2.645751),
+  createData(1, 'x^2 - 7', 'forward', 'oh^1', 2, 1, 2.645751),
 ];
 
 const descendingComparator = (a, b, orderBy) => {
@@ -73,9 +73,9 @@ export default function TableDifference() {
       try {
         const response = await fetch('https://numer-api.vercel.app/api/difference');
         const jsonData = await response.json();
-        
+
         if (jsonData.request === 'success') {
-          const apiRows = jsonData.data.map(item => 
+          const apiRows = jsonData.data.map(item =>
             createData(
               item.id,
               item.equation,
@@ -113,11 +113,11 @@ export default function TableDifference() {
 
   const handleRowClick = (row) => {
     const queryParams = new URLSearchParams({
-      mode : row.method,
-      sol : row.name,
-      oh:row.oh,
-      x : row.x,
-      h : row.h
+      mode: row.method,
+      sol: row.name,
+      oh: row.oh,
+      x: row.x,
+      h: row.h
 
     }).toString();
     navigate(`/differentiation?${queryParams}`);
@@ -178,7 +178,7 @@ export default function TableDifference() {
                         </TableCell>
                       );
                     } catch (error) {
-                      
+
                     }
                   })}
                 </TableRow>
