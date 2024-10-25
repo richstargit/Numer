@@ -22,7 +22,7 @@ function Home(){
             <div style={{ width: "80%", marginLeft: "auto", marginRight: "auto", marginTop: "15px" }}>
                 <TableInter></TableInter>
             </div>
-            <div style={{ marginTop: "35px", fontSize: "36px" }}>Interpolation</div>
+            <div style={{ marginTop: "35px", fontSize: "36px" }}>Leastsquares</div>
             <div style={{ width: "80%", marginLeft: "auto", marginRight: "auto", marginTop: "15px" }}>
                 <TableLeast></TableLeast>
             </div>
