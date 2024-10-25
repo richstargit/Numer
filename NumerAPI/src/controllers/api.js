@@ -210,7 +210,7 @@ exports.integrationsave = async (req, res) => {
         `;
 
         const values = [
-            equation, mode, a,b,n,result
+            equation, mode, a,b,n||0,result
         ];
 
         await pool.query(query, values);

@@ -83,7 +83,7 @@ export default function TableDifference() {
               item.oh,
               parseFloat(item.x),
               parseFloat(item.h),
-              parseFloat(item.result)
+              item.result
             )
           );
           setRows(apiRows);
@@ -172,6 +172,10 @@ export default function TableDifference() {
                             <BlockMath math={value} />
                           ) : column.id === 'method' ? (
                             value.replace(/_/g, ' ')
+                          ) : column.id === 'result' ? (
+                            <BlockMath
+                              math={`\\begin{bmatrix}${JSON.parse(value).join('&')}\\end{bmatrix}`}
+                            />
                           ) : (
                             value
                           )}

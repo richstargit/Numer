@@ -71,7 +71,7 @@ function DifferenceData({ onDataChange }) {
                             oh: Oh,
                             x: NumberX,
                             h: NumberH,
-                            result: result.result
+                            result: JSON.stringify(result.result)
                         }),
                     });
                     if (response.ok) {
