@@ -18,19 +18,19 @@ const columns = [
   { id: 'index', label: 'id', minWidth: 50, align: 'right' },
   { id: 'name', label: 'Equation', minWidth: 170 },
   { id: 'method', label: 'Method', minWidth: 100 },
-  {id: 'a',label: 'a',minWidth: 170,},
-  {id: 'b',label: 'b',minWidth: 170,},
-  {id: 'result',label: 'Result',minWidth: 170,}
+  { id: 'a', label: 'a', minWidth: 170, },
+  { id: 'b', label: 'b', minWidth: 170, },
+  { id: 'result', label: 'Result', minWidth: 170, }
 ];
 
 // Function to create data
-function createData(index, name, method, a, b,n,result) {
-  return { index, name, method, a,b,n,result };
+function createData(index, name, method, a, b, n, result) {
+  return { index, name, method, a, b, n, result };
 }
 
 // Sample data
 const rows = [
-  createData(1, 'x^2 - 7', 'trapezoidal_rule', 1,2,1, 2.645751),
+  createData(1, 'x^2 - 7', 'trapezoidal_rule', 1, 2, 1, 2.645751),
 ];
 
 const descendingComparator = (a, b, orderBy) => {
@@ -72,9 +72,9 @@ export default function TableIntegration() {
       try {
         const response = await fetch('https://numer-api.vercel.app/api/integration');
         const jsonData = await response.json();
-        
+
         if (jsonData.request === 'success') {
-          const apiRows = jsonData.data.map(item => 
+          const apiRows = jsonData.data.map(item =>
             createData(
               item.id,
               item.equation,
@@ -112,11 +112,11 @@ export default function TableIntegration() {
 
   const handleRowClick = (row) => {
     const queryParams = new URLSearchParams({
-      mode : row.method,
-      sol : row.name,
-      x0 : row.a,
-      x1 : row.b,
-      n : row.n
+      mode: row.method,
+      sol: row.name,
+      x0: row.a,
+      x1: row.b,
+      n: row.n
 
     }).toString();
     navigate(`/integration?${queryParams}`);
@@ -177,7 +177,7 @@ export default function TableIntegration() {
                         </TableCell>
                       );
                     } catch (error) {
-                      
+
                     }
                   })}
                 </TableRow>
