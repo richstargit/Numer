@@ -26,17 +26,17 @@ function TableLeast({ onDataChange }) {
     const Rexk = params.get("resultxk");
     const TableCheck = params.get("check");
 
-    const [NumberN, setNumberN] = useState(Nselect||"");
-    const [NumberX, setNumberX] = useState(Xselect||"");
-    const [OrderM, setOrderM] = useState(Mselect||"");
-    const [NumberK, setNumberK] = useState(Kselect||"");
-    const [TableValuesX, setTableValuesX] = useState(JSON.parse(TableX)||[]);
-    const [TableValuesXK, setTableValuesXK] = useState(JSON.parse(TableXK)||[]);
-    const [TableValuesY, setTableValuesY] = useState(JSON.parse(TableY)||[]);
-    const [TableChecked, setTableChecked] = useState(JSON.parse(TableCheck)||[]);
-    const [ResultX, setResultX] = useState(JSON.parse(Rex)||[]);
-    const [ResultXK, setResultXK] = useState(JSON.parse(Rexk)||[]);
-    const [Mode, setMode] = useState(modeselect||"");
+    const [NumberN, setNumberN] = useState(Nselect || "");
+    const [NumberX, setNumberX] = useState(Xselect || "");
+    const [OrderM, setOrderM] = useState(Mselect || "");
+    const [NumberK, setNumberK] = useState(Kselect || "");
+    const [TableValuesX, setTableValuesX] = useState(JSON.parse(TableX) || []);
+    const [TableValuesXK, setTableValuesXK] = useState(JSON.parse(TableXK) || []);
+    const [TableValuesY, setTableValuesY] = useState(JSON.parse(TableY) || []);
+    const [TableChecked, setTableChecked] = useState(JSON.parse(TableCheck) || []);
+    const [ResultX, setResultX] = useState(JSON.parse(Rex) || []);
+    const [ResultXK, setResultXK] = useState(JSON.parse(Rexk) || []);
+    const [Mode, setMode] = useState(modeselect || "");
     const [loading, setLoading] = useState(false);
     const maxsize = 100;
 
@@ -212,8 +212,8 @@ function TableLeast({ onDataChange }) {
         return result;
     }
 
-    const checksuccess = (result,matrixk) => {
-        if(result.request=="success"){
+    const checksuccess = (result, matrixk) => {
+        if (result.request == "success") {
             Swal.fire({
                 title: "Success!",
                 text: "You has been success.",
@@ -235,7 +235,7 @@ function TableLeast({ onDataChange }) {
                                 mode: Mode,
                                 result: JSON.stringify(result.result.map((v) => { return v.y })),
                                 n: NumberN,
-                                order:NumberK,
+                                order: NumberK,
                                 xsize: NumberX,
                                 resultx: JSON.stringify(ResultXK),
                             }),
@@ -265,7 +265,7 @@ function TableLeast({ onDataChange }) {
                                 mode: Mode,
                                 result: JSON.stringify(result.result.map((v) => { return v.y })),
                                 n: NumberN,
-                                order:OrderM,
+                                order: OrderM,
                                 xsize: NumberX,
                                 resultx: JSON.stringify(ResultX),
                             }),
@@ -287,19 +287,19 @@ function TableLeast({ onDataChange }) {
                     setLoading(false);
                 }
             });
-        }else{
+        } else {
             Swal.fire({
                 title: "Error!",
                 text: "Please check your equations.",
                 icon: "error"
-              });
+            });
         }
     }
 
     const sendRequest = async () => {
         const Xsend = [];
         const Ysend = [];
-        const XKsend= [];
+        const XKsend = [];
         TableChecked.map((v, i) => {
             if (v == true) {
                 Xsend.push(TableValuesX[i]);
@@ -307,7 +307,7 @@ function TableLeast({ onDataChange }) {
                 XKsend.push(TableValuesXK[i])
             }
         })
-    
+
 
         console.log(XKsend)
         setLoading(true);
@@ -316,11 +316,11 @@ function TableLeast({ onDataChange }) {
 
                 if (Mode == "simple_regression") {
                     const result = SimpleRegression(Xsend, Ysend, ResultX, OrderM);
-                    checksuccess(result,Xsend);
+                    checksuccess(result, Xsend);
                     onDataChange(result);
                 } else if (Mode == "multiple_linear_regression") {
                     const result = MultipleRegression(XKsend, Ysend, ResultXK);
-                    checksuccess(result,XKsend);
+                    checksuccess(result, XKsend);
                     onDataChange(result);
                 }
                 setLoading(false);
