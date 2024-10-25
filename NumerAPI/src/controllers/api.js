@@ -158,7 +158,7 @@ exports.leastsave = async (req, res) => {
 
         const query = `
             INSERT INTO leastsquares (tablex, tabley, mode, result, n,ordermandk, xsize, resultx)
-            VALUES ($1, $2, $3, $4, $5, $6, $7,&8)
+            VALUES ($1, $2, $3, $4, $5, $6, $7,$8)
         `;
 
         const values = [
