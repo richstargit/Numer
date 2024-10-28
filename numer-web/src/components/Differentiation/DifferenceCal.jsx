@@ -296,7 +296,7 @@ export function CentralOh4(Sol,NumberX,NumberH) {
             mode: "central",
             Oh:"oh^4",
             result: [cen2p1(),cen2p2(),cen2p3(),cen2p4()],
-            error: [Err(cen2p1(),1),Err(cen2p2(),2),Err(cen3p3(),3),Err(cen4p4(),4)]
+            error: [Err(cen2p1(),1),Err(cen2p2(),2),Err(cen2p3(),3),Err(cen2p4(),4)]
         });
 
     } catch (error) {
