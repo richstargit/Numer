@@ -5,7 +5,7 @@ import 'katex/dist/katex.min.css';
 import { CircularProgress, Box } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { BackwardOh1, BackwardOh2, CentralOh2, ForwardOh1 } from "./DifferenceCal";
+import { BackwardOh1, BackwardOh2, CentralOh2, CentralOh4, ForwardOh1 } from "./DifferenceCal";
 
 function DifferenceData({ onDataChange }) {
 
@@ -130,7 +130,7 @@ function DifferenceData({ onDataChange }) {
                     onDataChange(result);
                     console.log(result)
                 } else if (Mode == "central" && Oh == "oh^4") {
-                    const result = CentralOh2(Sol, NumberX, NumberH);
+                    const result = CentralOh4(Sol, NumberX, NumberH);
                     checksuccess(result);
                     onDataChange(result);
                     console.log(result)
