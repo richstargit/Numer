@@ -2,6 +2,29 @@ version: "3"
 
 services:
 
+  db:
+    container_name: postgres_container
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: numer
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./init-scripts:/docker-entrypoint-initdb.d
+
+  pgadmin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5050:5050"
+
   server:
     build: ./NumerAPI .
     container_name: server
@@ -10,7 +33,7 @@ services:
       - 3000:3000
     environment:
       SERVER_PORT: 3000
-      POSTGRES_URL: postgres://default:adoAR28BuzIS@ep-aged-sun-a4lc58xk-pooler.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require
+      POSTGRES_URL: postgres://root:root@db:5432/numer
 
   client:
     build: ./numer-web .
