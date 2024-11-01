@@ -415,12 +415,12 @@ export function CholeskyDecomposition(mA, vB) {
         let LT = [];
         let result = [];
 
-        if(matrixA.length==matrixA[0].length){
-            for(let i=0;i<matrixA.length;i++){
-                for(let j=i+1;j<matrixA.length;j++){
-                    if(matrixA[i][j]!=matrixA[j][i]){
-                        vectorB = math.multiply(math.transpose(matrixA),vectorB);
-                        matrixA = math.multiply(math.transpose(matrixA),matrixA);
+        if (matrixA.length == matrixA[0].length) {
+            for (let i = 0; i < matrixA.length; i++) {
+                for (let j = i + 1; j < matrixA.length; j++) {
+                    if (matrixA[i][j] != matrixA[j][i]) {
+                        vectorB = math.multiply(math.transpose(matrixA), vectorB);
+                        matrixA = math.multiply(math.transpose(matrixA), matrixA);
                         i = matrixA.length;
                         break;
                     }
