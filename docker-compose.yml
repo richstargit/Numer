@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+
+  server:
+    build: ./NumerAPI .
+    container_name: server
+    image: numer_server_image
+    ports:
+      - 3000:3000
+    environment:
+      SERVER_PORT: 3000
+      POSTGRES_URL: postgres://default:adoAR28BuzIS@ep-aged-sun-a4lc58xk-pooler.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require
+
+  client:
+    build: ./numer-web .
+    container_name: client
+    image: numer_client_image
+    ports:
+      - 5173:5173
+    depends_on:
+      - server
