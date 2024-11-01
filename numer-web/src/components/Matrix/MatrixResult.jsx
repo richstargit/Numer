@@ -92,7 +92,7 @@ function MatrixResult(props){
         const matrixLT = `\\begin{bmatrix} \\begin{array}{cc} ${result.matrixLT.map(row => row.join(' & ')).join(' \\\\ ')} \\end{array}   \\end{bmatrix} `;
         const vectorY = `\\begin{bmatrix} \\begin{array}{cc} ${result.vectorY.map(row => row).join(' \\\\ ')} \\end{array}   \\end{bmatrix} `;
         const vectorX = `\\begin{bmatrix} \\begin{array}{cc} ${result.vectorX.map(row => row).join(' \\\\ ')} \\end{array}   \\end{bmatrix} `;
-        const vectorB = `\\begin{bmatrix} \\begin{array}{cc} ${result.vectorB.map(row => row).join(' \\\\ ')} \\end{array}   \\end{bmatrix} `;
+        const vectorB = `\\begin{bmatrix} \\begin{array}{cc} ${result.vectorB2.map(row => row).join(' \\\\ ')} \\end{array}   \\end{bmatrix} `;
         const data = result.result.map((v,i)=>{
             return (<div style={{marginTop:"35px"}} key={i}><BlockMath math={v.LT} /></div>)
         })

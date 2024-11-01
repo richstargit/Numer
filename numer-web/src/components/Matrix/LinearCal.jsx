@@ -414,6 +414,20 @@ export function CholeskyDecomposition(mA, vB) {
         let L = [];
         let LT = [];
         let result = [];
+
+        if(matrixA.length==matrixA[0].length){
+            for(let i=0;i<matrixA.length;i++){
+                for(let j=i+1;j<matrixA.length;j++){
+                    if(matrixA[i][j]!=matrixA[j][i]){
+                        vectorB = math.multiply(math.transpose(matrixA),vectorB);
+                        matrixA = math.multiply(math.transpose(matrixA),matrixA);
+                        i = matrixA.length;
+                        break;
+                    }
+                }
+            }
+        }
+
         for (let i = 0; i < matrixA.length; i++) {
             L[i] = [];
             LT[i] = [];
@@ -471,6 +485,7 @@ export function CholeskyDecomposition(mA, vB) {
             matrixL : L.map(v => v.map(n => math.round(n,6))),
             matrixLT : LT.map(v => v.map(n => math.round(n,6))),
             vectorB: vB,
+            vectorB2: vectorB,
             vectorY : vectorY.map(v=>math.round(v,6)),
             vectorX: vectorX,
             result: result,
