@@ -70,7 +70,7 @@ export default function TalbeLinear() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://numer-api.vercel.app/api/linear');
+        const response = await fetch('http://localhost:3000/api/linear');
         const jsonData = await response.json();
         
         if (jsonData.request === 'success') {

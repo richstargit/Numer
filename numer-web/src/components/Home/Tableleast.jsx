@@ -72,7 +72,7 @@ export default function TableLeast() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://numer-api.vercel.app/api/least');
+        const response = await fetch('http://localhost:3000/api/least');
         const jsonData = await response.json();
         
         if (jsonData.request === 'success') {

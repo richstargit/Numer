@@ -60,7 +60,7 @@ function DifferenceData({ onDataChange }) {
             }).then(async (res) => {
                 if (res.isConfirmed) {
                     setLoading(true);
-                    const response = await fetch('https://numer-api.vercel.app/api/differencesave', {
+                    const response = await fetch('http://localhost:3000/api/differencesave', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
