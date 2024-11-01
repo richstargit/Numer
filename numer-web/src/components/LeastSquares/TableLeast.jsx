@@ -224,7 +224,7 @@ function TableLeast({ onDataChange }) {
                 if (res.isConfirmed) {
                     setLoading(true);
                     if (result.mode == "multiple_linear_regression") {
-                        const response = await fetch('https://numer-api.vercel.app/api/leastsave', {
+                        const response = await fetch('http://localhost:3000/api/leastsave', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -254,7 +254,7 @@ function TableLeast({ onDataChange }) {
                             });
                         }
                     } else {
-                        const response = await fetch('https://numer-api.vercel.app/api/leastsave', {
+                        const response = await fetch('http://localhost:3000/api/leastsave', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
