@@ -249,6 +249,116 @@
           }
         }
       }
+    },
+    "/integration": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/integrationsave": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "equation": {
+                  "example": "any"
+                },
+                "mode": {
+                  "example": "any"
+                },
+                "a": {
+                  "example": "any"
+                },
+                "b": {
+                  "example": "any"
+                },
+                "n": {
+                  "example": "any"
+                },
+                "result": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/difference": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/differencesave": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "equation": {
+                  "example": "any"
+                },
+                "mode": {
+                  "example": "any"
+                },
+                "oh": {
+                  "example": "any"
+                },
+                "x": {
+                  "example": "any"
+                },
+                "h": {
+                  "example": "any"
+                },
+                "result": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
     }
   }
 }
