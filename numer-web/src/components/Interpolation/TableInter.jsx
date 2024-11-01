@@ -138,7 +138,7 @@ function TableInter({ onDataChange }) {
             }).then(async (res) => {
                 if (res.isConfirmed) {
                     setLoading(true);
-                    const response = await fetch('https://numer-api.vercel.app/api/leastsave', {
+                    const response = await fetch('https://numer-api.vercel.app/api/intersave', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
