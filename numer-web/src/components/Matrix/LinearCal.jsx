@@ -9,7 +9,7 @@ export function CramerRule(matrixA, vectorB) {
         let detA = math.det(matrixA);
         if (detA == 0) {
             return ({
-                request: "success",
+                request: "failed",
                 mode: "cramer_Rule",
                 matrixA: matrixA,
                 vectorB: vectorB,
