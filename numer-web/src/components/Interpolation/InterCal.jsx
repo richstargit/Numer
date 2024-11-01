@@ -14,26 +14,26 @@ export function NewtonDivided(x, y, xresult) {
                 C[j] = (C[j] - C[j - 1]) / (X[j] - X[j - 1 - i]);
             }
         }
-        for(let r=0;r<xresult.length;r++){
+        for (let r = 0; r < xresult.length; r++) {
             let valuex = 0;
-            for(let i=0;i<X.length;i++){
+            for (let i = 0; i < X.length; i++) {
                 let sum = C[i];
-                for(let j=i;j>0;j--){
-                    sum*=xresult[r]-X[j-1];
+                for (let j = i; j > 0; j--) {
+                    sum *= xresult[r] - X[j - 1];
                 }
-                valuex+=sum;
+                valuex += sum;
             }
             result.push({
-                x:xresult[r],
-                y:valuex
+                x: xresult[r],
+                y: valuex
             });
         }
         return ({
             request: "success",
             mode: "newton_divided",
-            X:X,
-            Y:Y,
-            C:C,
+            X: X,
+            Y: Y,
+            C: C,
             result: result
         });
 
@@ -53,27 +53,27 @@ export function Lagrange(x, y, xresult) {
         const X = math.number(x);
         const Y = math.number(y);
         const result = [];
-        for(let r = 0;r<xresult.length;r++){
-            let valuex=0;
-            for(let i=0;i<X.length;i++){
-                let sumL=1;
-                for(let j=0;j<X.length;j++){
-                    if(j!=i){
-                        sumL*=(X[j]-xresult[r])/(X[j]-X[i]);
+        for (let r = 0; r < xresult.length; r++) {
+            let valuex = 0;
+            for (let i = 0; i < X.length; i++) {
+                let sumL = 1;
+                for (let j = 0; j < X.length; j++) {
+                    if (j != i) {
+                        sumL *= (X[j] - xresult[r]) / (X[j] - X[i]);
                     }
                 }
-                valuex += sumL*Y[i];
+                valuex += sumL * Y[i];
             }
             result.push({
-                x:xresult[r],
-                y:valuex
+                x: xresult[r],
+                y: valuex
             })
         }
         return ({
             request: "success",
             mode: "lagrange_interpolation",
-            X:X,
-            Y:Y,
+            X: X,
+            Y: Y,
             result: result
         });
 
@@ -103,28 +103,28 @@ export function Spline(x, y, xresult) {
                 if (xresult[r] < X[i]) {
                     const n = Y[i - 1] + M[i - 1] * (xresult[r] - X[i - 1]);
                     result.push({
-                        x:xresult[r],
-                        y:n
+                        x: xresult[r],
+                        y: n
                     })
-                    check=1;
+                    check = 1;
                     break;
                 }
             }
-            if(check==0){
-                let i=X.length-1;
+            if (check == 0) {
+                let i = X.length - 1;
                 const n = Y[i - 1] + M[i - 1] * (xresult[r] - X[i - 1]);
-                    result.push({
-                        x:xresult[r],
-                        y:n
-                    })
+                result.push({
+                    x: xresult[r],
+                    y: n
+                })
             }
         }
         return ({
             request: "success",
             mode: "spline",
-            X:X,
-            Y:Y,
-            M:M,
+            X: X,
+            Y: Y,
+            M: M,
             result: result
         });
 
