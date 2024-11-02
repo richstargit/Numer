@@ -71,7 +71,7 @@ export default function TableDifference() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/difference');
+        const response = await fetch('https://numer-api.vercel.app/api/difference');
         const jsonData = await response.json();
 
         if (jsonData.request === 'success') {
