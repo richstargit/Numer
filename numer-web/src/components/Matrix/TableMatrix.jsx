@@ -105,7 +105,7 @@ function TableMatrix({ onDataChange }){
                     result.push(<div key={key} row={i} col = {j} >A{i+1},{j+1}
                     <input style={{width : "50px",height:"50px",textAlign:"center",border:"solid 3px rgb(39, 40, 41)"
                     ,borderRadius:"15px",fontSize:"18px",outline: "none"}} onFocus={(e) => e.target.style.boxShadow = "0 0 0 2px #6d6d6d"} onBlur={(e) => e.target.style.boxShadow = "none"} type="text" 
-                    onChange={(event) => arrchange(i, j, event)} value={matrixValues[i][j]}/></div>);
+                    onChange={(event) => arrchange(i, j, event)} value={matrixValues[i][j]} placeholder={`${i+1},${j+1}`}/></div>);
                     key++;
                 }
             }
