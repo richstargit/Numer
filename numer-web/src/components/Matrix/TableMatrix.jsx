@@ -152,7 +152,7 @@ function TableMatrix({ onDataChange }){
     const arrchange = (row, col, event) => {
         setMatrixValues(prevMatrixValues => {
             const newMatrixValues = prevMatrixValues.map(row => [...row]);
-            newMatrixValues[row][col] = event.target.value?event.target.value:"";
+            newMatrixValues[row][col] = event.target.value ? event.target.value : "";
             return newMatrixValues;
         });
     };
